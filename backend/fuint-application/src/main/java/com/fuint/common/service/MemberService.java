@@ -42,7 +42,7 @@ public interface MemberService extends IService<MtUser> {
      * @param accessToken
      * @return
      * */
-    MtUser getCurrentUserInfo(HttpServletRequest request, Integer userId, String accessToken);
+    MtUser getCurrentUserInfo(HttpServletRequest request, Integer userId, String accessToken) throws BusinessCheckException;
 
     /**
      * 分页查询会员列表
@@ -50,7 +50,7 @@ public interface MemberService extends IService<MtUser> {
      * @param memberListParam
      * @return
      */
-    PaginationResponse<UserDto> queryMemberListByPagination(MemberListParam memberListParam);
+    PaginationResponse<UserDto> queryMemberListByPagination(MemberListParam memberListParam) throws BusinessCheckException;
 
     /**
      * 添加会员
@@ -78,35 +78,39 @@ public interface MemberService extends IService<MtUser> {
      * @param  merchantId 商户ID
      * @param  mobile 手机号
      * @param  shareId 分享用户ID
+     * @throws BusinessCheckException
      * @return
      */
-    MtUser addMemberByMobile(Integer merchantId, String mobile, String shareId);
+    MtUser addMemberByMobile(Integer merchantId, String mobile, String shareId) throws BusinessCheckException;
 
     /**
      * 根据会员ID获取会员信息
      *
      * @param  id 会员ID
+     * @throws BusinessCheckException
      * @return
      */
-    MtUser queryMemberById(Integer id);
+    MtUser queryMemberById(Integer id) throws BusinessCheckException;
 
     /**
      * 根据会员名称获取会员信息
      *
      * @param  merchantId 商户ID
      * @param  name 会员名称
+     * @throws BusinessCheckException
      * @return
      */
-    MtUser queryMemberByName(Integer merchantId, String name);
+    MtUser queryMemberByName(Integer merchantId, String name) throws BusinessCheckException;
 
     /**
      * 根据会员ID获取会员信息
      *
      * @param  merchantId 商户ID
      * @param  openId 微信openId
+     * @throws BusinessCheckException
      * @return
      */
-    MtUser queryMemberByOpenId(Integer merchantId, String openId, JSONObject userInfo);
+    MtUser queryMemberByOpenId(Integer merchantId, String openId, JSONObject userInfo) throws BusinessCheckException;
 
     /**
      * 根据会员组ID获取会员组信息
@@ -122,18 +126,20 @@ public interface MemberService extends IService<MtUser> {
      *
      * @param  merchantId 商户ID
      * @param  mobile 会员手机
+     * @throws BusinessCheckException
      * @return
      */
-    MtUser queryMemberByMobile(Integer merchantId, String mobile);
+    MtUser queryMemberByMobile(Integer merchantId, String mobile) throws BusinessCheckException;
 
     /**
      * 根据会员号获取会员信息
      *
      * @param  merchantId 商户ID
      * @param  userNo 会员号
+     * @throws BusinessCheckException
      * @return
      */
-    MtUser queryMemberByUserNo(Integer merchantId, String userNo);
+    MtUser queryMemberByUserNo(Integer merchantId, String userNo) throws BusinessCheckException;
 
     /**
      * 根据会员ID删除会员信息
@@ -149,9 +155,10 @@ public interface MemberService extends IService<MtUser> {
      * 根据条件搜索会员分组
      *
      * @param params 查询参数
+     * @throws BusinessCheckException
      * @return
      * */
-    List<MtUserGrade> queryMemberGradeByParams(Map<String, Object> params);
+    List<MtUserGrade> queryMemberGradeByParams(Map<String, Object> params) throws BusinessCheckException;
 
     /**
      * 获取会员数量

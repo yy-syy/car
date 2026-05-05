@@ -2,16 +2,14 @@ package com.fuint.module.backendApi.controller;
 
 import com.fuint.common.service.CaptchaService;
 import com.fuint.common.util.SeqUtil;
+import com.fuint.framework.web.ResponseObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -19,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 图形验证码接口
@@ -38,19 +38,21 @@ public class BackendCaptchaController {
 
     @ApiOperation(value = "获取图形验证码")
     @RequestMapping(value="/getCode", method = RequestMethod.GET)
-    public void getCode(HttpServletResponse response) throws Exception {
-        // 生成验证码
+    @CrossOrigin
+    public void getCode(HttpServletResponse response, HttpServletRequest request) throws Exception {
         String uuid = SeqUtil.getUUID();
+        request.getSession().setAttribute("captchaUuid", uuid);
+        
         BufferedImage codeImage = captchaService.getCodeByUuid(uuid);
 
-        // 输出验证码图像
         response.setDateHeader("Expires", 0);
         response.setHeader("Pragma", "No-cache");
         response.setHeader("Cache-Control", "no-cache");
         response.addHeader("Cache-Control", "no-cache");
         response.setContentType("image/jpeg");
+        response.setHeader("captcha-uuid", uuid);
+        
         ServletOutputStream out = null;
-
         try {
             out = response.getOutputStream();
             ImageIO.write(codeImage, "jpg", out);
@@ -70,14 +72,16 @@ public class BackendCaptchaController {
 
     @ApiOperation(value = "验证图形验证码")
     @RequestMapping(value="/checkCode", method = RequestMethod.POST)
+    @CrossOrigin
     @ResponseBody
-    public String checkCode(@RequestParam String code, HttpServletRequest request) {
-        String uuid = request.getParameter("uuid") == null ? "" : request.getParameter("uuid");
+    public ResponseObject checkCode(@RequestBody Map<String, String> params) {
+        String code = params.get("code");
+        String uuid = params.get("uuid") == null ? "" : params.get("uuid");
         Boolean flag = captchaService.checkCodeByUuid(code, uuid);
         if (flag) {
-            return "success";
+            return new ResponseObject(200, "success", true);
         } else {
-            return "failed";
+            return new ResponseObject(200, "验证码错误", false);
         }
     }
 }

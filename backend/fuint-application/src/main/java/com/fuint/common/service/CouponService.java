@@ -1,16 +1,14 @@
 package com.fuint.common.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.ReqCouponDto;
 import com.fuint.common.param.CouponListParam;
-import com.fuint.common.param.CouponPage;
 import com.fuint.framework.exception.BusinessCheckException;
+import com.fuint.framework.pagination.PaginationRequest;
 import com.fuint.framework.pagination.PaginationResponse;
 import com.fuint.framework.web.ResponseObject;
 import com.fuint.repository.model.MtCoupon;
 import com.fuint.repository.model.MtUserCoupon;
-
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
@@ -26,10 +24,10 @@ public interface CouponService extends IService<MtCoupon> {
     /**
      * 分页查询卡券列表
      *
-     * @param couponPage
+     * @param paginationRequest
      * @return
      */
-    PaginationResponse<MtCoupon> queryCouponListByPagination(CouponPage couponPage);
+    PaginationResponse<MtCoupon> queryCouponListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
     /**
      * 保存卡券
@@ -44,19 +42,20 @@ public interface CouponService extends IService<MtCoupon> {
      * 根据ID获取卡券信息
      *
      * @param id 卡券ID
+     * @throws BusinessCheckException
      * @return
      */
-    MtCoupon queryCouponById(Integer id);
+    MtCoupon queryCouponById(Integer id) throws BusinessCheckException;
 
     /**
      * 删除卡券信息
      *
      * @param id       卡券ID
-     * @param accountInfo 操作人
+     * @param operator 操作人
      * @throws BusinessCheckException
      * @return
      */
-    void deleteCoupon(Long id, AccountInfo accountInfo) throws BusinessCheckException;
+    void deleteCoupon(Long id, String operator) throws BusinessCheckException;
 
     /**
      * 获取卡券列表
@@ -73,11 +72,11 @@ public interface CouponService extends IService<MtCoupon> {
      * @param num    发放套数
      * @param sendMessage 是否发送消息
      * @param uuid    批次号
-     * @param accountInfo 操作人
+     * @param operator 操作人
      * @throws BusinessCheckException
      * @return
      */
-    ResponseObject sendCoupon(Integer couponId, Integer userId, Integer num, Boolean sendMessage, String uuid, AccountInfo accountInfo) throws BusinessCheckException;
+    ResponseObject sendCoupon(Integer couponId, Integer userId, Integer num, Boolean sendMessage, String uuid, String operator) throws BusinessCheckException;
 
     /**
      * 发放卡券
@@ -86,11 +85,11 @@ public interface CouponService extends IService<MtCoupon> {
      * @param userIds  会员ID
      * @param num      发放套数
      * @param uuid     批次号
-     * @param accountInfo 操作人
+     * @param operator 操作人
      * @throws BusinessCheckException
      * @return
      */
-    Boolean batchSendCoupon(Integer couponId, List<Integer> userIds, Integer num, String uuid, AccountInfo accountInfo) throws BusinessCheckException;
+    Boolean batchSendCoupon(Integer couponId, List<Integer> userIds, Integer num, String uuid, String operator) throws BusinessCheckException;
 
     /**
      * 根据分组获取卡券列表
@@ -117,22 +116,22 @@ public interface CouponService extends IService<MtCoupon> {
      * 根据券ID删除个人卡券
      *
      * @param id       券ID
-     * @param accountInfo 操作人
+     * @param operator 操作人
      * @throws BusinessCheckException
      * @return
      */
-    void deleteUserCoupon(Integer id, AccountInfo accountInfo) throws BusinessCheckException;
+    void deleteUserCoupon(Integer id, String operator) throws BusinessCheckException;
 
     /**
      * 根据券ID撤销个人卡券消费流水
      *
      * @param id 消费流水ID
      * @param userCouponId 用户卡券ID
-     * @param accountInfo 操作人
+     * @param operator 操作人
      * @throws BusinessCheckException
      * @return
      */
-    void rollbackUserCoupon(Integer id, Integer userCouponId, AccountInfo accountInfo) throws BusinessCheckException;
+    void rollbackUserCoupon(Integer id, Integer userCouponId,String operator) throws BusinessCheckException;
 
     /**
      * 根据ID获取用户卡券信息

@@ -153,7 +153,7 @@ public class MemberServiceImpl extends ServiceImpl<MtUserMapper, MtUser> impleme
      * @return
      * */
     @Override
-    public MtUser getCurrentUserInfo(HttpServletRequest request, Integer userId, String token) {
+    public MtUser getCurrentUserInfo(HttpServletRequest request, Integer userId, String token) throws BusinessCheckException {
         MtUser mtUser = null;
 
         // 没有会员信息，则查询是否是后台收银员下单
@@ -193,7 +193,7 @@ public class MemberServiceImpl extends ServiceImpl<MtUserMapper, MtUser> impleme
      * @return
      */
     @Override
-    public PaginationResponse<UserDto> queryMemberListByPagination(MemberListParam params) {
+    public PaginationResponse<UserDto> queryMemberListByPagination(MemberListParam params) throws BusinessCheckException {
         Page<MtUser> pageHelper = PageHelper.startPage(params.getPage(), params.getPageSize());
         LambdaQueryWrapper<MtUser> wrapper = Wrappers.lambdaQuery();
         wrapper.ne(MtUser::getStatus, StatusEnum.DISABLE.getKey());
@@ -346,7 +346,8 @@ public class MemberServiceImpl extends ServiceImpl<MtUserMapper, MtUser> impleme
         // 用户名就是手机号
         if (StringUtil.isNotEmpty(mtUser.getName()) && StringUtil.isEmpty(mtUser.getMobile()) && PhoneFormatCheckUtils.isChinaPhoneLegal(mtUser.getName())) {
             mtUser.setMobile(mtUser.getName());
-            mtUser.setName(CommonUtil.hidePhone(mtUser.getName()));
+            String name = mtUser.getName().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
+            mtUser.setName(name);
         }
 
         // 手机号已存在
@@ -510,10 +511,11 @@ public class MemberServiceImpl extends ServiceImpl<MtUserMapper, MtUser> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     @OperationServiceLog(description = "通过手机号新增会员")
-    public MtUser addMemberByMobile(Integer merchantId, String mobile, String shareId) {
+    public MtUser addMemberByMobile(Integer merchantId, String mobile, String shareId) throws BusinessCheckException {
         MtUser mtUser = new MtUser();
         mtUser.setUserNo(CommonUtil.createUserNo());
-        mtUser.setName(CommonUtil.hidePhone(mobile));
+        String nickName = mobile.replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
+        mtUser.setName(nickName);
         mtUser.setMobile(mobile);
         MtUserGrade grade = userGradeService.getInitUserGrade(merchantId);
         if (grade != null) {
@@ -587,10 +589,11 @@ public class MemberServiceImpl extends ServiceImpl<MtUserMapper, MtUser> impleme
      * 根据会员ID获取会员信息
      *
      * @param  id 会员ID
+     * @throws BusinessCheckException
      * @return
      */
     @Override
-    public MtUser queryMemberById(Integer id) {
+    public MtUser queryMemberById(Integer id) throws BusinessCheckException {
         MtUser mtUser = mtUserMapper.selectById(id);
 
         if (mtUser != null) {
@@ -653,10 +656,11 @@ public class MemberServiceImpl extends ServiceImpl<MtUserMapper, MtUser> impleme
      *
      * @param  merchantId 商户ID
      * @param  openId 微信openId
+     * @throws BusinessCheckException
      * @return
      */
     @Override
-    public MtUser queryMemberByOpenId(Integer merchantId, String openId, JSONObject userInfo) {
+    public MtUser queryMemberByOpenId(Integer merchantId, String openId, JSONObject userInfo) throws BusinessCheckException {
         MtUser user = mtUserMapper.queryMemberByOpenId(merchantId, openId);
         if (user != null && !user.getStatus().equals(StatusEnum.ENABLED.getKey())) {
             return null;
@@ -706,7 +710,7 @@ public class MemberServiceImpl extends ServiceImpl<MtUserMapper, MtUser> impleme
 
             // 昵称为空，用手机号
             if (StringUtil.isEmpty(nickName) && StringUtil.isNotEmpty(mobile)) {
-                nickName = CommonUtil.hidePhone(mobile);
+                nickName = mobile.replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
             }
             mtUser.setMerchantId(merchantId);
             String userNo = CommonUtil.createUserNo();

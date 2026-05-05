@@ -12,6 +12,7 @@ import com.fuint.common.util.CommonUtil;
 import com.fuint.common.util.ExcelUtil;
 import com.fuint.common.util.TokenUtil;
 import com.fuint.framework.exception.BusinessCheckException;
+import com.fuint.framework.pagination.PaginationRequest;
 import com.fuint.framework.pagination.PaginationResponse;
 import com.fuint.framework.web.BaseController;
 import com.fuint.framework.web.ResponseObject;
@@ -104,7 +105,7 @@ public class BackendGoodsController extends BaseController {
             param.setStoreId(storeId);
         }
 
-        PaginationResponse<GoodsDto> paginationResponse = goodsService.queryGoodsListByPagination(param);
+        PaginationResponse<GoodsDto> paginationResponse = goodsService.queryGoodsListByPagination(new PaginationRequest(param.getPage(), param.getPageSize(), CommonUtil.convert(param)));
 
         // 商品类型列表
         List<ParamDto> typeList = GoodsTypeEnum.getGoodsTypeList();
@@ -149,7 +150,7 @@ public class BackendGoodsController extends BaseController {
         goodsInfo.setOperator(accountInfo.getAccountName());
         goodsInfo.setId(goodsId);
         goodsInfo.setStatus(status);
-        goodsService.saveGoods(goodsInfo, null, accountInfo);
+        goodsService.saveGoods(goodsInfo, null);
         logger.info("更新商品状态, goodsId = {},account = {}", goodsId, accountInfo.getAccountName());
 
         return getSuccessResult(true);
@@ -479,7 +480,7 @@ public class BackendGoodsController extends BaseController {
         }
         mtGoods.setOperator(accountInfo.getAccountName());
 
-        MtGoods goodsInfo = goodsService.saveGoods(mtGoods, storeIds, accountInfo);
+        MtGoods goodsInfo = goodsService.saveGoods(mtGoods, storeIds);
 
         Map<String, Object> result = new HashMap();
         result.put("goodsInfo", goodsInfo);

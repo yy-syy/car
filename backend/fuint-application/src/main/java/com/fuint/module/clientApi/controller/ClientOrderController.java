@@ -53,7 +53,7 @@ public class ClientOrderController extends BaseController {
             return getFailureResult(1001, "用户未登录");
         }
 
-        orderListParam.setUserId(userInfo.getId());
+        orderListParam.setUserId(userInfo.getId().toString());
         PaginationResponse orderData = orderService.getUserOrderList(orderListParam);
 
         return getSuccessResult(orderData);

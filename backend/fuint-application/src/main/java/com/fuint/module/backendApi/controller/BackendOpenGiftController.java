@@ -1,9 +1,10 @@
 package com.fuint.module.backendApi.controller;
 
+import com.fuint.common.Constants;
 import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.OpenGiftDto;
 import com.fuint.common.enums.StatusEnum;
-import com.fuint.common.param.OpenGiftPage;
+import com.fuint.common.service.MemberService;
 import com.fuint.common.service.OpenGiftService;
 import com.fuint.common.service.UserGradeService;
 import com.fuint.common.util.TokenUtil;
@@ -19,6 +20,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,11 @@ import java.util.Map;
 @AllArgsConstructor
 @RequestMapping(value = "/backendApi/openGift")
 public class BackendOpenGiftController extends BaseController {
+
+    /**
+     * 会员服务接口
+     */
+    private MemberService memberService;
 
     /**
      * 开卡赠礼服务接口
@@ -52,14 +59,33 @@ public class BackendOpenGiftController extends BaseController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @CrossOrigin
     @PreAuthorize("@pms.hasPermission('openGift:index')")
-    public ResponseObject list(@ModelAttribute OpenGiftPage openGiftPage) throws BusinessCheckException {
+    public ResponseObject list(HttpServletRequest request) throws BusinessCheckException {
         AccountInfo accountInfo = TokenUtil.getAccountInfo();
 
-        if (accountInfo.getMerchantId() != null && accountInfo.getMerchantId() > 0) {
-            openGiftPage.setMerchantId(accountInfo.getMerchantId());
-        }
+        Integer page = request.getParameter("page") == null ? Constants.PAGE_NUMBER : Integer.parseInt(request.getParameter("page"));
+        Integer pageSize = request.getParameter("pageSize") == null ? Constants.PAGE_SIZE : Integer.parseInt(request.getParameter("pageSize"));
+        String couponId = request.getParameter("couponId");
+        String gradeId = request.getParameter("gradeId");
+        String status = request.getParameter("status");
 
-        ResponseObject response = openGiftService.getOpenGiftList(openGiftPage);
+        Map<String, Object> param = new HashMap<>();
+        if (accountInfo.getMerchantId() != null && accountInfo.getMerchantId() > 0) {
+            param.put("merchantId", accountInfo.getMerchantId());
+        }
+        if (StringUtil.isNotEmpty(couponId)) {
+            param.put("couponId", couponId);
+        }
+        if (StringUtil.isNotEmpty(gradeId)) {
+            param.put("gradeId", gradeId);
+        }
+        if (StringUtil.isNotEmpty(status)) {
+            param.put("status", status);
+        }
+        param.put("pageNumber", page);
+        param.put("pageSize", pageSize);
+
+        ResponseObject response = openGiftService.getOpenGiftList(param);
+
         List<MtUserGrade> userGradeList = userGradeService.getMerchantGradeList(accountInfo.getMerchantId(), null);
 
         Map<String, Object> result = new HashMap<>();
@@ -144,7 +170,7 @@ public class BackendOpenGiftController extends BaseController {
 
         if (StringUtil.isNotEmpty(id)) {
             reqDto.setId(Integer.parseInt(id));
-            openGiftService.updateOpenGift(reqDto, accountInfo);
+            openGiftService.updateOpenGift(reqDto);
         } else {
             openGiftService.addOpenGift(reqDto);
         }
@@ -173,7 +199,7 @@ public class BackendOpenGiftController extends BaseController {
         mtOpenGift.setId(id);
         mtOpenGift.setStatus(status);
         mtOpenGift.setOperator(accountInfo.getAccountName());
-        openGiftService.updateOpenGift(mtOpenGift, accountInfo);
+        openGiftService.updateOpenGift(mtOpenGift);
         return getSuccessResult(true);
     }
 
@@ -188,7 +214,7 @@ public class BackendOpenGiftController extends BaseController {
         AccountInfo accountInfo = TokenUtil.getAccountInfo();
 
         String operator = accountInfo.getAccountName();
-        openGiftService.deleteOpenGift(id, accountInfo);
+        openGiftService.deleteOpenGift(id, operator);
 
         return getSuccessResult(true);
     }

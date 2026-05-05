@@ -28,6 +28,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -109,9 +110,7 @@ public class BackendBalanceController extends BaseController {
 
         MtBalance mtBalance = new MtBalance();
         MtUser userInfo = memberService.queryMemberById(userId);
-        if (!accountInfo.getMerchantId().equals(userInfo.getMerchantId())) {
-            return getFailureResult(201, "不同商户，无充值权限");
-        }
+
         // 扣减余额
         if (type == 2) {
             if (userInfo.getBalance().compareTo(new BigDecimal(amount)) < 0) {

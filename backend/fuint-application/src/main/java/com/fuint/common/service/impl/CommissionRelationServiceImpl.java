@@ -9,6 +9,7 @@ import com.fuint.common.param.CommissionRelationPage;
 import com.fuint.common.service.CommissionRelationService;
 import com.fuint.common.service.MemberService;
 import com.fuint.common.service.MerchantService;
+import com.fuint.framework.exception.BusinessCheckException;
 import com.fuint.framework.pagination.PaginationResponse;
 import com.fuint.repository.mapper.MtCommissionRelationMapper;
 import com.fuint.repository.model.MtCommissionRelation;
@@ -59,7 +60,7 @@ public class CommissionRelationServiceImpl extends ServiceImpl<MtCommissionRelat
      * @return
      */
     @Override
-    public PaginationResponse<CommissionRelationDto> queryRelationByPagination(CommissionRelationPage commissionRelationPage) {
+    public PaginationResponse<CommissionRelationDto> queryRelationByPagination(CommissionRelationPage commissionRelationPage) throws BusinessCheckException {
         Page<MtCommissionRelation> pageHelper = PageHelper.startPage(commissionRelationPage.getPage(), commissionRelationPage.getPageSize());
         LambdaQueryWrapper<MtCommissionRelation> lambdaQueryWrapper = Wrappers.lambdaQuery();
         lambdaQueryWrapper.ne(MtCommissionRelation::getStatus, StatusEnum.DISABLE.getKey());
@@ -119,10 +120,11 @@ public class CommissionRelationServiceImpl extends ServiceImpl<MtCommissionRelat
      *
      * @param userInfo 会员信息
      * @param shareId 分享者ID
+     * @throws BusinessCheckException
      * @retrurn
      */
     @Override
-    public void setCommissionRelation(MtUser userInfo, String shareId) {
+    public void setCommissionRelation(MtUser userInfo, String shareId) throws BusinessCheckException {
         if (userInfo == null || StringUtil.isBlank(shareId) || Integer.parseInt(shareId) <= 0) {
             return;
         }

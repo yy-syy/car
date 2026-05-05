@@ -44,7 +44,7 @@ public class ClientVehicleOrderController extends BaseController {
     @ApiOperation(value = "获取我的服务单列表")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @CrossOrigin
-    public ResponseObject list(@RequestBody OrderListParam orderListParam) throws BusinessCheckException {
+    public ResponseObject list(HttpServletRequest request, @RequestBody OrderListParam orderListParam) throws BusinessCheckException {
         UserInfo userInfo = TokenUtil.getUserInfo();
 
         Map<String, Object> params = new HashMap<>();

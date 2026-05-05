@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+.app-container {
+  padding: 20px;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.clearfloat {
+  zoom: 1;
+
+  &:after {
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+  }
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #999 transparent;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.dialog-footer {
+  padding: 5px 20px 5px 10px;
+  text-align: right;
+
+  button + button {
+    margin-left: 10px;
+  }
+}
+
+.sub-navbar {
+  height: 40px;
+  line-height: 40px;
+  background: #fff;
+  margin: -20px -20px 20px;
+
+  .page-title {
+    padding-left: 15px;
+    font-weight: bold;
+  }
+
+  .sub-navbar-btn {
+    float: right;
+    margin-right: 15px;
+  }
+}

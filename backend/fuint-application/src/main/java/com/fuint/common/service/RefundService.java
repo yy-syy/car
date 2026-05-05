@@ -3,14 +3,13 @@ package com.fuint.common.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.RefundDto;
-import com.fuint.common.param.RefundPage;
 import com.fuint.framework.exception.BusinessCheckException;
+import com.fuint.framework.pagination.PaginationRequest;
 import com.fuint.framework.pagination.PaginationResponse;
 import com.fuint.framework.web.ResponseObject;
-import com.fuint.module.clientApi.request.RefundListRequest;
 import com.fuint.repository.model.MtRefund;
-
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 售后业务接口
@@ -23,63 +22,55 @@ public interface RefundService extends IService<MtRefund> {
     /**
      * 分页查询列表
      *
-     * @param refundPage
+     * @param paginationRequest
      * @return
      */
-    PaginationResponse<RefundDto> getRefundListByPagination(RefundPage refundPage);
+    PaginationResponse<RefundDto> getRefundListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
     /**
      * 获取用户的售后订单
-     *
-     * @param  param 查询参数
-     * @return
+     * @param paramMap 查询参数
+     * @throws BusinessCheckException
      * */
-    ResponseObject getUserRefundList(RefundListRequest param);
+    ResponseObject getUserRefundList(Map<String, Object> paramMap) throws BusinessCheckException;
 
     /**
      * 创建售后订单
      *
-     * @param  refundDto
+     * @param reqDto
      * @throws BusinessCheckException
-     * @return
      */
-    MtRefund createRefund(RefundDto refundDto) throws BusinessCheckException;
+    MtRefund createRefund(RefundDto reqDto) throws BusinessCheckException;
 
     /**
      * 根据ID获取售后订单信息
      *
      * @param id ID
-     * @return
+     * @throws BusinessCheckException
      */
-    RefundDto getRefundById(Integer id);
+    RefundDto getRefundById(Integer id) throws BusinessCheckException;
 
     /**
      * 根据订单ID获取售后订单信息
      *
      * @param  orderId
-     * @return
+     * @throws BusinessCheckException
      */
-    MtRefund getRefundByOrderId(Integer orderId);
+    MtRefund getRefundByOrderId(Integer orderId) throws BusinessCheckException;
 
     /**
      * 更新售后订单
-     *
-     * @param  refundDto
-     * @param  accountInfo
+     * @param  reqDto
      * @throws BusinessCheckException
-     * @return
      * */
-    MtRefund updateRefund(RefundDto refundDto, AccountInfo accountInfo) throws BusinessCheckException;
+    MtRefund updateRefund(RefundDto reqDto) throws BusinessCheckException;
 
     /**
      * 同意售后订单
-     *
-     * @param  refundDto
-     * @param  accountInfo
+     * @param  reqDto
      * @throws BusinessCheckException
-     * @return
      * */
-    MtRefund agreeRefund(RefundDto refundDto, AccountInfo accountInfo) throws BusinessCheckException;
+    MtRefund agreeRefund(RefundDto reqDto) throws BusinessCheckException;
 
     /**
      * 发起退款

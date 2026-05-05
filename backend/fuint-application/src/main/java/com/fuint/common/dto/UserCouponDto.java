@@ -2,78 +2,89 @@ package com.fuint.common.dto;
 
 import com.fuint.repository.model.MtConfirmLog;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * 我的卡券实体类
+ * ?????DTO
  *
  * Created by FSQ
  * CopyRight https://www.fuint.cn
  */
-@Data
+@Getter
+@Setter
 public class UserCouponDto implements Serializable {
 
-    @ApiModelProperty("自增ID")
+    @ApiModelProperty("???ID")
     private Integer id;
 
-    @ApiModelProperty("卡券名称")
+    @ApiModelProperty("?????")
     private String name;
 
-    @ApiModelProperty("卡券类型")
+    @ApiModelProperty("?????")
     private String type;
 
-    @ApiModelProperty("卡券内容")
-    private Integer content;
-
-    @ApiModelProperty("状态")
+    @ApiModelProperty("??")
     private String status;
 
-    @ApiModelProperty("卡券ID")
+    @ApiModelProperty("???ID")
     private Integer couponId;
 
-    @ApiModelProperty("使用规则")
+    @ApiModelProperty("????")
     private String useRule;
 
-    @ApiModelProperty("核销编码")
+    @ApiModelProperty("????")
     private String code;
 
-    @ApiModelProperty("二维码")
+    @ApiModelProperty("???")
     private String qrCode;
 
-    @ApiModelProperty("图片")
+    @ApiModelProperty("??")
     private String image;
 
-    @ApiModelProperty("面额")
+    @ApiModelProperty("??")
     private BigDecimal amount;
 
-    @ApiModelProperty("是否允许转赠")
+    @ApiModelProperty("?????")
     private Boolean isGive;
 
-    @ApiModelProperty("余额")
+    @ApiModelProperty("??")
     private BigDecimal balance;
 
-    @ApiModelProperty("核销次数")
+    @ApiModelProperty("????")
     private Integer confirmCount;
 
-    @ApiModelProperty("核销记录")
+    @ApiModelProperty("????")
     private List<MtConfirmLog> confirmLogs;
 
-    @ApiModelProperty("是否可用(过期、状态等)")
+    @ApiModelProperty("????(????)")
     private boolean canUse;
 
-    @ApiModelProperty("有效期")
+    @ApiModelProperty("???")
     private String effectiveDate;
 
-    @ApiModelProperty("适用店铺")
+    @ApiModelProperty("????")
     private String storeNames;
 
-    @ApiModelProperty("提示信息")
+    @ApiModelProperty("????")
     private String tips;
 
-    @ApiModelProperty("描述信息")
+    @ApiModelProperty("?????")
     private String description;
+
+    @ApiModelProperty("???????")
+    private Integer content;
+
+    public void setContent(Integer content) {
+        this.content = content;
+    }
+
+    public Integer getContent() {
+        return content;
+    }
 
 }

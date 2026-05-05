@@ -176,7 +176,7 @@ public class BackendCouponGroupController extends BaseController {
             return getFailureResult(201, "该分组下有卡券，不能删除");
         }
 
-        couponGroupService.deleteCouponGroup(id, accountInfo);
+        couponGroupService.deleteCouponGroup(id, accountInfo.getAccountName());
 
         return getSuccessResult(true);
     }
@@ -257,7 +257,7 @@ public class BackendCouponGroupController extends BaseController {
         AccountInfo accountInfo = TokenUtil.getAccountInfo();
 
         String filePath = couponGroupService.saveExcelFile(file, request);
-        String uuid = couponGroupService.importSendCoupon(file, accountInfo, filePath);
+        String uuid = couponGroupService.importSendCoupon(file, accountInfo.getAccountName(), filePath);
         return getSuccessResult(uuid);
     }
 
@@ -267,7 +267,7 @@ public class BackendCouponGroupController extends BaseController {
     @ApiOperation(value = "查询分组列表")
     @RequestMapping(value = "/quickSearch", method = RequestMethod.GET)
     @CrossOrigin
-    public ResponseObject quickSearch() {
+    public ResponseObject quickSearch() throws BusinessCheckException {
         AccountInfo accountInfo = TokenUtil.getAccountInfo();
 
         Map<String, Object> param = new HashMap<>();

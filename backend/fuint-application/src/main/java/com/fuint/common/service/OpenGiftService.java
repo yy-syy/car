@@ -1,11 +1,10 @@
 package com.fuint.common.service;
 
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.OpenGiftDto;
-import com.fuint.common.param.OpenGiftPage;
 import com.fuint.framework.exception.BusinessCheckException;
 import com.fuint.framework.web.ResponseObject;
 import com.fuint.repository.model.MtOpenGift;
+import java.util.Map;
 
 /**
  * 开卡赠礼接口
@@ -18,46 +17,48 @@ public interface OpenGiftService {
     /**
      * 获取用户的开卡赠礼
      *
-     * @param openGiftPage 查询参数
+     * @param paramMap 查询参数
+     * @throws BusinessCheckException
      * @return
      * */
-    ResponseObject getOpenGiftList(OpenGiftPage openGiftPage);
+    ResponseObject getOpenGiftList(Map<String, Object> paramMap) throws BusinessCheckException;
 
     /**
      * 新增开卡赠礼
      *
-     * @param  mtOpenGift
+     * @param reqDto
      * @throws BusinessCheckException
      * @return
      */
-    MtOpenGift addOpenGift(MtOpenGift mtOpenGift) throws BusinessCheckException;
+    MtOpenGift addOpenGift(MtOpenGift reqDto) throws BusinessCheckException;
 
     /**
      * 根据ID获取开卡赠礼
      *
      * @param id ID
+     * @throws BusinessCheckException
      * @return
      */
-    OpenGiftDto getOpenGiftDetail(Integer id);
+    OpenGiftDto getOpenGiftDetail(Integer id) throws BusinessCheckException;
 
     /**
      * 根据ID删除开卡赠礼
      *
-     * @param  id       ID
-     * @param  accountInfo 操作人
+     * @param id       ID
+     * @param operator 操作人
      * @throws BusinessCheckException
      * @return
      */
-    void deleteOpenGift(Integer id, AccountInfo accountInfo) throws BusinessCheckException;
+    void deleteOpenGift(Integer id, String operator) throws BusinessCheckException;
 
     /**
      * 更新开卡赠礼
      *
-     * @param mtOpenGift
+     * @param reqDto
      * @throws BusinessCheckException
      * @return
      * */
-    MtOpenGift updateOpenGift(MtOpenGift mtOpenGift, AccountInfo accountInfo) throws BusinessCheckException;
+    MtOpenGift updateOpenGift(MtOpenGift reqDto) throws BusinessCheckException;
 
     /**
      * 开卡赠礼
@@ -65,7 +66,8 @@ public interface OpenGiftService {
      * @param userId 会员ID
      * @param gradeId 会员等级
      * @param isNewMember 是否新会员
+     * @throws BusinessCheckException
      * @return
      * */
-    Boolean openGift(Integer userId, Integer gradeId, boolean isNewMember);
+    Boolean openGift(Integer userId, Integer gradeId, boolean isNewMember) throws BusinessCheckException;
 }

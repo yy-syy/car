@@ -208,7 +208,7 @@ public class BackendPointController extends BaseController {
     @RequestMapping(value = "/doRecharge", method = RequestMethod.POST)
     @CrossOrigin
     @PreAuthorize("@pms.hasPermission('point:modify')")
-    public ResponseObject doRecharge(@RequestBody Map<String, Object> param) {
+    public ResponseObject doRecharge(@RequestBody Map<String, Object> param) throws BusinessCheckException {
         String amount = param.get("amount") == null ? "0" : param.get("amount").toString();
         String remark = param.get("remark") == null ? "后台充值" : param.get("remark").toString();
         Integer userId = param.get("userId") == null ? 0 : Integer.parseInt(param.get("userId").toString());
@@ -219,16 +219,14 @@ public class BackendPointController extends BaseController {
             return getFailureResult(201, "充值积分必须是数字");
         }
 
-        if (userId == null || userId < 1) {
+        if (userId < 1) {
             return getFailureResult(201, "充值会员信息不能为空");
         }
-        MtUser userInfo = memberService.queryMemberById(userId);
-        if (!accountInfo.getMerchantId().equals(userInfo.getMerchantId())) {
-            return getFailureResult(201, "不同商户，无充值权限");
-        }
+
         MtPoint mtPoint = new MtPoint();
         if (type == 2) {
             // 扣减积分
+            MtUser userInfo = memberService.queryMemberById(userId);
             if (userInfo.getPoint() < (Integer.parseInt(amount))) {
                 return getFailureResult(201, "操作失败，积分余额不足");
             }

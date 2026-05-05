@@ -121,7 +121,7 @@ public class BackendCommissionLogController extends BaseController {
         AccountInfo accountInfo = TokenUtil.getAccountInfo();
 
         commissionLogRequest.setOperator(accountInfo.getAccountName());
-        commissionLogService.updateCommissionLog(commissionLogRequest, accountInfo);
+        commissionLogService.updateCommissionLog(commissionLogRequest);
 
         return getSuccessResult(true);
     }
@@ -144,7 +144,7 @@ public class BackendCommissionLogController extends BaseController {
         CommissionLogRequest commissionLogRequest = new CommissionLogRequest();
         commissionLogRequest.setId(id);
         commissionLogRequest.setStatus(CommissionStatusEnum.CANCEL.getKey());
-        commissionLogService.updateCommissionLog(commissionLogRequest, accountInfo);
+        commissionLogService.updateCommissionLog(commissionLogRequest);
 
         return getSuccessResult(true);
     }
@@ -165,7 +165,7 @@ public class BackendCommissionLogController extends BaseController {
         if (accountInfo.getStoreId() != null && accountInfo.getStoreId() > 0) {
             commissionSettleRequest.setStoreId(accountInfo.getStoreId());
         }
-        String settleNo = commissionCashService.settleCommission(commissionSettleRequest, accountInfo);
+        String settleNo = commissionCashService.settleCommission(commissionSettleRequest);
         return getSuccessResult(settleNo);
     }
 }

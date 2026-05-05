@@ -13,12 +13,12 @@ import com.fuint.common.enums.GoodsTypeEnum;
 import com.fuint.common.enums.PlatformTypeEnum;
 import com.fuint.common.enums.StatusEnum;
 import com.fuint.common.enums.YesOrNoEnum;
-import com.fuint.common.param.GoodsListParam;
 import com.fuint.common.service.*;
 import com.fuint.common.util.SeqUtil;
 import com.fuint.common.util.XlsUtil;
 import com.fuint.framework.annoation.OperationServiceLog;
 import com.fuint.framework.exception.BusinessCheckException;
+import com.fuint.framework.pagination.PaginationRequest;
 import com.fuint.framework.pagination.PaginationResponse;
 import com.fuint.repository.bean.GoodsBean;
 import com.fuint.repository.bean.GoodsTopBean;
@@ -90,49 +90,49 @@ public class GoodsServiceImpl extends ServiceImpl<MtGoodsMapper, MtGoods> implem
     /**
      * 分页查询商品列表
      *
-     * @param param
+     * @param paginationRequest
      * @return
      */
     @Override
-    public PaginationResponse<GoodsDto> queryGoodsListByPagination(GoodsListParam param) throws BusinessCheckException {
+    public PaginationResponse<GoodsDto> queryGoodsListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
         LambdaQueryWrapper<MtGoods> lambdaQueryWrapper = Wrappers.lambdaQuery();
         lambdaQueryWrapper.ne(MtGoods::getStatus, StatusEnum.DISABLE.getKey());
 
-        String name = param.getName();
+        String name = paginationRequest.getSearchParams().get("name") == null ? "" : paginationRequest.getSearchParams().get("name").toString();
         if (StringUtils.isNotBlank(name)) {
             lambdaQueryWrapper.like(MtGoods::getName, name);
         }
-        String status = param.getStatus();
+        String status = paginationRequest.getSearchParams().get("status") == null ? "" : paginationRequest.getSearchParams().get("status").toString();
         if (StringUtils.isNotBlank(status)) {
             lambdaQueryWrapper.eq(MtGoods::getStatus, status);
         }
-        String goodsNo = param.getGoodsNo();
+        String goodsNo = paginationRequest.getSearchParams().get("goodsNo") == null ? "" : paginationRequest.getSearchParams().get("goodsNo").toString();
         if (StringUtils.isNotBlank(goodsNo)) {
             lambdaQueryWrapper.eq(MtGoods::getGoodsNo, goodsNo);
         }
-        String isSingleSpec = param.getIsSingleSpec();
+        String isSingleSpec = paginationRequest.getSearchParams().get("isSingleSpec") == null ? "" : paginationRequest.getSearchParams().get("isSingleSpec").toString();
         if (StringUtils.isNotBlank(isSingleSpec)) {
             lambdaQueryWrapper.eq(MtGoods::getIsSingleSpec, isSingleSpec);
         }
-        Integer merchantId = param.getMerchantId();
-        if (merchantId != null && merchantId > 0) {
+        String merchantId = paginationRequest.getSearchParams().get("merchantId") == null ? "" : paginationRequest.getSearchParams().get("merchantId").toString();
+        if (StringUtils.isNotBlank(merchantId)) {
             lambdaQueryWrapper.eq(MtGoods::getMerchantId, merchantId);
         }
-        Integer storeId = param.getStoreId();
-        if (storeId != null && storeId > 0 ) {
+        String storeId = paginationRequest.getSearchParams().get("storeId") == null ? "" : paginationRequest.getSearchParams().get("storeId").toString();
+        if (StringUtils.isNotBlank(storeId)) {
             lambdaQueryWrapper.and(qw -> qw.eq(MtGoods::getStoreId, storeId)
                                            .or(qw2 -> qw2.eq(MtGoods::getStoreId, 0)
-                                           .inSql(MtGoods::getId, "SELECT s.GOODS_ID FROM mt_store_goods s WHERE s.STORE_ID = "+ storeId +" AND s.status = 'A'")));
+                                           .inSql(MtGoods::getId, "SELECT s.GOODS_ID FROM mt_store_goods s WHERE s.STORE_ID = "+ Integer.parseInt(storeId) +" AND s.status = 'A'")));
         }
-        String type = param.getType();
+        String type = paginationRequest.getSearchParams().get("type") == null ? "" : paginationRequest.getSearchParams().get("type").toString();
         if (StringUtils.isNotBlank(type)) {
             lambdaQueryWrapper.eq(MtGoods::getType, type);
         }
-        Integer cateId = param.getCateId();
-        if (cateId != null && cateId > 0) {
+        String cateId = paginationRequest.getSearchParams().get("cateId") == null ? "" : paginationRequest.getSearchParams().get("cateId").toString();
+        if (StringUtils.isNotBlank(cateId)) {
             lambdaQueryWrapper.eq(MtGoods::getCateId, cateId);
         }
-        String hasStock = param.getStock();
+        String hasStock = paginationRequest.getSearchParams().get("stock") == null ? "" : paginationRequest.getSearchParams().get("stock").toString();
         if (StringUtils.isNotBlank(hasStock)) {
             if (hasStock.equals(YesOrNoEnum.YES.getKey())) {
                 lambdaQueryWrapper.gt(MtGoods::getStock, 0);
@@ -140,13 +140,13 @@ public class GoodsServiceImpl extends ServiceImpl<MtGoodsMapper, MtGoods> implem
                 lambdaQueryWrapper.lt(MtGoods::getStock, 1);
             }
         }
-        String hasPrice = param.getHasPrice();
+        String hasPrice = paginationRequest.getSearchParams().get("hasPrice") == null ? "" : paginationRequest.getSearchParams().get("hasPrice").toString();
         if (StringUtils.isNotBlank(hasPrice)) {
             if (hasPrice.equals(YesOrNoEnum.YES.getKey())) {
                 lambdaQueryWrapper.gt(MtGoods::getPrice, 0);
             }
         }
-        String platform = param.getPlatform();
+        String platform = paginationRequest.getSearchParams().get("platform") == null ? "" : paginationRequest.getSearchParams().get("platform").toString();
         if (StringUtils.isNotBlank(platform)) {
             if (platform.equals(PlatformTypeEnum.H5.getCode()) || platform.equals(PlatformTypeEnum.MP_WEIXIN.getCode())) {
                 // 会员端
@@ -165,8 +165,8 @@ public class GoodsServiceImpl extends ServiceImpl<MtGoodsMapper, MtGoods> implem
                 lambdaQueryWrapper.eq(MtGoods::getPlatform, 2);
             }
         }
-        String sortType = param.getSortType();
-        String sortPrice = param.getSortPrice();
+        String sortType = paginationRequest.getSearchParams().get("sortType") == null ? "" : paginationRequest.getSearchParams().get("sortType").toString();
+        String sortPrice = paginationRequest.getSearchParams().get("sortPrice") == null ? "0" : paginationRequest.getSearchParams().get("sortPrice").toString();
         if (StringUtil.isNotEmpty(sortType)) {
             if (sortType.equals("price")) {
                 if (sortPrice.equals("0")) {
@@ -209,7 +209,7 @@ public class GoodsServiceImpl extends ServiceImpl<MtGoodsMapper, MtGoods> implem
                 MtGoods::getType,
                 MtGoods::getOperator,
                 MtGoods::getWeight);
-        Page<MtGoods> pageHelper = PageHelper.startPage(param.getPage(), param.getPageSize());
+        Page<MtGoods> pageHelper = PageHelper.startPage(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
         List<MtGoods> goodsList = mtGoodsMapper.selectList(lambdaQueryWrapper);
         List<GoodsDto> dataList = new ArrayList<>();
         String basePath = settingService.getUploadBasePath();
@@ -246,7 +246,7 @@ public class GoodsServiceImpl extends ServiceImpl<MtGoodsMapper, MtGoods> implem
             dataList.add(item);
         }
 
-        PageRequest pageRequest = PageRequest.of(param.getPage(), param.getPageSize());
+        PageRequest pageRequest = PageRequest.of(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
         PageImpl pageImpl = new PageImpl(dataList, pageRequest, pageHelper.getTotal());
         PaginationResponse<GoodsDto> paginationResponse = new PaginationResponse(pageImpl, GoodsDto.class);
         paginationResponse.setTotalPages(pageHelper.getPages());
@@ -267,16 +267,11 @@ public class GoodsServiceImpl extends ServiceImpl<MtGoodsMapper, MtGoods> implem
     @Override
     @Transactional(rollbackFor = Exception.class)
     @OperationServiceLog(description = "保存商品信息")
-    public MtGoods saveGoods(MtGoods reqDto, String storeIds, AccountInfo accountInfo) throws BusinessCheckException {
+    public MtGoods saveGoods(MtGoods reqDto, String storeIds) throws BusinessCheckException {
         MtGoods mtGoods = new MtGoods();
         if (reqDto.getId() > 0) {
             mtGoods = queryGoodsById(reqDto.getId());
             reqDto.setMerchantId(mtGoods.getMerchantId());
-            // 添加商户权限校验
-            if (accountInfo != null && accountInfo.getMerchantId() != null && accountInfo.getMerchantId() > 0 
-                && !mtGoods.getMerchantId().equals(accountInfo.getMerchantId())) {
-                throw new BusinessCheckException("不同商户，没有操作权限");
-            }
         }
         if (reqDto.getMerchantId() != null && reqDto.getMerchantId() > 0) {
             mtGoods.setMerchantId(reqDto.getMerchantId());
@@ -952,7 +947,7 @@ public class GoodsServiceImpl extends ServiceImpl<MtGoodsMapper, MtGoods> implem
                 mtGoods.setLinePrice(new BigDecimal("0"));
                 mtGoods.setStock(0);
                 mtGoods.setStatus(StatusEnum.FORBIDDEN.getKey());
-                saveGoods(mtGoods, storeIds, accountInfo);
+                saveGoods(mtGoods, storeIds);
             }
         }
 
@@ -972,26 +967,10 @@ public class GoodsServiceImpl extends ServiceImpl<MtGoodsMapper, MtGoods> implem
                 if (mtGoods != null) {
                     // 单规格
                     if (mtGoods.getIsSingleSpec().equals(YesOrNoEnum.YES.getKey())) {
-                        if (StringUtil.isNotEmpty((sku.get(4)))) {
-                            mtGoods.setPrice(new BigDecimal(sku.get(4)));
-                        } else {
-                            mtGoods.setPrice(new BigDecimal("0"));
-                        }
-                        if (StringUtil.isNotEmpty((sku.get(5)))) {
-                            mtGoods.setLinePrice(new BigDecimal(sku.get(5)));
-                        } else {
-                            mtGoods.setLinePrice(new BigDecimal("0"));
-                        }
-                        if (StringUtil.isNotEmpty((sku.get(6)))) {
-                            mtGoods.setStock(Integer.parseInt(sku.get(6)));
-                        } else {
-                            mtGoods.setStock(0);
-                        }
-                        if (StringUtil.isNotEmpty((sku.get(7)))) {
-                            mtGoods.setWeight(new BigDecimal(sku.get(7)));
-                        } else {
-                            mtGoods.setWeight(new BigDecimal("0"));
-                        }
+                        mtGoods.setPrice(new BigDecimal(sku.get(4)));
+                        mtGoods.setLinePrice(new BigDecimal(sku.get(5)));
+                        mtGoods.setStock(Integer.parseInt(sku.get(6)));
+                        mtGoods.setWeight(new BigDecimal(sku.get(7)));
                         mtGoodsMapper.updateById(mtGoods);
                     }
                     // 多规格

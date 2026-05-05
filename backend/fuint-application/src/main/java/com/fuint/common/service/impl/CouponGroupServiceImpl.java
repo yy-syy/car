@@ -3,7 +3,6 @@ package com.fuint.common.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.CouponCellDto;
 import com.fuint.common.dto.ReqCouponGroupDto;
 import com.fuint.common.dto.ReqSendLogDto;
@@ -176,12 +175,12 @@ public class CouponGroupServiceImpl extends ServiceImpl<MtCouponGroupMapper, MtC
      * 根据ID删除卡券分组
      *
      * @param  id       分组ID
-     * @param  accountInfo 操作人
+     * @param  operator 操作人
      * @throws BusinessCheckException
      */
     @Override
     @OperationServiceLog(description = "删除卡券分组")
-    public void deleteCouponGroup(Integer id, AccountInfo accountInfo) {
+    public void deleteCouponGroup(Integer id, String operator) {
         MtCouponGroup couponGroup = queryCouponGroupById(id);
         if (null == couponGroup) {
             return;
@@ -189,7 +188,7 @@ public class CouponGroupServiceImpl extends ServiceImpl<MtCouponGroupMapper, MtC
 
         couponGroup.setStatus(StatusEnum.DISABLE.getKey());
         couponGroup.setUpdateTime(new Date());
-        couponGroup.setOperator(accountInfo.getAccountName());
+        couponGroup.setOperator(operator);
 
         this.updateById(couponGroup);
     }
@@ -277,13 +276,12 @@ public class CouponGroupServiceImpl extends ServiceImpl<MtCouponGroupMapper, MtC
      * 导入发券列表
      *
      * @param file excel文件
-     * @param accountInfo 操作者
-     * @return
+     * @param operator 操作者
      * */
     @Override
     @Transactional(rollbackFor = Exception.class)
     @OperationServiceLog(description = "导入发券列表")
-    public String importSendCoupon(MultipartFile file, AccountInfo accountInfo, String filePath) throws BusinessCheckException {
+    public String importSendCoupon(MultipartFile file, String operator, String filePath) throws BusinessCheckException {
         String originalFileName = file.getOriginalFilename();
         boolean isExcel2003 = XlsUtil.isExcel2003(originalFileName);
         boolean isExcel2007 = XlsUtil.isExcel2007(originalFileName);
@@ -456,7 +454,7 @@ public class CouponGroupServiceImpl extends ServiceImpl<MtCouponGroupMapper, MtC
                 for (int gid = 0; gid < cellDto.getGroupId().size(); gid++) {
                     MtCouponGroup mtCouponGroup = getById(cellDto.getGroupId().get(gid).intValue());
                     MtUser mtUser = memberService.queryMemberByMobile(mtCouponGroup.getMerchantId(), cellDto.getMobile());
-                    couponService.sendCoupon(cellDto.getGroupId().get(gid).intValue(), mtUser.getId(), cellDto.getNum().get(gid), false, uuid, accountInfo);
+                    couponService.sendCoupon(cellDto.getGroupId().get(gid).intValue(), mtUser.getId(), cellDto.getNum().get(gid), false, uuid, operator);
                     List<MtCoupon> couponList = couponService.queryCouponListByGroupId(cellDto.getGroupId().get(gid).intValue());
                     // 累加总张数、总价值
                     for (MtCoupon coupon : couponList) {
@@ -479,7 +477,7 @@ public class CouponGroupServiceImpl extends ServiceImpl<MtCouponGroupMapper, MtC
                 dto.setCouponId(0);
                 dto.setGroupName("");
                 dto.setSendNum(0);
-                dto.setOperator(accountInfo.getAccountName());
+                dto.setOperator(operator);
                 dto.setUuid(uuid);
                 sendLogService.addSendLog(dto);
 

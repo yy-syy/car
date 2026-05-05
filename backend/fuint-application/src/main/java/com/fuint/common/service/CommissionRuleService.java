@@ -1,7 +1,6 @@
 package com.fuint.common.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.CommissionRuleDto;
 import com.fuint.common.param.CommissionRuleParam;
 import com.fuint.framework.pagination.PaginationRequest;
@@ -44,10 +43,9 @@ public interface CommissionRuleService extends IService<MtCommissionRule> {
     /**
      * 更新分佣提成规则
      *
-     * @param  commissionRule 规则信息
-     * @param  accountInfo 登录用户信息
+     * @param  commissionRule
      * @throws BusinessCheckException
      * */
-    MtCommissionRule updateCommissionRule(CommissionRuleParam commissionRule, AccountInfo accountInfo) throws BusinessCheckException;
+    MtCommissionRule updateCommissionRule(CommissionRuleParam commissionRule) throws BusinessCheckException;
 
 }

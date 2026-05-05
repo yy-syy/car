@@ -101,7 +101,7 @@ public interface WeixinService {
      * @param sendTime 发送时间
      * @return
      * */
-    Boolean sendSubscribeMessage(Integer merchantId, Integer userId, String toUserOpenId, String key, String page, Map<String,Object> params, Date sendTime);
+    Boolean sendSubscribeMessage(Integer merchantId, Integer userId, String toUserOpenId, String key, String page, Map<String,Object> params, Date sendTime) throws BusinessCheckException;
 
     /**
      * 发送订阅消息

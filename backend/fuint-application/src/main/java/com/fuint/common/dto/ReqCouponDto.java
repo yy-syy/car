@@ -1,119 +1,130 @@
 package com.fuint.common.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * 卡券请求DTO
+ * ?????DTO
  *
  * Created by FSQ
  * CopyRight https://www.fuint.cn
  */
-@Data
+@Getter
+@Setter
 public class ReqCouponDto implements Serializable {
 
-    @ApiModelProperty("卡券ID")
+    @ApiModelProperty("???ID")
     private Integer id;
 
-    @ApiModelProperty("商户ID")
+    @ApiModelProperty("??ID")
     private Integer merchantId;
 
-    @ApiModelProperty("店铺ID")
+    @ApiModelProperty("??ID")
     private Integer storeId;
 
-    @ApiModelProperty("分组ID")
+    @ApiModelProperty("??ID")
     private Integer groupId;
 
-    @ApiModelProperty("类型")
+    @ApiModelProperty("?????")
     private String type;
 
-    @ApiModelProperty("内容")
-    private Integer content;
-
-    @ApiModelProperty("名称")
+    @ApiModelProperty("?????")
     private String name;
 
-    @ApiModelProperty("是否允许转赠")
+    @ApiModelProperty("?????")
     private Integer isGive;
 
-    @ApiModelProperty("获得卡券所消耗积分")
+    @ApiModelProperty("??????")
     private Integer point;
 
-    @ApiModelProperty("获得计次卡卡所消耗积分")
+    @ApiModelProperty("????????")
     private Integer timerPoint;
 
-    @ApiModelProperty("领取码")
+    @ApiModelProperty("???")
     private String receiveCode;
 
-    @ApiModelProperty("使用专项")
+    @ApiModelProperty("????")
     private String useFor;
 
-    @ApiModelProperty("过期类型")
+    @ApiModelProperty("????")
     private String expireType;
 
-    @ApiModelProperty("有效天数")
+    @ApiModelProperty("????")
     private Integer expireTime;
 
-    @ApiModelProperty("计次卡领取码")
+    @ApiModelProperty("?????")
     private String timerReceiveCode;
 
-    @ApiModelProperty("有效期开始时间")
+    @ApiModelProperty("????")
     private String beginTime;
 
-    @ApiModelProperty("有效期结束时间")
+    @ApiModelProperty("????")
     private String endTime;
 
-    @ApiModelProperty("价值金额")
+    @ApiModelProperty("?????")
     private BigDecimal amount;
 
-    @ApiModelProperty("发放方式")
+    @ApiModelProperty("????")
     private String sendWay;
 
-    @ApiModelProperty("适用商品")
+    @ApiModelProperty("????")
     private String applyGoods;
 
-    @ApiModelProperty("每次发放数量")
+    @ApiModelProperty("????")
     private Integer sendNum;
 
-    @ApiModelProperty("发行总数量")
+    @ApiModelProperty("???")
     private Integer total;
 
-    @ApiModelProperty("每人最多拥有数量")
+    @ApiModelProperty("??????")
     private Integer limitNum;
 
-    @ApiModelProperty("例外时间")
+    @ApiModelProperty("????")
     private String exceptTime;
 
-    @ApiModelProperty("适用店铺ID，逗号分隔")
+    @ApiModelProperty("????ID??")
     private String storeIds;
 
-    @ApiModelProperty("会员等级ID，逗号分隔")
+    @ApiModelProperty("??????ID??")
     private String gradeIds;
 
-    @ApiModelProperty("适用商品")
+    @ApiModelProperty("????ID")
     private String goodsIds;
 
-    @ApiModelProperty("后台备注")
+    @ApiModelProperty("??")
     private String remarks;
 
-    @ApiModelProperty("图片")
+    @ApiModelProperty("??")
     private String image;
 
-    @ApiModelProperty("备注")
+    @ApiModelProperty("??")
     private String description;
 
-    @ApiModelProperty("预存规则")
+    @ApiModelProperty("????")
     private String inRule;
 
-    @ApiModelProperty("核销规则")
+    @ApiModelProperty("?????")
     private String outRule;
 
-    @ApiModelProperty("操作人")
+    @ApiModelProperty("???")
     private String operator;
 
-    @ApiModelProperty("状态")
+    @ApiModelProperty("??")
     private String status;
+
+    @ApiModelProperty("???????")
+    private Integer content;
+
+    public Integer getContent() {
+        return content;
+    }
+
+    public void setContent(Integer content) {
+        this.content = content;
+    }
 
 }

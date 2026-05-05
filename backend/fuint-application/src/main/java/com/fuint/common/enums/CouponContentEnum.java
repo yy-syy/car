@@ -1,29 +1,33 @@
 package com.fuint.common.enums;
 
 /**
- * 卡券内容枚举
+ * ??????????????
  *
  * Created by FSQ
  * CopyRight https://www.fuint.cn
  */
 public enum CouponContentEnum {
-    AMOUNT(1, "满减券"),
-    PERCENT(2, "折扣券");
+    ROOM("1", "????"),
+    ROOM_BTEAKFAST("2", "????+???"),
+    MEALS("3", "????"),
+    WASH("4", "???"),
+    HEALTH("5", "????"),
+    PERCENT("6", "????");
 
-    private Integer key;
+    private String key;
 
     private String value;
 
-    CouponContentEnum(Integer key, String value) {
+    CouponContentEnum(String key, String value) {
         this.key = key;
         this.value = value;
     }
 
-    public Integer getKey() {
+    public String getKey() {
         return key;
     }
 
-    public void setKey(Integer key) {
+    public void setKey(String key) {
         this.key = key;
     }
 

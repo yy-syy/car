@@ -1,7 +1,6 @@
 package com.fuint.common.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.param.BannerPage;
 import com.fuint.framework.pagination.PaginationResponse;
 import com.fuint.repository.model.MtBanner;
@@ -56,12 +55,11 @@ public interface BannerService extends IService<MtBanner> {
 
     /**
      * 更新焦点图
-     * @param bannerDto 焦点图信息
-     * @param accountInfo 登录用户信息
+     * @param bannerDto
      * @throws BusinessCheckException
      * @return
      * */
-    MtBanner updateBanner(BannerDto bannerDto, AccountInfo accountInfo) throws BusinessCheckException;
+    MtBanner updateBanner(BannerDto bannerDto) throws BusinessCheckException;
 
     /**
      * 根据条件搜索焦点图

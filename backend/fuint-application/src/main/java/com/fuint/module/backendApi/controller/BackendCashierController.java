@@ -105,11 +105,6 @@ public class BackendCashierController extends BaseController {
         } else {
             storeInfo = storeService.queryStoreById(storeId);
         }
-
-        if (storeInfo == null && (accountInfo.getMerchantId() == null || accountInfo.getMerchantId() <= 0)) {
-            storeInfo = storeService.getDefaultStore(null);
-        }
-
         if (storeInfo != null) {
             storeId = storeInfo.getId();
         }

@@ -28,12 +28,11 @@ public interface BalanceService extends IService<MtBalance> {
     /**
      * 添加余额记录
      *
-     * @param mtBalance
+     * @param reqDto
      * @param updateBalance
      * @throws BusinessCheckException
-     * @return
      */
-    Boolean addBalance(MtBalance mtBalance, Boolean updateBalance) throws BusinessCheckException;
+    Boolean addBalance(MtBalance reqDto, Boolean updateBalance) throws BusinessCheckException;
 
     /**
      * 发放余额
@@ -43,7 +42,6 @@ public interface BalanceService extends IService<MtBalance> {
      * @param userIds
      * @param amount
      * @param remark
-     * @throws BusinessCheckException
      * @return
      */
     void distribute(AccountInfo accountInfo, String object, String userIds, String amount, String remark) throws BusinessCheckException;

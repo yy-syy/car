@@ -1,0 +1,43 @@
+.el-breadcrumb__inner.is-link,
+.el-breadcrumb__inner {
+  font-weight: 400;
+  color: #97a8be;
+}
+
+.el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: #97a8be;
+}
+
+.el-breadcrumb__item:last-child .el-breadcrumb__inner,
+.el-breadcrumb__item:last-child .el-breadcrumb__inner a,
+.el-breadcrumb__item:last-child .el-breadcrumb__inner.is-link:hover {
+  color: #97a8be;
+  font-weight: 400;
+}
+
+.el-breadcrumb__item {
+  margin-left: 10px;
+}
+
+.el-breadcrumb__inner,
+.el-breadcrumb__inner a {
+  font-weight: 400 !important;
+}
+
+.el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: #c0c4cc !important;
+}
+
+.el-breadcrumb__inner.is-link:hover {
+  color: #fff !important;
+}
+
+.el-breadcrumb__inner,
+.el-breadcrumb__inner a {
+  font-weight: 400 !important;
+  color: #bfcbd9 !important;
+}
+
+.el-breadcrumb__inner.is-link:hover {
+  color: #fff !important;
+}

@@ -1,17 +1,15 @@
 package com.fuint.common.bean;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
- * 微信V3支付Bean
+ * ??V3??Bean
  *
  * Created by FSQ
  * CopyRight https://www.fuint.cn
  */
 @Component
-@PropertySource("file:${env.properties.path}/${env.profile}/application.properties")
 @ConfigurationProperties(prefix = "v3")
 public class WxPayV3Bean {
 

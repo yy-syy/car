@@ -3,7 +3,6 @@ package com.fuint.common.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.GoodsCateDto;
 import com.fuint.common.enums.StatusEnum;
 import com.fuint.common.param.GoodsCatePage;
@@ -195,15 +194,11 @@ public class CateServiceImpl extends ServiceImpl<MtGoodsCateMapper, MtGoodsCate>
     @Override
     @Transactional(rollbackFor = Exception.class)
     @OperationServiceLog(description = "更新商品分类")
-    public MtGoodsCate updateCate(MtGoodsCate reqDto, AccountInfo accountInfo) throws BusinessCheckException {
+    public MtGoodsCate updateCate(MtGoodsCate reqDto) throws BusinessCheckException {
         MtGoodsCate mtCate = queryCateById(reqDto.getId());
         if (null == mtCate) {
             log.error("该分类状态异常");
             throw new BusinessCheckException("该分类状态异常");
-        }
-        if (accountInfo != null && accountInfo.getMerchantId() != null && accountInfo.getMerchantId() > 0 
-            && !mtCate.getMerchantId().equals(accountInfo.getMerchantId())) {
-            throw new BusinessCheckException("不同商户，没有操作权限");
         }
         mtCate.setId(reqDto.getId());
         if (reqDto.getLogo() != null) {

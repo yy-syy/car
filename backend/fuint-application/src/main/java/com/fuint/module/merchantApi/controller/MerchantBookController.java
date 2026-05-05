@@ -1,6 +1,5 @@
 package com.fuint.module.merchantApi.controller;
 
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.UserInfo;
 import com.fuint.common.enums.BookStatusEnum;
 import com.fuint.common.param.BookItemPage;
@@ -168,10 +167,7 @@ public class MerchantBookController extends BaseController {
         }
         bookItem.setStatus(param.getStatus() == null ? BookStatusEnum.CONFIRM.getKey() : param.getStatus());
         bookItem.setOperator(staffInfo.getRealName());
-        AccountInfo accountInfo = new AccountInfo();
-        accountInfo.setMerchantId(staffInfo.getMerchantId());
-        accountInfo.setAccountName(staffInfo.getRealName());
-        bookItemService.updateBookItem(bookItem, accountInfo);
+        bookItemService.updateBookItem(bookItem);
         return getSuccessResult(true);
     }
 }

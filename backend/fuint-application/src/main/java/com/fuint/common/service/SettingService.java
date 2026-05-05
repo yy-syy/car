@@ -49,9 +49,9 @@ public interface SettingService extends IService<MtSetting> {
      * @param  merchantId 商户ID
      * @param  type 类型
      * @param  name 配置名称
-     * @retrurn
+     * @throws BusinessCheckException
      */
-    MtSetting querySettingByName(Integer merchantId, String type, String name);
+    MtSetting querySettingByName(Integer merchantId, String type, String name) throws BusinessCheckException;
 
     /**
      * 根据配置名称获取配置信息

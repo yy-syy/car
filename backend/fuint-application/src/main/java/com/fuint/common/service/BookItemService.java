@@ -1,7 +1,6 @@
 package com.fuint.common.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.BookItemDto;
 import com.fuint.common.param.BookItemPage;
 import com.fuint.framework.pagination.PaginationResponse;
@@ -67,12 +66,11 @@ public interface BookItemService extends IService<MtBookItem> {
     /**
      * 更新预约订单
      *
-     * @param  mtBookItem 预约订单信息
-     * @param  accountInfo 登录用户信息
+     * @param  mtBookItem
      * @throws BusinessCheckException
      * @return
      * */
-    MtBookItem updateBookItem(MtBookItem mtBookItem, AccountInfo accountInfo) throws BusinessCheckException;
+    MtBookItem updateBookItem(MtBookItem mtBookItem) throws BusinessCheckException;
 
     /**
      * 根据条件搜索预约订单

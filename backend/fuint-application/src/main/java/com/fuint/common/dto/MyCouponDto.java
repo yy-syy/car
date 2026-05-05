@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 我的卡券DTO
+ * ?????DTO
  *
  * Created by FSQ
  * CopyRight https://www.fuint.cn
@@ -17,61 +17,69 @@ import java.util.Date;
 @Data
 public class MyCouponDto implements Serializable {
 
-    @ApiModelProperty("自增ID")
+    @ApiModelProperty("???ID")
     private Integer id;
 
-    @ApiModelProperty("卡券名称")
+    @ApiModelProperty("?????")
     private String name;
 
-    @ApiModelProperty("核销编码")
+    @ApiModelProperty("????")
     private String code;
 
-    @ApiModelProperty("卡券类型")
+    @ApiModelProperty("?????")
     private String type;
 
-    @ApiModelProperty("卡券内容")
-    private Integer content;
-
-    @ApiModelProperty("状态")
+    @ApiModelProperty("??")
     private String status;
 
-    @ApiModelProperty("卡券ID")
+    @ApiModelProperty("???ID")
     private Integer couponId;
 
-    @ApiModelProperty("使用规则")
+    @ApiModelProperty("????")
     private String useRule;
 
-    @ApiModelProperty("图片")
+    @ApiModelProperty("??")
     private String image;
 
-    @ApiModelProperty("面额")
+    @ApiModelProperty("??")
     private BigDecimal amount;
 
-    @ApiModelProperty("余额")
+    @ApiModelProperty("??")
     private BigDecimal balance;
 
-    @ApiModelProperty("剩余次数")
+    @ApiModelProperty("??")
     private Integer num;
 
-    @ApiModelProperty("是否可用")
+    @ApiModelProperty("????")
     private boolean canUse;
 
-    @ApiModelProperty("有效期")
+    @ApiModelProperty("???")
     private String effectiveDate;
 
-    @ApiModelProperty("提示信息")
+    @ApiModelProperty("????")
     private String tips;
 
-    @ApiModelProperty("使用时间")
+    @ApiModelProperty("????")
     private Date usedTime;
 
-    @ApiModelProperty("领券时间")
+    @ApiModelProperty("????")
     private Date createTime;
 
-    @ApiModelProperty("会员信息")
+    @ApiModelProperty("????")
     private MtUser userInfo;
 
-    @ApiModelProperty("使用店铺")
+    @ApiModelProperty("????")
     private MtStore storeInfo;
+
+    @ApiModelProperty("???????")
+    private Integer content;
+
+    public void setContent(Integer content) {
+        this.content = content;
+    }
+
+    public Integer getContent() {
+        return content;
+    }
 
 }

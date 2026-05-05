@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * å¡åˆ¸å®ä½“
+ * ÓÅ»İÈ¯DTO
  *
  * Created by FSQ
  * CopyRight https://www.fuint.cn
@@ -14,67 +14,67 @@ import java.math.BigDecimal;
 @Data
 public class CouponDto implements Serializable {
 
-    @ApiModelProperty("è‡ªå¢ID")
+    @ApiModelProperty("ÓÅ»İÈ¯ID")
     private Integer id;
 
-    @ApiModelProperty("å¡åˆ¸åç§°")
+    @ApiModelProperty("ÓÅ»İÈ¯Ãû³Æ")
     private String name;
 
-    @ApiModelProperty("å¡åˆ¸ç±»å‹")
+    @ApiModelProperty("ÓÅ»İÈ¯ÀàĞÍ")
     private String type;
 
-    @ApiModelProperty("å†…å®¹")
-    private Integer content;
-
-    @ApiModelProperty("çŠ¶æ€")
+    @ApiModelProperty("×´Ì¬")
     private String status;
 
-    @ApiModelProperty("è·å–è§„åˆ™")
+    @ApiModelProperty("Ê¹ÓÃ¹æÔò")
     private String inRule;
 
-    @ApiModelProperty("ä½¿ç”¨è§„åˆ™")
+    @ApiModelProperty("²»ÊÊÓÃ¹æÔò")
     private String outRule;
 
-    @ApiModelProperty("å›¾ç‰‡")
+    @ApiModelProperty("Í¼Æ¬")
     private String image;
 
-    @ApiModelProperty("é¢é¢")
+    @ApiModelProperty("½ğ¶î")
     private BigDecimal amount;
 
-    @ApiModelProperty("é¢†å–éœ€è¦ç§¯åˆ†æ•°é‡")
+    @ApiModelProperty("ÁìÈ¡ËùĞè»ı·Ö")
     private Integer point;
 
-    @ApiModelProperty("å–ç‚¹")
+    @ApiModelProperty("Âôµã")
     private String sellingPoint;
 
-    @ApiModelProperty("å·²é¢†å–ã€é¢„å­˜æ•°é‡")
+    @ApiModelProperty("ÒÑÁìÈ¡ÊıÁ¿")
     private Integer gotNum;
 
-    @ApiModelProperty("å‰©ä½™æ•°é‡")
+    @ApiModelProperty("Ê£ÓàÊıÁ¿")
     private Integer leftNum;
 
-    @ApiModelProperty("å‘è¡Œæ•°é‡")
+    @ApiModelProperty("×ÜÊıÁ¿")
     private Integer total;
 
-    @ApiModelProperty("é™åˆ¶æ•°é‡")
+    @ApiModelProperty("Ã¿ÈËÏŞÁìÊıÁ¿")
     private Integer limitNum;
 
-    @ApiModelProperty("é€‚ç”¨åº—é“º")
+    @ApiModelProperty("ÊÊÓÃÃÅµê")
     private String storeNames;
 
-    @ApiModelProperty("æ˜¯å¦é¢†å–")
+    @ApiModelProperty("ÊÇ·ñÒÑÁìÈ¡")
     private Boolean isReceive;
 
-    @ApiModelProperty("æ˜¯å¦éœ€è¦é¢†å–ç ")
+    @ApiModelProperty("ÊÇ·ñĞèÒªÁìÈ¡Âë")
     private boolean needReceiveCode;
 
-    @ApiModelProperty("ä¼šå‘˜å¡åˆ¸ID")
+    @ApiModelProperty("ÓÃ»§ÓÅ»İÈ¯ID")
     private int userCouponId;
 
-    @ApiModelProperty("æœ‰æ•ˆæœŸ")
+    @ApiModelProperty("ÓĞĞ§ÆÚ")
     private String effectiveDate;
 
-    @ApiModelProperty("å¡åˆ¸è¯´æ˜")
+    @ApiModelProperty("ÓÅ»İÈ¯ÃèÊö")
     private String description;
+
+    @ApiModelProperty("ÓÅ»İÈ¯ÄÚÈİÀàĞÍ")
+    private Integer content;
 
 }

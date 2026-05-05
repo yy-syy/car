@@ -1,7 +1,6 @@
 package com.fuint.common.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.CommissionCashDto;
 import com.fuint.common.param.CommissionCashPage;
 import com.fuint.framework.exception.BusinessCheckException;
@@ -31,11 +30,10 @@ public interface CommissionCashService extends IService<MtCommissionCash> {
      * 计算订单分销提成
      *
      * @param  commissionSettleRequest 结算参数
-     * @param  accountInfo 操作用户
      * @throws BusinessCheckException
      * @return
      */
-    String settleCommission(CommissionSettleRequest commissionSettleRequest, AccountInfo accountInfo) throws BusinessCheckException;
+    String settleCommission(CommissionSettleRequest commissionSettleRequest) throws BusinessCheckException;
 
     /**
      * 根据ID获取记录信息

@@ -3,7 +3,6 @@ package com.fuint.common.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.MerchantDto;
 import com.fuint.common.dto.MerchantSettingDto;
 import com.fuint.common.dto.StoreDto;
@@ -11,7 +10,6 @@ import com.fuint.common.enums.OrderSettingEnum;
 import com.fuint.common.enums.SettingTypeEnum;
 import com.fuint.common.enums.StatusEnum;
 import com.fuint.common.enums.YesOrNoEnum;
-import com.fuint.common.param.MerchantPage;
 import com.fuint.common.service.MerchantService;
 import com.fuint.common.service.SettingService;
 import com.fuint.common.service.StoreService;
@@ -19,6 +17,7 @@ import com.fuint.common.util.CommonUtil;
 import com.fuint.common.util.RegexUtil;
 import com.fuint.framework.annoation.OperationServiceLog;
 import com.fuint.framework.exception.BusinessCheckException;
+import com.fuint.framework.pagination.PaginationRequest;
 import com.fuint.framework.pagination.PaginationResponse;
 import com.fuint.module.merchantApi.request.MerchantSettingParam;
 import com.fuint.repository.mapper.MtGoodsMapper;
@@ -75,24 +74,24 @@ public class MerchantServiceImpl extends ServiceImpl<MtMerchantMapper, MtMerchan
     /**
      * 分页查询商户列表
      *
-     * @param  merchantPage
+     * @param  paginationRequest
      * @return
      */
     @Override
-    public PaginationResponse<MerchantDto> queryMerchantListByPagination(MerchantPage merchantPage) {
-        Page<MtMerchant> pageHelper = PageHelper.startPage(merchantPage.getPage(), merchantPage.getPageSize());
+    public PaginationResponse<MerchantDto> queryMerchantListByPagination(PaginationRequest paginationRequest) {
+        Page<MtMerchant> pageHelper = PageHelper.startPage(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
         LambdaQueryWrapper<MtMerchant> lambdaQueryWrapper = Wrappers.lambdaQuery();
         lambdaQueryWrapper.ne(MtMerchant::getStatus, StatusEnum.DISABLE.getKey());
 
-        String name = merchantPage.getName();
+        String name = paginationRequest.getSearchParams().get("name") == null ? "" : paginationRequest.getSearchParams().get("name").toString();
         if (StringUtils.isNotBlank(name)) {
             lambdaQueryWrapper.like(MtMerchant::getName, name);
         }
-        String status = merchantPage.getStatus();
+        String status = paginationRequest.getSearchParams().get("status") == null ? "" : paginationRequest.getSearchParams().get("status").toString();
         if (StringUtils.isNotBlank(status)) {
             lambdaQueryWrapper.eq(MtMerchant::getStatus, status);
         }
-        String id = merchantPage.getId();
+        String id = paginationRequest.getSearchParams().get("id") == null ? "" : paginationRequest.getSearchParams().get("id").toString();
         if (StringUtils.isNotBlank(id)) {
             lambdaQueryWrapper.eq(MtMerchant::getId, id);
         }
@@ -109,7 +108,7 @@ public class MerchantServiceImpl extends ServiceImpl<MtMerchantMapper, MtMerchan
             }
         }
 
-        PageRequest pageRequest = PageRequest.of(merchantPage.getPage(), merchantPage.getPageSize());
+        PageRequest pageRequest = PageRequest.of(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
         PageImpl pageImpl = new PageImpl(dataList, pageRequest, pageHelper.getTotal());
         PaginationResponse<MerchantDto> paginationResponse = new PaginationResponse(pageImpl, MtMerchant.class);
         paginationResponse.setTotalPages(pageHelper.getPages());
@@ -252,7 +251,7 @@ public class MerchantServiceImpl extends ServiceImpl<MtMerchantMapper, MtMerchan
      * 更新商户状态
      *
      * @param  id       商户ID
-     * @param  accountInfo 操作人
+     * @param  operator 操作人
      * @param  status   状态
      * @throws BusinessCheckException
      * @return
@@ -260,13 +259,10 @@ public class MerchantServiceImpl extends ServiceImpl<MtMerchantMapper, MtMerchan
     @Override
     @Transactional
     @OperationServiceLog(description = "修改商户状态")
-    public void updateStatus(Integer id, AccountInfo accountInfo, String status) throws BusinessCheckException {
+    public void updateStatus(Integer id, String operator, String status) throws BusinessCheckException {
         MtMerchant mtMerchant = queryMerchantById(id);
         if (null == mtMerchant) {
             throw new BusinessCheckException("该商户不存在.");
-        }
-        if (accountInfo.getMerchantId() > 0 && !accountInfo.getMerchantId().equals(mtMerchant.getId())) {
-            throw new BusinessCheckException("不同商户，无操作权限.");
         }
 
         // 如果是删除，检查是否有商品等数据
@@ -287,7 +283,7 @@ public class MerchantServiceImpl extends ServiceImpl<MtMerchantMapper, MtMerchan
 
         mtMerchant.setStatus(status);
         mtMerchant.setUpdateTime(new Date());
-        mtMerchant.setOperator(accountInfo.getAccountName());
+        mtMerchant.setOperator(operator);
 
         mtMerchantMapper.updateById(mtMerchant);
     }

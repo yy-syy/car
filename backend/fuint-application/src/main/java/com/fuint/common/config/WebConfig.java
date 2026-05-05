@@ -10,8 +10,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.CssLinkResourceTransformer;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,16 +19,10 @@ import java.util.concurrent.TimeUnit;
  * CopyRight https://www.fuint.cn
  */
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Swagger 资源映射必须放在 /** 之前
-        registry.addResourceHandler("swagger-ui.html").addResourceLocations(
-                "classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations(
-                "classpath:/META-INF/resources/webjars/");
-
         registry.addResourceHandler("/resources/**")
                 .addResourceLocations("/resources/", "classpath:/other-resources/")
                 .setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS))
@@ -41,6 +33,11 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/**").addResourceLocations(
                 "classpath:/static/");
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations(
+                "classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations(
+                "classpath:/META-INF/resources/webjars/");
+        super.addResourceHandlers(registry);
     }
 
     @Bean
@@ -109,11 +106,5 @@ public class WebConfig implements WebMvcConfigurer {
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         return filter;
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        // 将 swagger-ui.html 重定向到 swagger-ui/
-        registry.addRedirectViewController("/swagger-ui.html", "/swagger-ui/");
     }
 }

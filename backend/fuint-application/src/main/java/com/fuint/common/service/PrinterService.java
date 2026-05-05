@@ -1,13 +1,11 @@
 package com.fuint.common.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.UserOrderDto;
 import com.fuint.common.param.PrinterPage;
-import com.fuint.framework.exception.BusinessCheckException;
 import com.fuint.framework.pagination.PaginationResponse;
 import com.fuint.repository.model.MtPrinter;
-
+import com.fuint.framework.exception.BusinessCheckException;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +68,7 @@ public interface PrinterService extends IService<MtPrinter> {
      * @throws BusinessCheckException
      * @return
      * */
-    MtPrinter updatePrinter(MtPrinter mtPrinter, AccountInfo accountInfo) throws BusinessCheckException;
+    MtPrinter updatePrinter(MtPrinter mtPrinter) throws BusinessCheckException;
 
     /**
      * 根据条件搜索打印机

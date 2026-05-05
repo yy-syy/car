@@ -4,8 +4,8 @@ import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.GoodsDto;
 import com.fuint.common.dto.GoodsSpecValueDto;
 import com.fuint.common.dto.GoodsTopDto;
-import com.fuint.common.param.GoodsListParam;
 import com.fuint.framework.exception.BusinessCheckException;
+import com.fuint.framework.pagination.PaginationRequest;
 import com.fuint.framework.pagination.PaginationResponse;
 import com.fuint.repository.model.MtGoods;
 import com.fuint.repository.model.MtGoodsSku;
@@ -28,21 +28,20 @@ public interface GoodsService {
     /**
      * 分页查询商品列表
      *
-     * @param  param
+     * @param  paginationRequest
      * @return
      */
-    PaginationResponse<GoodsDto> queryGoodsListByPagination(GoodsListParam param) throws BusinessCheckException;
+    PaginationResponse<GoodsDto> queryGoodsListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
     /**
      * 保存商品
      *
      * @param  reqDto 商品参数
      * @param  storeIds 分配店铺
-     * @param  accountInfo 登录用户信息
      * @throws BusinessCheckException
      * @return
      */
-    MtGoods saveGoods(MtGoods reqDto, String storeIds, AccountInfo accountInfo) throws BusinessCheckException;
+    MtGoods saveGoods(MtGoods reqDto, String storeIds) throws BusinessCheckException;
 
     /**
      * 根据ID获取商品信息
@@ -110,7 +109,7 @@ public interface GoodsService {
      * @param skuId
      * @return
      * */
-    List<GoodsSpecValueDto> getSpecListBySkuId(Integer skuId);
+    List<GoodsSpecValueDto> getSpecListBySkuId(Integer skuId) throws BusinessCheckException;
 
     /**
      * 获取规格详情

@@ -3,13 +3,12 @@ package com.fuint.common.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fuint.common.dto.AccountInfo;
+import com.fuint.common.Constants;
 import com.fuint.common.dto.OpenGiftDto;
 import com.fuint.common.enums.MessageEnum;
 import com.fuint.common.enums.StatusEnum;
 import com.fuint.common.enums.YesOrNoEnum;
 import com.fuint.common.param.CouponReceiveParam;
-import com.fuint.common.param.OpenGiftPage;
 import com.fuint.common.service.*;
 import com.fuint.common.util.DateUtil;
 import com.fuint.common.util.SeqUtil;
@@ -73,29 +72,32 @@ public class OpenGiftServiceImpl extends ServiceImpl<MtOpenGiftMapper, MtOpenGif
 
     /**
      * 获取开卡赠礼列表
-     *
-     * @param  openGiftPage
+     * @param  paramMap
+     * @throws BusinessCheckException
      * @return
      * */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResponseObject getOpenGiftList(OpenGiftPage openGiftPage) {
-        Page<MtOpenGift> pageHelper = PageHelper.startPage(openGiftPage.getPage(), openGiftPage.getPageSize());
+    public ResponseObject getOpenGiftList(Map<String, Object> paramMap) throws BusinessCheckException {
+        Integer pageNumber = paramMap.get("pageNumber") == null ? Constants.PAGE_NUMBER : Integer.parseInt(paramMap.get("pageNumber").toString());
+        Integer pageSize = paramMap.get("pageSize") == null ? Constants.PAGE_SIZE : Integer.parseInt(paramMap.get("pageSize").toString());
+
+        Page<MtOpenGift> pageHelper = PageHelper.startPage(pageNumber, pageSize);
         LambdaQueryWrapper<MtOpenGift> lambdaQueryWrapper = Wrappers.lambdaQuery();
         lambdaQueryWrapper.ne(MtOpenGift::getStatus, StatusEnum.DISABLE.getKey());
-        Integer merchantId = openGiftPage.getMerchantId();
-        if (merchantId != null && merchantId > 0) {
+        String merchantId = paramMap.get("merchantId") == null ? "" : paramMap.get("merchantId").toString();
+        if (StringUtils.isNotBlank(merchantId)) {
             lambdaQueryWrapper.eq(MtOpenGift::getMerchantId, merchantId);
         }
-        Integer couponId = openGiftPage.getCouponId();
-        if (couponId != null && couponId > 0) {
+        String couponId = paramMap.get("couponId") == null ? "" : paramMap.get("couponId").toString();
+        if (StringUtils.isNotBlank(couponId)) {
             lambdaQueryWrapper.eq(MtOpenGift::getCouponId, couponId);
         }
-        Integer gradeId = openGiftPage.getGradeId();
-        if (gradeId != null && gradeId > 0) {
-            lambdaQueryWrapper.eq(MtOpenGift::getGradeId, gradeId);
+        String gradeId = paramMap.get("gradeId") == null ? "" : paramMap.get("gradeId").toString();
+        if (StringUtils.isNotBlank(gradeId)) {
+            lambdaQueryWrapper.eq(MtOpenGift::getGradeId, Integer.parseInt(gradeId));
         }
-        String status = openGiftPage.getStatus();
+        String status = paramMap.get("status") == null ? "" : paramMap.get("status").toString();
         if (StringUtils.isNotBlank(status)) {
             lambdaQueryWrapper.eq(MtOpenGift::getStatus, status);
         }
@@ -104,11 +106,11 @@ public class OpenGiftServiceImpl extends ServiceImpl<MtOpenGiftMapper, MtOpenGif
         List<MtOpenGift> openGiftList = mtOpenGiftMapper.selectList(lambdaQueryWrapper);
         List<OpenGiftDto> dataList = new ArrayList<>();
         for (MtOpenGift item : openGiftList) {
-             OpenGiftDto dto = dealDetail(item);
-             dataList.add(dto);
+            OpenGiftDto dto = dealDetail(item);
+            dataList.add(dto);
         }
 
-        PageRequest pageRequest = PageRequest.of(openGiftPage.getPage(), openGiftPage.getPageSize());
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         PageImpl pageImpl = new PageImpl(dataList, pageRequest, pageHelper.getTotal());
         PaginationResponse<OpenGiftDto> paginationResponse = new PaginationResponse(pageImpl, OpenGiftDto.class);
         paginationResponse.setTotalPages(pageHelper.getPages());
@@ -148,10 +150,11 @@ public class OpenGiftServiceImpl extends ServiceImpl<MtOpenGiftMapper, MtOpenGif
      * 根据ID获取开卡赠礼详情
      *
      * @param  id 开卡赠礼ID
+     * @throws BusinessCheckException
      * @return
      */
     @Override
-    public OpenGiftDto getOpenGiftDetail(Integer id) {
+    public OpenGiftDto getOpenGiftDetail(Integer id) throws BusinessCheckException {
         MtOpenGift openGift = mtOpenGiftMapper.selectById(id);
         return dealDetail(openGift);
     }
@@ -160,45 +163,38 @@ public class OpenGiftServiceImpl extends ServiceImpl<MtOpenGiftMapper, MtOpenGif
      * 根据ID删除数据
      *
      * @param  id 开卡赠礼ID
-     * @param  accountInfo 操作人
+     * @param  operator 操作人
+     * @throws BusinessCheckException
      * @return
      */
     @Override
     @OperationServiceLog(description = "删除开卡赠礼")
-    public void deleteOpenGift(Integer id, AccountInfo accountInfo) throws BusinessCheckException {
-        MtOpenGift mtOpenGift = mtOpenGiftMapper.selectById(id);
-        if (null == mtOpenGift) {
+    public void deleteOpenGift(Integer id, String operator) {
+        MtOpenGift MtOpenGift = mtOpenGiftMapper.selectById(id);
+        if (null == MtOpenGift) {
             return;
         }
-        if (!accountInfo.getMerchantId().equals(mtOpenGift.getMerchantId())) {
-            throw new BusinessCheckException("不同商户，无操作权限");
-        }
 
-        mtOpenGift.setStatus(StatusEnum.DISABLE.getKey());
-        mtOpenGift.setUpdateTime(new Date());
-        mtOpenGift.setOperator(accountInfo.getAccountName());
+        MtOpenGift.setStatus(StatusEnum.DISABLE.getKey());
+        MtOpenGift.setUpdateTime(new Date());
 
-        mtOpenGiftMapper.updateById(mtOpenGift);
+        mtOpenGiftMapper.updateById(MtOpenGift);
     }
 
     /**
      * 更新开卡赠礼
      *
      * @param  reqDto 实体参数
-     * @param accountInfo 操作人
      * @throws BusinessCheckException
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     @OperationServiceLog(description = "更新开卡赠礼")
-    public MtOpenGift updateOpenGift(MtOpenGift reqDto, AccountInfo accountInfo) throws BusinessCheckException {
+    public MtOpenGift updateOpenGift(MtOpenGift reqDto) throws BusinessCheckException {
         MtOpenGift mtOpenGift = mtOpenGiftMapper.selectById(reqDto.getId());
         if (mtOpenGift == null) {
             throw new BusinessCheckException("该数据状态异常");
-        }
-        if (!mtOpenGift.getMerchantId().equals(accountInfo.getMerchantId())) {
-            throw new BusinessCheckException("不同商户，无操作权限");
         }
 
         mtOpenGift.setId(reqDto.getId());
@@ -243,13 +239,13 @@ public class OpenGiftServiceImpl extends ServiceImpl<MtOpenGiftMapper, MtOpenGif
      * @return
      * */
     @Override
-    public Boolean openGift(Integer userId, Integer gradeId, boolean isNewMember) {
+    public Boolean openGift(Integer userId, Integer gradeId, boolean isNewMember) throws BusinessCheckException {
         if (gradeId == null || gradeId.compareTo(0) <= 0) {
             return false;
         }
         MtUser user = mtUserMapper.selectById(userId);
         if (user == null) {
-            return false;
+            throw new BusinessCheckException("会员状态异常");
         }
         if (user.getIsStaff().equals(YesOrNoEnum.YES.getKey())) {
             return false;
@@ -309,10 +305,7 @@ public class OpenGiftServiceImpl extends ServiceImpl<MtOpenGiftMapper, MtOpenGif
                            param.setCouponId(item.getCouponId());
                            param.setUserId(userId);
                            param.setNum(item.getCouponNum() == null ? 1 : item.getCouponNum());
-                           AccountInfo accountInfo = new AccountInfo();
-                           accountInfo.setMerchantId(mtCoupon.getMerchantId());
-                           accountInfo.setAccountName("系统");
-                           ResponseObject result = couponService.sendCoupon(item.getCouponId(), userId, param.getNum(), true, SeqUtil.getUUID(), accountInfo);
+                           ResponseObject result = couponService.sendCoupon(item.getCouponId(), userId, param.getNum(), true, SeqUtil.getUUID(), "");
                            if (!result.getCode().equals(200)) {
                                logger.error("会员开卡赠礼赠送卡券失败：", result.getMessage());
                            }
@@ -350,9 +343,10 @@ public class OpenGiftServiceImpl extends ServiceImpl<MtOpenGiftMapper, MtOpenGif
      * 赠礼详情
      *
      * @param  openGiftInfo 赠礼详情
+     * @throws BusinessCheckException
      * @return OpenGiftDto
      * */
-    private OpenGiftDto dealDetail(MtOpenGift openGiftInfo) {
+    private OpenGiftDto dealDetail(MtOpenGift openGiftInfo) throws BusinessCheckException {
         OpenGiftDto dto = new OpenGiftDto();
 
         dto.setId(openGiftInfo.getId());

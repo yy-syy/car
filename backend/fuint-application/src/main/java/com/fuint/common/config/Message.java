@@ -1,23 +1,23 @@
 package com.fuint.common.config;
 
 /**
- * æ¶ˆæ¯å®šä¹‰
+ * ÏûÏ¢³£Á¿
  *
  * Created by FSQ
  * CopyRight https://www.fuint.cn
  */
 public class Message {
-    public static final String PARAM_ERROR = "å‚æ•°å‡ºé”™";
-    public static final String COUPON_NOT_EXIST = "è¯¥å¡åˆ¸ä¸å­˜åœ¨";
-    public static final String COUPON_IS_EXPIRE = "è¯¥å¡åˆ¸æœªç”Ÿæ•ˆ";
-    public static final String USER_NOT_EXIST = "è¯¥ç”¨æˆ·ä¸å­˜åœ¨";
-    public static final String MAX_COUPON_LIMIT = "å·²ç»é¢†å–è¿‡äº†";
-    public static final String COUPON_TYPE_ERROR = "å¡åˆ¸ç±»å‹æœ‰è¯¯";
-    public static final String POINT_LIMIT = "æ‚¨çš„ç§¯åˆ†ä¸è¶³";
-    public static final String NEED_CODE = "éœ€è¦é¢†å–ç ";
-    public static final String CODE_ERROR = "é¢†å–ç é”™è¯¯";
-    public static final String CODE_ERROR_1 = "æ ¸é”€ç é”™è¯¯";
-    public static final String GRADE_ERROR = "è¯¥å¡åˆ¸ä¸é€‚ç”¨äºæ‚¨çš„ä¼šå‘˜ç­‰çº§";
-    public static final String HAS_COUPON = "æ‚¨å·²é¢†å–è¿‡è¯¥å¡åˆ¸";
-    public static final String SEND_WAY_ERROR = "è¯¥å¡åˆ¸æ— æ³•é¢†å–";
+    public static final String PARAM_ERROR = "²ÎÊı´íÎó";
+    public static final String COUPON_NOT_EXIST = "ÓÅ»İÈ¯²»´æÔÚ";
+    public static final String COUPON_IS_EXPIRE = "ÓÅ»İÈ¯ÒÑ¹ıÆÚ";
+    public static final String USER_NOT_EXIST = "ÓÃ»§²»´æÔÚ";
+    public static final String MAX_COUPON_LIMIT = "ÒÑ´ïÁìÈ¡ÉÏÏŞ";
+    public static final String COUPON_TYPE_ERROR = "ÓÅ»İÈ¯ÀàĞÍ´íÎó";
+    public static final String POINT_LIMIT = "»ı·Ö²»×ã";
+    public static final String NEED_CODE = "ĞèÒªÁìÈ¡Âë";
+    public static final String CODE_ERROR = "ÁìÈ¡Âë´íÎó";
+    public static final String CODE_ERROR_1 = "ÁìÈ¡ÂëÒÑÊ¹ÓÃ";
+    public static final String GRADE_ERROR = "»áÔ±µÈ¼¶²»Âú×ãÁìÈ¡Ìõ¼ş";
+    public static final String HAS_COUPON = "¸ÃÓÅ»İÈ¯ÒÑÁìÈ¡";
+    public static final String SEND_WAY_ERROR = "·¢·Å·½Ê½Ñ¡Ôñ´íÎó";
 }

@@ -29,6 +29,8 @@ public interface MtUserCouponMapper extends BaseMapper<MtUserCoupon> {
 
     int removeUserCoupon(@Param("uuid") String uuid, @Param("couponIds") List<Integer> couponIds, @Param("operator") String operator);
 
+    List<MtUserCoupon> queryExpireNumByGroupId(@Param("groupId") Integer groupId);
+
     List<Integer> getCouponIdsByUuid(@Param("uuid") String uuid);
 
     List<MtUserCoupon> findUserCouponDetail(@Param("couponId") Integer couponId, @Param("userId") Integer userId);

@@ -40,16 +40,7 @@ public class GoodsListParam extends PageParam implements Serializable {
     @ApiModelProperty(value="是否有库存", name="stock")
     private String stock;
 
-    @ApiModelProperty(value="是否有价格", name="hasPrice")
-    private String hasPrice;
-
     @ApiModelProperty(value="商品分类", name="cateId")
     private Integer cateId;
-
-    @ApiModelProperty(value="排序方式", name="sortType")
-    private String sortType;
-
-    @ApiModelProperty(value="按价格排序", name="sortPrice")
-    private String sortPrice;
 
 }

@@ -114,7 +114,7 @@ public class BackendCommissionRuleController extends BaseController {
         commissionRule.setOperator(accountInfo.getAccountName());
         commissionRule.setId(id);
         commissionRule.setStatus(status);
-        commissionRuleService.updateCommissionRule(commissionRule, accountInfo);
+        commissionRuleService.updateCommissionRule(commissionRule);
 
         return getSuccessResult(true);
     }
@@ -136,7 +136,7 @@ public class BackendCommissionRuleController extends BaseController {
         }
         commissionRule.setOperator(accountInfo.getAccountName());
         if (commissionRule.getId() != null && commissionRule.getId() > 0) {
-            commissionRuleService.updateCommissionRule(commissionRule, accountInfo);
+            commissionRuleService.updateCommissionRule(commissionRule);
         } else {
             commissionRuleService.addCommissionRule(commissionRule);
         }

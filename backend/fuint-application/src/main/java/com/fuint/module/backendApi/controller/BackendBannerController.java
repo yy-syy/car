@@ -99,7 +99,7 @@ public class BackendBannerController extends BaseController {
         bannerDto.setOperator(accountInfo.getAccountName());
         bannerDto.setId(id);
         bannerDto.setStatus(status);
-        bannerService.updateBanner(bannerDto, accountInfo);
+        bannerService.updateBanner(bannerDto);
 
         return getSuccessResult(true);
     }
@@ -121,7 +121,7 @@ public class BackendBannerController extends BaseController {
             bannerDto.setStoreId(accountInfo.getStoreId());
         }
         if (bannerDto.getId() != null && bannerDto.getId() > 0) {
-            bannerService.updateBanner(bannerDto, accountInfo);
+            bannerService.updateBanner(bannerDto);
         } else {
             bannerService.addBanner(bannerDto);
         }

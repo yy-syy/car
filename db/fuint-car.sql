@@ -1,5 +1,11 @@
 /*Table structure for table `mt_address` */
 
+CREATE DATABASE IF NOT EXISTS `car`
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+use car;
+
 DROP TABLE IF EXISTS `mt_address`;
 
 CREATE TABLE `mt_address` (
@@ -632,7 +638,6 @@ CREATE TABLE `mt_order` (
   `CONFIRM_TIME` datetime DEFAULT NULL COMMENT '核销时间',
   `CONFIRM_REMARK` varchar(500) DEFAULT NULL COMMENT '核销备注',
   `COMMISSION_STATUS` char(1) DEFAULT 'A' COMMENT '分佣提成计算状态',
-  `COMMISSION_STATUS` char(1) DEFAULT 'A' COMMENT '分佣提成计算状态',
   `OPERATOR` varchar(30) DEFAULT '' COMMENT '最后操作人',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2160 DEFAULT CHARSET=utf8 COMMENT='订单表';
@@ -916,8 +921,8 @@ CREATE TABLE `mt_store` (
   `WX_API_V2` varchar(32) DEFAULT '' COMMENT '微信支付APIv2密钥',
   `WX_CERT_PATH` varchar(255) DEFAULT '' COMMENT '微信支付证书',
   `ALIPAY_APP_ID` varchar(100) DEFAULT '' COMMENT '支付宝appId',
-  `ALIPAY_PRIVATE_KEY` varchar(5000) DEFAULT '' COMMENT '支付宝应用私钥',
-  `ALIPAY_PUBLIC_KEY` varchar(5000) DEFAULT '' COMMENT '支付宝应用公钥',
+  `ALIPAY_PRIVATE_KEY` text COMMENT '支付宝应用私钥',
+  `ALIPAY_PUBLIC_KEY` text  COMMENT '支付宝应用公钥',
   `PHONE` varchar(20) DEFAULT '' COMMENT '联系电话',
   `ADDRESS` varchar(100) DEFAULT '' COMMENT '地址',
   `LATITUDE` varchar(30) DEFAULT '' COMMENT '经度',
@@ -929,13 +934,13 @@ CREATE TABLE `mt_store` (
   `BANK_NAME` varchar(100) DEFAULT '' COMMENT '银行名称',
   `BANK_CARD_NAME` varchar(100) DEFAULT '' COMMENT '银行卡账户名',
   `BANK_CARD_NO` varchar(100) DEFAULT '' COMMENT '银行卡卡号',
-  `DESCRIPTION` varchar(2000) DEFAULT '' COMMENT '备注信息',
+  `DESCRIPTION` text COMMENT '备注信息',
   `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   `STATUS` char(1) DEFAULT 'A' COMMENT '状态，A：有效/启用；D：无效',
   `OPERATOR` varchar(30) DEFAULT '' COMMENT '最后操作人',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='店铺表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='店铺表';
 
 /*Table structure for table `mt_store_goods` */
 

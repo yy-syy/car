@@ -23,7 +23,7 @@ public interface StaffService extends IService<MtStaff> {
      * @param paginationRequest
      * @return
      */
-    PaginationResponse<MtStaff> queryStaffListByPagination(PaginationRequest paginationRequest);
+    PaginationResponse<MtStaff> queryStaffListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
     /**
      * 保存员工信息
@@ -39,9 +39,9 @@ public interface StaffService extends IService<MtStaff> {
      * 根据ID获取店铺信息
      *
      * @param  id 员工id
-     * @return
+     * @throws BusinessCheckException
      */
-    MtStaff queryStaffById(Integer id);
+    MtStaff queryStaffById(Integer id) throws BusinessCheckException;
 
     /**
      * 审核更改状态(禁用，审核通过)
@@ -49,9 +49,10 @@ public interface StaffService extends IService<MtStaff> {
      * @param staffId 员工ID
      * @param status 状态
      * @param operator 操作人
+     * @throws BusinessCheckException
      * @return
      */
-    Integer updateAuditedStatus(Integer staffId, String status, String operator);
+    Integer updateAuditedStatus(Integer staffId, String status, String operator) throws BusinessCheckException;
 
     /**
      * 根据条件搜索员工
@@ -59,29 +60,32 @@ public interface StaffService extends IService<MtStaff> {
      * @param params 请求参数
      * @return
      * */
-    List<MtStaff> queryStaffByParams(Map<String, Object> params);
+    List<MtStaff> queryStaffByParams(Map<String, Object> params) throws BusinessCheckException;
 
     /**
      * 根据手机号获取员工信息
      *
      * @param  mobile 手机
+     * @throws BusinessCheckException
      * @return
      */
-    MtStaff queryStaffByMobile(String mobile);
+    MtStaff queryStaffByMobile(String mobile) throws BusinessCheckException;
 
     /**
      * 根据会员ID获取员工信息
      *
      * @param userId 会员ID
+     * @throws BusinessCheckException
      * @return
      */
-    MtStaff queryStaffByUserId(Integer userId);
+    MtStaff queryStaffByUserId(Integer userId) throws BusinessCheckException;
 
     /**
      * 根据手机号获取员工信息
      *
      * @param  mobile 手机
+     * @throws BusinessCheckException
      * @return
      */
-    StaffDto getStaffInfoByMobile(String mobile);
+    StaffDto getStaffInfoByMobile(String mobile) throws BusinessCheckException;
 }

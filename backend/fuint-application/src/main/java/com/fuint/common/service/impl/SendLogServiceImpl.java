@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fuint.common.dto.ReqSendLogDto;
 import com.fuint.common.enums.StatusEnum;
-import com.fuint.common.param.SendLogPage;
 import com.fuint.common.service.SendLogService;
 import com.fuint.framework.exception.BusinessCheckException;
+import com.fuint.framework.pagination.PaginationRequest;
 import com.fuint.framework.pagination.PaginationResponse;
 import com.fuint.repository.mapper.MtSendLogMapper;
 import com.fuint.repository.model.MtSendLog;
@@ -38,36 +38,36 @@ public class SendLogServiceImpl extends ServiceImpl<MtSendLogMapper, MtSendLog> 
     /**
      * 分页查询列表
      *
-     * @param sendLogPage
+     * @param paginationRequest
      * @return
      */
     @Override
-    public PaginationResponse<MtSendLog> querySendLogListByPagination(SendLogPage sendLogPage) {
-        Page<MtSendLog> pageHelper = PageHelper.startPage(sendLogPage.getPage(), sendLogPage.getPageSize());
+    public PaginationResponse<MtSendLog> querySendLogListByPagination(PaginationRequest paginationRequest) {
+        Page<MtSendLog> pageHelper = PageHelper.startPage(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
         LambdaQueryWrapper<MtSendLog> lambdaQueryWrapper = Wrappers.lambdaQuery();
         lambdaQueryWrapper.ne(MtSendLog::getStatus, StatusEnum.DISABLE.getKey());
 
-        String status = sendLogPage.getStatus();
+        String status = paginationRequest.getSearchParams().get("status") == null ? "" : paginationRequest.getSearchParams().get("status").toString();
         if (StringUtils.isNotBlank(status)) {
             lambdaQueryWrapper.eq(MtSendLog::getStatus, status);
         }
-        Integer userId = sendLogPage.getUserId();
-        if (userId != null && userId > 0) {
+        String userId = paginationRequest.getSearchParams().get("userId") == null ? "" : paginationRequest.getSearchParams().get("userId").toString();
+        if (StringUtils.isNotBlank(userId)) {
             lambdaQueryWrapper.eq(MtSendLog::getUserId, userId);
         }
-        Integer merchantId = sendLogPage.getMerchantId();
-        if (merchantId != null && merchantId > 0) {
+        String merchantId = paginationRequest.getSearchParams().get("merchantId") == null ? "" : paginationRequest.getSearchParams().get("merchantId").toString();
+        if (StringUtils.isNotBlank(merchantId)) {
             lambdaQueryWrapper.eq(MtSendLog::getMerchantId, merchantId);
         }
-        Integer storeId = sendLogPage.getStoreId();
-        if (storeId != null && storeId > 0) {
+        String storeId = paginationRequest.getSearchParams().get("storeId") == null ? "" : paginationRequest.getSearchParams().get("storeId").toString();
+        if (StringUtils.isNotBlank(storeId)) {
             lambdaQueryWrapper.eq(MtSendLog::getStoreId, storeId);
         }
-        Integer couponId = sendLogPage.getCouponId();
-        if (couponId != null && couponId > 0) {
+        String couponId = paginationRequest.getSearchParams().get("couponId") == null ? "" : paginationRequest.getSearchParams().get("couponId").toString();
+        if (StringUtils.isNotBlank(couponId)) {
             lambdaQueryWrapper.eq(MtSendLog::getCouponId, couponId);
         }
-        String mobile = sendLogPage.getMobile();
+        String mobile = paginationRequest.getSearchParams().get("mobile") == null ? "" : paginationRequest.getSearchParams().get("mobile").toString();
         if (StringUtils.isNotBlank(mobile)) {
             lambdaQueryWrapper.eq(MtSendLog::getMobile, mobile);
         }
@@ -75,7 +75,7 @@ public class SendLogServiceImpl extends ServiceImpl<MtSendLogMapper, MtSendLog> 
         lambdaQueryWrapper.orderByDesc(MtSendLog::getId);
         List<MtSendLog> dataList = mtSendLogMapper.selectList(lambdaQueryWrapper);
 
-        PageRequest pageRequest = PageRequest.of(sendLogPage.getPage(), sendLogPage.getPageSize());
+        PageRequest pageRequest = PageRequest.of(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
         PageImpl pageImpl = new PageImpl(dataList, pageRequest, pageHelper.getTotal());
         PaginationResponse<MtSendLog> paginationResponse = new PaginationResponse(pageImpl, MtSendLog.class);
         paginationResponse.setTotalPages(pageHelper.getPages());

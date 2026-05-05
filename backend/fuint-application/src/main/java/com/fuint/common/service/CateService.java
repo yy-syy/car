@@ -1,7 +1,6 @@
 package com.fuint.common.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.GoodsCateDto;
 import com.fuint.common.param.GoodsCatePage;
 import com.fuint.framework.exception.BusinessCheckException;
@@ -55,11 +54,10 @@ public interface CateService extends IService<MtGoodsCate> {
     /**
      * 更新分类
      * @param  reqDto 分类参数
-     * @param  accountInfo 登录用户信息
      * @throws BusinessCheckException
      * @return
      * */
-    MtGoodsCate updateCate(MtGoodsCate reqDto, AccountInfo accountInfo) throws BusinessCheckException;
+    MtGoodsCate updateCate(MtGoodsCate reqDto) throws BusinessCheckException;
 
     /**
      * 获取分类列表

@@ -93,7 +93,7 @@
     "vue-template-compiler": "2.6.12"
   },
   "engines": {
-    "node": ">=16.0.0 <=20.x",
+    "node": ">=16.0.0",
     "npm": ">= 6.0.0"
   },
   "browserslist": [

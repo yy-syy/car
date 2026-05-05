@@ -3,7 +3,6 @@ package com.fuint.common.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fuint.common.dto.AccountInfo;
 import com.fuint.common.dto.CommissionLogDto;
 import com.fuint.common.dto.OrderUserDto;
 import com.fuint.common.enums.*;
@@ -86,7 +85,7 @@ public class CommissionLogServiceImpl extends ServiceImpl<MtCommissionLogMapper,
      * @return
      */
     @Override
-    public PaginationResponse<CommissionLogDto> queryCommissionLogByPagination(CommissionLogPage commissionLogPage) {
+    public PaginationResponse<CommissionLogDto> queryCommissionLogByPagination(CommissionLogPage commissionLogPage) throws BusinessCheckException {
         LambdaQueryWrapper<MtCommissionLog> lambdaQueryWrapper = Wrappers.lambdaQuery();
         lambdaQueryWrapper.ne(MtCommissionLog::getStatus, StatusEnum.DISABLE.getKey());
         String target = commissionLogPage.getTarget();
@@ -304,14 +303,11 @@ public class CommissionLogServiceImpl extends ServiceImpl<MtCommissionLogMapper,
     @Override
     @Transactional
     @OperationServiceLog(description = "更新分销提成记录")
-    public void updateCommissionLog(CommissionLogRequest requestParam, AccountInfo accountInfo) throws BusinessCheckException {
+    public void updateCommissionLog(CommissionLogRequest requestParam) throws BusinessCheckException {
         MtCommissionLog mtCommissionLog =  mtCommissionLogMapper.selectById(requestParam.getId());
         if (mtCommissionLog == null) {
             logger.error("更新分销提成记录失败...");
             throw new BusinessCheckException("更新分销提成记录失败，该记录不存在");
-        }
-        if (accountInfo.getMerchantId() > 0 && !mtCommissionLog.getMerchantId().equals(accountInfo.getMerchantId())) {
-            throw new BusinessCheckException("不同商户，没有操作权限");
         }
         if (requestParam.getAmount() != null) {
             mtCommissionLog.setAmount(new BigDecimal(requestParam.getAmount()));
