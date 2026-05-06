@@ -2,16 +2,16 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="³µÅÆºÅ">
-          <el-input v-model="searchForm.licensePlate" placeholder="ÇëÊäÈë³µÅÆºÅ" style="width: 150px;" />
+        <el-form-item label="è½¦ç‰Œå·">
+          <el-input v-model="searchForm.licensePlate" placeholder="è¯·è¾“å…¥è½¦ç‰Œå·" style="width: 150px;" />
         </el-form-item>
-        <el-form-item label="»áÔ±ĞÕÃû">
-          <el-input v-model="searchForm.realName" placeholder="ÇëÊäÈë»áÔ±ĞÕÃû" style="width: 150px;" />
+        <el-form-item label="ä¼šå‘˜å§“å">
+          <el-input v-model="searchForm.realName" placeholder="è¯·è¾“å…¥ä¼šå‘˜å§“å" style="width: 150px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
-          <el-button type="success" @click="handleAdd">ĞÂÔö³µÁ¾</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
+          <el-button type="success" @click="handleAdd">æ–°å¢è½¦è¾†</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -23,17 +23,17 @@
         border
         stripe
       >
-        <el-table-column prop="licensePlate" label="³µÅÆºÅ" width="120" />
-        <el-table-column prop="realName" label="»áÔ±ĞÕÃû" width="120" />
-        <el-table-column prop="mobile" label="ÊÖ»úºÅÂë" width="130" />
-        <el-table-column prop="vehicleType" label="³µĞÍ" width="120" />
-        <el-table-column prop="brand" label="Æ·ÅÆ" width="120" />
-        <el-table-column prop="color" label="ÑÕÉ«" width="100" />
-        <el-table-column prop="createTime" label="´´½¨Ê±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="licensePlate" label="è½¦ç‰Œå·" width="120" />
+        <el-table-column prop="realName" label="ä¼šå‘˜å§“å" width="120" />
+        <el-table-column prop="mobile" label="æ‰‹æœºå·ç " width="130" />
+        <el-table-column prop="vehicleType" label="è½¦å‹" width="120" />
+        <el-table-column prop="brand" label="å“ç‰Œ" width="120" />
+        <el-table-column prop="color" label="é¢œè‰²" width="100" />
+        <el-table-column prop="createTime" label="åˆ›å»ºæ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">±à¼­</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">É¾³ı</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row)">ç¼–è¾‘</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">åˆ é™¤</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -50,28 +50,28 @@
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="600px">
       <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="³µÅÆºÅ" prop="licensePlate">
-          <el-input v-model="formData.licensePlate" placeholder="ÇëÊäÈë³µÅÆºÅ" />
+        <el-form-item label="è½¦ç‰Œå·" prop="licensePlate">
+          <el-input v-model="formData.licensePlate" placeholder="è¯·è¾“å…¥è½¦ç‰Œå·" />
         </el-form-item>
-        <el-form-item label="»áÔ±ĞÕÃû" prop="realName">
-          <el-input v-model="formData.realName" placeholder="ÇëÊäÈë»áÔ±ĞÕÃû" />
+        <el-form-item label="ä¼šå‘˜å§“å" prop="realName">
+          <el-input v-model="formData.realName" placeholder="è¯·è¾“å…¥ä¼šå‘˜å§“å" />
         </el-form-item>
-        <el-form-item label="ÊÖ»úºÅÂë" prop="mobile">
-          <el-input v-model="formData.mobile" placeholder="ÇëÊäÈëÊÖ»úºÅÂë" />
+        <el-form-item label="æ‰‹æœºå·ç " prop="mobile">
+          <el-input v-model="formData.mobile" placeholder="è¯·è¾“å…¥æ‰‹æœºå·ç " />
         </el-form-item>
-        <el-form-item label="³µĞÍ" prop="vehicleType">
-          <el-input v-model="formData.vehicleType" placeholder="ÇëÊäÈë³µĞÍ" />
+        <el-form-item label="è½¦å‹" prop="vehicleType">
+          <el-input v-model="formData.vehicleType" placeholder="è¯·è¾“å…¥è½¦å‹" />
         </el-form-item>
-        <el-form-item label="Æ·ÅÆ" prop="brand">
-          <el-input v-model="formData.brand" placeholder="ÇëÊäÈëÆ·ÅÆ" />
+        <el-form-item label="å“ç‰Œ" prop="brand">
+          <el-input v-model="formData.brand" placeholder="è¯·è¾“å…¥å“ç‰Œ" />
         </el-form-item>
-        <el-form-item label="ÑÕÉ«" prop="color">
-          <el-input v-model="formData.color" placeholder="ÇëÊäÈëÑÕÉ«" />
+        <el-form-item label="é¢œè‰²" prop="color">
+          <el-input v-model="formData.color" placeholder="è¯·è¾“å…¥é¢œè‰²" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">È¡Ïû</el-button>
-        <el-button type="primary" @click="handleSubmit">È·¶¨</el-button>
+        <el-button @click="dialogVisible = false">å–æ¶ˆ</el-button>
+        <el-button type="primary" @click="handleSubmit">ç¡®å®š</el-button>
       </div>
     </el-dialog>
   </div>
@@ -107,9 +107,9 @@ export default {
         color: ''
       },
       formRules: {
-        licensePlate: [{ required: true, message: 'ÇëÊäÈë³µÅÆºÅ', trigger: 'blur' }],
-        realName: [{ required: true, message: 'ÇëÊäÈë»áÔ±ĞÕÃû', trigger: 'blur' }],
-        mobile: [{ required: true, message: 'ÇëÊäÈëÊÖ»úºÅÂë', trigger: 'blur' }]
+        licensePlate: [{ required: true, message: 'è¯·è¾“å…¥è½¦ç‰Œå·', trigger: 'blur' }],
+        realName: [{ required: true, message: 'è¯·è¾“å…¥ä¼šå‘˜å§“å', trigger: 'blur' }],
+        mobile: [{ required: true, message: 'è¯·è¾“å…¥æ‰‹æœºå·ç ', trigger: 'blur' }]
       }
     }
   },
@@ -136,22 +136,22 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = 'ĞÂÔö³µÁ¾'
+      this.dialogTitle = 'æ–°å¢è½¦è¾†'
       this.formData = { id: '', licensePlate: '', realName: '', mobile: '', vehicleType: '', brand: '', color: '' }
       this.dialogVisible = true
     },
     handleEdit(row) {
-      this.dialogTitle = '±à¼­³µÁ¾'
+      this.dialogTitle = 'ç¼–è¾‘è½¦è¾†'
       this.formData = { ...row }
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('È·¶¨ÒªÉ¾³ıÕâÌõ¼ÇÂ¼Âğ£¿', 'ÌáÊ¾', {
-        confirmButtonText: 'È·¶¨',
-        cancelButtonText: 'È¡Ïû'
+      this.$confirm('ç¡®å®šè¦åˆ é™¤è¿™æ¡è®°å½•å—ï¼Ÿ', 'æç¤º', {
+        confirmButtonText: 'ç¡®å®š',
+        cancelButtonText: 'å–æ¶ˆ'
       }).then(() => {
         deleteVehicle(row.id).then(() => {
-          this.$message.success('É¾³ı³É¹¦')
+          this.$message.success('åˆ é™¤æˆåŠŸ')
           this.fetchData()
         })
       })
@@ -161,7 +161,7 @@ export default {
         if (valid) {
           const api = this.formData.id ? updateVehicle : addVehicle
           api(this.formData).then(() => {
-            this.$message.success(this.formData.id ? 'ĞŞ¸Ä³É¹¦' : 'ĞÂÔö³É¹¦')
+            this.$message.success(this.formData.id ? 'ä¿®æ”¹æˆåŠŸ' : 'æ–°å¢æˆåŠŸ')
             this.dialogVisible = false
             this.fetchData()
           })

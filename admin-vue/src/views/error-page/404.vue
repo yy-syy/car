@@ -1,9 +1,9 @@
 <template>
   <div class="error-page">
     <div class="error-code">404</div>
-    <div class="error-desc">抱歉，您访问的页面不存在</div>
+    <div class="error-desc">鎶辨瓑锛屾偍璁块棶鐨勯〉闈笉瀛樺湪</div>
     <div class="error-handle">
-      <el-button type="primary" size="medium" @click="goHome">返回首页</el-button>
+      <el-button type="primary" size="medium" @click="goHome">杩斿洖棣栭〉</el-button>
     </div>
   </div>
 </template>

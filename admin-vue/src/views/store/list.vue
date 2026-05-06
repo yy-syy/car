@@ -2,13 +2,13 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ÃÅµêÃû³Æ">
-          <el-input v-model="searchForm.storeName" placeholder="ÇëÊäÈëÃÅµêÃû³Æ" style="width: 200px;" />
+        <el-form-item label="é—¨åº—åç§°">
+          <el-input v-model="searchForm.storeName" placeholder="è¯·è¾“å…¥é—¨åº—åç§°" style="width: 200px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
-          <el-button type="success" @click="handleAdd">ĞÂÔöÃÅµê</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
+          <el-button type="success" @click="handleAdd">æ–°å¢é—¨åº—</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -20,22 +20,22 @@
         border
         stripe
       >
-        <el-table-column prop="storeName" label="ÃÅµêÃû³Æ" />
-        <el-table-column prop="address" label="µØÖ·" />
-        <el-table-column prop="contact" label="ÁªÏµÈË" width="100" />
-        <el-table-column prop="phone" label="ÁªÏµµç»°" width="130" />
-        <el-table-column prop="status" label="×´Ì¬" width="100">
+        <el-table-column prop="storeName" label="é—¨åº—åç§°" />
+        <el-table-column prop="address" label="åœ°å€" />
+        <el-table-column prop="contact" label="è”ç³»äºº" width="100" />
+        <el-table-column prop="phone" label="è”ç³»ç”µè¯" width="130" />
+        <el-table-column prop="status" label="çŠ¶æ€" width="100">
           <template slot-scope="scope">
             <el-tag :type="scope.row.status === 'ENABLE' ? 'success' : 'danger'">
-              {{ scope.row.status === 'ENABLE' ? 'ÆôÓÃ' : '½ûÓÃ' }}
+              {{ scope.row.status === 'ENABLE' ? 'å¯ç”¨' : 'ç¦ç”¨' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="´´½¨Ê±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="createTime" label="åˆ›å»ºæ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">±à¼­</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">É¾³ı</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row)">ç¼–è¾‘</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">åˆ é™¤</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -52,28 +52,28 @@
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="600px">
       <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="ÃÅµêÃû³Æ" prop="storeName">
-          <el-input v-model="formData.storeName" placeholder="ÇëÊäÈëÃÅµêÃû³Æ" />
+        <el-form-item label="é—¨åº—åç§°" prop="storeName">
+          <el-input v-model="formData.storeName" placeholder="è¯·è¾“å…¥é—¨åº—åç§°" />
         </el-form-item>
-        <el-form-item label="µØÖ·" prop="address">
-          <el-input v-model="formData.address" placeholder="ÇëÊäÈëµØÖ·" />
+        <el-form-item label="åœ°å€" prop="address">
+          <el-input v-model="formData.address" placeholder="è¯·è¾“å…¥åœ°å€" />
         </el-form-item>
-        <el-form-item label="ÁªÏµÈË" prop="contact">
-          <el-input v-model="formData.contact" placeholder="ÇëÊäÈëÁªÏµÈË" />
+        <el-form-item label="è”ç³»äºº" prop="contact">
+          <el-input v-model="formData.contact" placeholder="è¯·è¾“å…¥è”ç³»äºº" />
         </el-form-item>
-        <el-form-item label="ÁªÏµµç»°" prop="phone">
-          <el-input v-model="formData.phone" placeholder="ÇëÊäÈëÁªÏµµç»°" />
+        <el-form-item label="è”ç³»ç”µè¯" prop="phone">
+          <el-input v-model="formData.phone" placeholder="è¯·è¾“å…¥è”ç³»ç”µè¯" />
         </el-form-item>
-        <el-form-item label="ÃÅµêÃèÊö">
-          <el-input v-model="formData.description" type="textarea" :rows="3" placeholder="ÇëÊäÈëÃÅµêÃèÊö" />
+        <el-form-item label="é—¨åº—æè¿°">
+          <el-input v-model="formData.description" type="textarea" :rows="3" placeholder="è¯·è¾“å…¥é—¨åº—æè¿°" />
         </el-form-item>
-        <el-form-item label="×´Ì¬">
+        <el-form-item label="çŠ¶æ€">
           <el-switch v-model="formData.status" active-value="ENABLE" inactive-value="DISABLE" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">È¡Ïû</el-button>
-        <el-button type="primary" @click="handleSubmit">È·¶¨</el-button>
+        <el-button @click="dialogVisible = false">å–æ¶ˆ</el-button>
+        <el-button type="primary" @click="handleSubmit">ç¡®å®š</el-button>
       </div>
     </el-dialog>
   </div>
@@ -108,9 +108,9 @@ export default {
         status: 'ENABLE'
       },
       formRules: {
-        storeName: [{ required: true, message: 'ÇëÊäÈëÃÅµêÃû³Æ', trigger: 'blur' }],
-        address: [{ required: true, message: 'ÇëÊäÈëµØÖ·', trigger: 'blur' }],
-        phone: [{ required: true, message: 'ÇëÊäÈëÁªÏµµç»°', trigger: 'blur' }]
+        storeName: [{ required: true, message: 'è¯·è¾“å…¥é—¨åº—åç§°', trigger: 'blur' }],
+        address: [{ required: true, message: 'è¯·è¾“å…¥åœ°å€', trigger: 'blur' }],
+        phone: [{ required: true, message: 'è¯·è¾“å…¥è”ç³»ç”µè¯', trigger: 'blur' }]
       }
     }
   },
@@ -137,22 +137,22 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = 'ĞÂÔöÃÅµê'
+      this.dialogTitle = 'æ–°å¢é—¨åº—'
       this.formData = { id: '', storeName: '', address: '', contact: '', phone: '', description: '', status: 'ENABLE' }
       this.dialogVisible = true
     },
     handleEdit(row) {
-      this.dialogTitle = '±à¼­ÃÅµê'
+      this.dialogTitle = 'ç¼–è¾‘é—¨åº—'
       this.formData = { ...row }
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('È·¶¨ÒªÉ¾³ıÕâÌõ¼ÇÂ¼Âğ£¿', 'ÌáÊ¾', {
-        confirmButtonText: 'È·¶¨',
-        cancelButtonText: 'È¡Ïû'
+      this.$confirm('ç¡®å®šè¦åˆ é™¤è¿™æ¡è®°å½•å—ï¼Ÿ', 'æç¤º', {
+        confirmButtonText: 'ç¡®å®š',
+        cancelButtonText: 'å–æ¶ˆ'
       }).then(() => {
         deleteStore(row.id).then(() => {
-          this.$message.success('É¾³ı³É¹¦')
+          this.$message.success('åˆ é™¤æˆåŠŸ')
           this.fetchData()
         })
       })
@@ -162,7 +162,7 @@ export default {
         if (valid) {
           const api = this.formData.id ? updateStore : addStore
           api(this.formData).then(() => {
-            this.$message.success(this.formData.id ? 'ĞŞ¸Ä³É¹¦' : 'ĞÂÔö³É¹¦')
+            this.$message.success(this.formData.id ? 'ä¿®æ”¹æˆåŠŸ' : 'æ–°å¢æˆåŠŸ')
             this.dialogVisible = false
             this.fetchData()
           })

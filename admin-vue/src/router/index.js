@@ -22,13 +22,13 @@ export const constantRoutes = [
   {
     path: '/',
     component: () => import('@/layout/index'),
-    redirect: '/dashboard',
+    redirect: '/index',
     children: [
       {
-        path: 'dashboard',
+        path: 'index',
         component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Ê×Ò³', icon: 'dashboard', affix: true }
+        name: 'Index',
+        meta: { title: 'ç³»ç»Ÿé¦–é¡µ', icon: 'dashboard', affix: true }
       }
     ]
   }
@@ -36,120 +36,40 @@ export const constantRoutes = [
 
 export const asyncRoutes = [
   {
-    path: '/member',
+    path: '/store',
     component: () => import('@/layout/index'),
-    name: 'Member',
-    meta: { title: '»áÔ±¹ÜÀí', icon: 'user' },
+    name: 'Store',
+    meta: { title: 'åº—é“ºç®¡ç†', icon: 'store' },
     children: [
       {
         path: 'list',
-        component: () => import('@/views/member/list'),
-        name: 'MemberList',
-        meta: { title: '»áÔ±ÁĞ±í', icon: 'list' }
+        component: () => import('@/views/store/list'),
+        name: 'StoreList',
+        meta: { title: 'åº—é“ºåˆ—è¡¨', icon: 'list' }
       },
       {
-        path: 'group',
-        component: () => import('@/views/member/group'),
-        name: 'MemberGroup',
-        meta: { title: '»áÔ±·Ö×é', icon: 'peoples' }
+        path: 'staff',
+        component: () => import('@/views/store/staff'),
+        name: 'StoreStaff',
+        meta: { title: 'å‘˜å·¥ç®¡ç†', icon: 'peoples' }
       },
       {
-        path: 'grade',
-        component: () => import('@/views/member/grade'),
-        name: 'MemberGrade',
-        meta: { title: '»áÔ±µÈ¼¶', icon: 'component' }
-      }
-    ]
-  },
-  {
-    path: '/order',
-    component: () => import('@/layout/index'),
-    name: 'Order',
-    meta: { title: '¶©µ¥¹ÜÀí', icon: 'shopping' },
-    children: [
-      {
-        path: 'list',
-        component: () => import('@/views/order/list'),
-        name: 'OrderList',
-        meta: { title: '¶©µ¥ÁĞ±í', icon: 'list' }
+        path: 'booking',
+        component: () => import('@/views/store/booking'),
+        name: 'StoreBooking',
+        meta: { title: 'é¢„çº¦ç®¡ç†', icon: 'book' }
       },
       {
-        path: 'refund',
-        component: () => import('@/views/order/refund'),
-        name: 'OrderRefund',
-        meta: { title: 'ÍË¿î¹ÜÀí', icon: 'edit' }
-      }
-    ]
-  },
-  {
-    path: '/goods',
-    component: () => import('@/layout/index'),
-    name: 'Goods',
-    meta: { title: 'ÉÌÆ·¹ÜÀí', icon: 'goods' },
-    children: [
-      {
-        path: 'list',
-        component: () => import('@/views/goods/list'),
-        name: 'GoodsList',
-        meta: { title: 'ÉÌÆ·ÁĞ±í', icon: 'list' }
+        path: 'booking-record',
+        component: () => import('@/views/store/bookingRecord'),
+        name: 'StoreBookingRecord',
+        meta: { title: 'é¢„çº¦è®°å½•', icon: 'list' }
       },
       {
-        path: 'category',
-        component: () => import('@/views/goods/category'),
-        name: 'GoodsCategory',
-        meta: { title: 'ÉÌÆ··ÖÀà', icon: 'component' }
-      }
-    ]
-  },
-  {
-    path: '/coupon',
-    component: () => import('@/layout/index'),
-    name: 'Coupon',
-    meta: { title: '¿¨È¯¹ÜÀí', icon: 'coupon' },
-    children: [
-      {
-        path: 'group',
-        component: () => import('@/views/coupon/group'),
-        name: 'CouponGroup',
-        meta: { title: '¿¨È¯×é', icon: 'component' }
-      },
-      {
-        path: 'list',
-        component: () => import('@/views/coupon/list'),
-        name: 'CouponList',
-        meta: { title: '¿¨È¯ÁĞ±í', icon: 'list' }
-      },
-      {
-        path: 'user',
-        component: () => import('@/views/coupon/user'),
-        name: 'CouponUser',
-        meta: { title: 'ÓÃ»§¿¨È¯', icon: 'user' }
-      }
-    ]
-  },
-  {
-    path: '/marketing',
-    component: () => import('@/layout/index'),
-    name: 'Marketing',
-    meta: { title: 'ÓªÏú¹ÜÀí', icon: 'marketing' },
-    children: [
-      {
-        path: 'gift',
-        component: () => import('@/views/marketing/gift'),
-        name: 'MarketingGift',
-        meta: { title: '¿ª¿¨ÀñÆ·', icon: 'component' }
-      },
-      {
-        path: 'give',
-        component: () => import('@/views/marketing/give'),
-        name: 'MarketingGive',
-        meta: { title: 'ÔùËÍ¼ÇÂ¼', icon: 'list' }
-      },
-      {
-        path: 'sms',
-        component: () => import('@/views/marketing/sms'),
-        name: 'MarketingSms',
-        meta: { title: '¶ÌĞÅ¹ÜÀí', icon: 'message' }
+        path: 'printer',
+        component: () => import('@/views/store/printer'),
+        name: 'StorePrinter',
+        meta: { title: 'æ‰“å°è®¾å¤‡', icon: 'component' }
       }
     ]
   },
@@ -157,79 +77,315 @@ export const asyncRoutes = [
     path: '/content',
     component: () => import('@/layout/index'),
     name: 'Content',
-    meta: { title: 'ÄÚÈİ¹ÜÀí', icon: 'content' },
+    meta: { title: 'å†…å®¹ç®¡ç†', icon: 'content' },
     children: [
       {
         path: 'banner',
         component: () => import('@/views/content/banner'),
         name: 'ContentBanner',
-        meta: { title: 'ÂÖ²¥Í¼', icon: 'component' }
+        meta: { title: 'è½®æ’­ç®¡ç†', icon: 'component' }
       },
       {
         path: 'article',
         component: () => import('@/views/content/article'),
         name: 'ContentArticle',
-        meta: { title: 'ÎÄÕÂ¹ÜÀí', icon: 'list' }
+        meta: { title: 'æ–‡ç« ç®¡ç†', icon: 'list' }
+      },
+      {
+        path: 'navigation',
+        component: () => import('@/views/content/navigation'),
+        name: 'ContentNavigation',
+        meta: { title: 'å¯¼èˆªç®¡ç†', icon: 'tree-table' }
       }
     ]
   },
   {
-    path: '/store',
+    path: '/member',
     component: () => import('@/layout/index'),
-    name: 'Store',
-    meta: { title: 'ÃÅµê¹ÜÀí', icon: 'store' },
+    name: 'Member',
+    meta: { title: 'ä¼šå‘˜ç®¡ç†', icon: 'user' },
     children: [
       {
         path: 'list',
-        component: () => import('@/views/store/list'),
-        name: 'StoreList',
-        meta: { title: 'ÃÅµêÁĞ±í', icon: 'list' }
+        component: () => import('@/views/member/list'),
+        name: 'MemberList',
+        meta: { title: 'ä¼šå‘˜åˆ—è¡¨', icon: 'list' }
       },
       {
-        path: 'staff',
-        component: () => import('@/views/store/staff'),
-        name: 'StoreStaff',
-        meta: { title: 'Ô±¹¤¹ÜÀí', icon: 'user' }
+        path: 'group',
+        component: () => import('@/views/member/group'),
+        name: 'MemberGroup',
+        meta: { title: 'ä¼šå‘˜åˆ†ç»„', icon: 'peoples' }
+      },
+      {
+        path: 'grade',
+        component: () => import('@/views/member/grade'),
+        name: 'MemberGrade',
+        meta: { title: 'ä¼šå‘˜ç­‰çº§', icon: 'component' }
+      },
+      {
+        path: 'gift',
+        component: () => import('@/views/member/gift'),
+        name: 'MemberGift',
+        meta: { title: 'å¼€å¡èµ ç¤¼', icon: 'coupon' }
+      },
+      {
+        path: 'setting',
+        component: () => import('@/views/member/setting'),
+        name: 'MemberSetting',
+        meta: { title: 'ä¼šå‘˜è®¾ç½®', icon: 'system' }
       }
     ]
   },
   {
-    path: '/service',
+    path: '/car-service',
     component: () => import('@/layout/index'),
-    name: 'Service',
-    meta: { title: '·şÎñ¹ÜÀí', icon: 'service' },
+    name: 'CarService',
+    meta: { title: 'æ±½è½¦æœåŠ¡', icon: 'car' },
     children: [
       {
         path: 'vehicle',
         component: () => import('@/views/service/vehicle'),
         name: 'ServiceVehicle',
-        meta: { title: '³µÁ¾¹ÜÀí', icon: 'car' }
+        meta: { title: 'ä¼šå‘˜è½¦è¾†', icon: 'car' }
       },
       {
-        path: 'book',
-        component: () => import('@/views/service/book'),
-        name: 'ServiceBook',
-        meta: { title: 'Ô¤Ô¼¹ÜÀí', icon: 'book' }
+        path: 'order',
+        component: () => import('@/views/service/serviceOrder'),
+        name: 'ServiceOrder',
+        meta: { title: 'æœåŠ¡è®¢å•', icon: 'list' }
       }
     ]
   },
   {
-    path: '/finance',
+    path: '/coupon',
     component: () => import('@/layout/index'),
-    name: 'Finance',
-    meta: { title: '²ÆÎñ¹ÜÀí', icon: 'money' },
+    name: 'Coupon',
+    meta: { title: 'å¡åˆ¸ç®¡ç†', icon: 'coupon' },
     children: [
       {
-        path: 'balance',
-        component: () => import('@/views/finance/balance'),
-        name: 'FinanceBalance',
-        meta: { title: 'Óà¶î¹ÜÀí', icon: 'money' }
+        path: 'group',
+        component: () => import('@/views/coupon/group'),
+        name: 'CouponGroup',
+        meta: { title: 'åˆ†ç»„ç®¡ç†', icon: 'component' }
       },
       {
-        path: 'commission',
-        component: () => import('@/views/finance/commission'),
-        name: 'FinanceCommission',
-        meta: { title: 'Ó¶½ğ¹ÜÀí', icon: 'component' }
+        path: 'list',
+        component: () => import('@/views/coupon/list'),
+        name: 'CouponList',
+        meta: { title: 'å¡åˆ¸åˆ—è¡¨', icon: 'list' }
+      },
+      {
+        path: 'verify',
+        component: () => import('@/views/coupon/verify'),
+        name: 'CouponVerify',
+        meta: { title: 'å¡åˆ¸æ ¸é”€', icon: 'edit' }
+      },
+      {
+        path: 'user',
+        component: () => import('@/views/coupon/user'),
+        name: 'CouponUser',
+        meta: { title: 'ä¼šå‘˜å¡åˆ¸', icon: 'user' }
+      },
+      {
+        path: 'verify-log',
+        component: () => import('@/views/coupon/verifyLog'),
+        name: 'CouponVerifyLog',
+        meta: { title: 'æ ¸é”€æµæ°´', icon: 'list' }
+      },
+      {
+        path: 'send-log',
+        component: () => import('@/views/coupon/sendLog'),
+        name: 'CouponSendLog',
+        meta: { title: 'å‘åˆ¸è®°å½•', icon: 'list' }
+      },
+      {
+        path: 'transfer',
+        component: () => import('@/views/coupon/transfer'),
+        name: 'CouponTransfer',
+        meta: { title: 'è½¬èµ è®°å½•', icon: 'list' }
+      }
+    ]
+  },
+  {
+    path: '/order',
+    component: () => import('@/layout/index'),
+    name: 'Order',
+    meta: { title: 'è®¢å•ç®¡ç†', icon: 'shopping' },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/order/list'),
+        name: 'OrderList',
+        meta: { title: 'è®¢å•åˆ—è¡¨', icon: 'list' }
+      },
+      {
+        path: 'refund',
+        component: () => import('@/views/order/refund'),
+        name: 'OrderRefund',
+        meta: { title: 'å”®åè®¢å•', icon: 'edit' }
+      },
+      {
+        path: 'setting',
+        component: () => import('@/views/order/setting'),
+        name: 'OrderSetting',
+        meta: { title: 'äº¤æ˜“è®¾ç½®', icon: 'system' }
+      },
+      {
+        path: 'settlement',
+        component: () => import('@/views/order/settlement'),
+        name: 'OrderSettlement',
+        meta: { title: 'è®¢å•ç»“ç®—', icon: 'money' }
+      }
+    ]
+  },
+  {
+    path: '/goods',
+    component: () => import('@/layout/index'),
+    name: 'Goods',
+    meta: { title: 'å•†å“ç®¡ç†', icon: 'goods' },
+    children: [
+      {
+        path: 'category',
+        component: () => import('@/views/goods/category'),
+        name: 'GoodsCategory',
+        meta: { title: 'å•†å“åˆ†ç±»', icon: 'component' }
+      },
+      {
+        path: 'list',
+        component: () => import('@/views/goods/list'),
+        name: 'GoodsList',
+        meta: { title: 'å•†å“åˆ—è¡¨', icon: 'list' }
+      },
+      {
+        path: 'stock',
+        component: () => import('@/views/goods/stock'),
+        name: 'GoodsStock',
+        meta: { title: 'åº“å­˜ç®¡ç†', icon: 'shopping' }
+      }
+    ]
+  },
+  {
+    path: '/message',
+    component: () => import('@/layout/index'),
+    name: 'Message',
+    meta: { title: 'æ¶ˆæ¯ç®¡ç†', icon: 'message' },
+    children: [
+      {
+        path: 'sms-template',
+        component: () => import('@/views/message/smsTemplate'),
+        name: 'SmsTemplate',
+        meta: { title: 'çŸ­ä¿¡æ¨¡æ¿', icon: 'list' }
+      },
+      {
+        path: 'subscribe',
+        component: () => import('@/views/message/subscribe'),
+        name: 'MessageSubscribe',
+        meta: { title: 'è®¢é˜…æ¶ˆæ¯', icon: 'message' }
+      },
+      {
+        path: 'sms-log',
+        component: () => import('@/views/message/smsLog'),
+        name: 'SmsLog',
+        meta: { title: 'å·²å‘çŸ­ä¿¡', icon: 'list' }
+      },
+      {
+        path: 'sms-setting',
+        component: () => import('@/views/message/smsSetting'),
+        name: 'SmsSetting',
+        meta: { title: 'çŸ­ä¿¡é…ç½®', icon: 'system' }
+      }
+    ]
+  },
+  {
+    path: '/point',
+    component: () => import('@/layout/index'),
+    name: 'Point',
+    meta: { title: 'ç§¯åˆ†ç®¡ç†', icon: 'edit' },
+    children: [
+      {
+        path: 'setting',
+        component: () => import('@/views/point/setting'),
+        name: 'PointSetting',
+        meta: { title: 'ç§¯åˆ†è®¾ç½®', icon: 'system' }
+      },
+      {
+        path: 'log',
+        component: () => import('@/views/point/log'),
+        name: 'PointLog',
+        meta: { title: 'ç§¯åˆ†æ˜ç»†', icon: 'list' }
+      }
+    ]
+  },
+  {
+    path: '/recharge',
+    component: () => import('@/layout/index'),
+    name: 'Recharge',
+    meta: { title: 'å……å€¼ç®¡ç†', icon: 'money' },
+    children: [
+      {
+        path: 'setting',
+        component: () => import('@/views/recharge/setting'),
+        name: 'RechargeSetting',
+        meta: { title: 'å……å€¼è®¾ç½®', icon: 'system' }
+      },
+      {
+        path: 'balance',
+        component: () => import('@/views/recharge/balance'),
+        name: 'RechargeBalance',
+        meta: { title: 'ä½™é¢æ˜ç»†', icon: 'money' }
+      },
+      {
+        path: 'member',
+        component: () => import('@/views/recharge/member'),
+        name: 'RechargeMember',
+        meta: { title: 'ä¼šå‘˜å……å€¼', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/device',
+    component: () => import('@/layout/index'),
+    name: 'Device',
+    meta: { title: 'è®¾å¤‡åˆ—è¡¨', icon: 'component' },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/device/list'),
+        name: 'DeviceList',
+        meta: { title: 'åˆ—è¡¨', icon: 'list' }
+      }
+    ]
+  },
+  {
+    path: '/commission',
+    component: () => import('@/layout/index'),
+    name: 'Commission',
+    meta: { title: 'åˆ†ä½£ææˆ', icon: 'money' },
+    children: [
+      {
+        path: 'rule',
+        component: () => import('@/views/commission/rule'),
+        name: 'CommissionRule',
+        meta: { title: 'åˆ†ä½£è§„åˆ™', icon: 'system' }
+      },
+      {
+        path: 'log',
+        component: () => import('@/views/commission/log'),
+        name: 'CommissionLog',
+        meta: { title: 'åˆ†ä½£è®°å½•', icon: 'list' }
+      },
+      {
+        path: 'invite',
+        component: () => import('@/views/commission/invite'),
+        name: 'CommissionInvite',
+        meta: { title: 'é‚€è¯·æ˜ç»†', icon: 'peoples' }
+      },
+      {
+        path: 'settlement',
+        component: () => import('@/views/commission/settlement'),
+        name: 'CommissionSettlement',
+        meta: { title: 'ç»“ç®—è®°å½•', icon: 'money' }
       }
     ]
   },
@@ -237,31 +393,37 @@ export const asyncRoutes = [
     path: '/system',
     component: () => import('@/layout/index'),
     name: 'System',
-    meta: { title: 'ÏµÍ³¹ÜÀí', icon: 'system' },
+    meta: { title: 'ç³»ç»Ÿç®¡ç†', icon: 'system' },
     children: [
-      {
-        path: 'account',
-        component: () => import('@/views/system/account'),
-        name: 'SystemAccount',
-        meta: { title: 'ÕËºÅ¹ÜÀí', icon: 'peoples' }
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/system/role'),
-        name: 'SystemRole',
-        meta: { title: '½ÇÉ«¹ÜÀí', icon: 'component' }
-      },
       {
         path: 'menu',
         component: () => import('@/views/system/menu'),
         name: 'SystemMenu',
-        meta: { title: '²Ëµ¥¹ÜÀí', icon: 'tree-table' }
+        meta: { title: 'åå°èœå•', icon: 'tree-table' }
       },
       {
         path: 'log',
         component: () => import('@/views/system/log'),
         name: 'SystemLog',
-        meta: { title: '²Ù×÷ÈÕÖ¾', icon: 'list' }
+        meta: { title: 'åå°æ—¥å¿—', icon: 'list' }
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/system/role'),
+        name: 'SystemRole',
+        meta: { title: 'åå°è§’è‰²', icon: 'component' }
+      },
+      {
+        path: 'code',
+        component: () => import('@/views/system/code'),
+        name: 'SystemCode',
+        meta: { title: 'ç”Ÿæˆä»£ç ', icon: 'edit' }
+      },
+      {
+        path: 'account',
+        component: () => import('@/views/system/account'),
+        name: 'SystemAccount',
+        meta: { title: 'åå°ç®¡ç†å‘˜', icon: 'peoples' }
       }
     ]
   },

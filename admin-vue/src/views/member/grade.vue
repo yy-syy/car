@@ -2,13 +2,13 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="µÈ¼¶Ãû³Æ">
-          <el-input v-model="searchForm.gradeName" placeholder="ÇëÊäÈëµÈ¼¶Ãû³Æ" style="width: 200px;" />
+        <el-form-item label="ç­‰çº§åç§°">
+          <el-input v-model="searchForm.gradeName" placeholder="è¯·è¾“å…¥ç­‰çº§åç§°" style="width: 200px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
-          <el-button type="success" @click="handleAdd">ĞÂÔöµÈ¼¶</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
+          <el-button type="success" @click="handleAdd">æ–°å¢ç­‰çº§</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -20,24 +20,24 @@
         border
         stripe
       >
-        <el-table-column prop="gradeName" label="µÈ¼¶Ãû³Æ" />
-        <el-table-column prop="minPoint" label="×îµÍ»ı·Ö" width="120" />
-        <el-table-column prop="maxPoint" label="×î¸ß»ı·Ö" width="120" />
-        <el-table-column prop="discount" label="ÕÛ¿ÛÂÊ" width="100">
+        <el-table-column prop="gradeName" label="ç­‰çº§åç§°" />
+        <el-table-column prop="minPoint" label="æœ€ä½ç§¯åˆ†" width="120" />
+        <el-table-column prop="maxPoint" label="æœ€é«˜ç§¯åˆ†" width="120" />
+        <el-table-column prop="discount" label="æŠ˜æ‰£ç‡" width="100">
           <template slot-scope="scope">{{ scope.row.discount }}%</template>
         </el-table-column>
-        <el-table-column prop="status" label="×´Ì¬" width="100">
+        <el-table-column prop="status" label="çŠ¶æ€" width="100">
           <template slot-scope="scope">
             <el-tag :type="scope.row.status === 'ENABLE' ? 'success' : 'danger'">
-              {{ scope.row.status === 'ENABLE' ? 'ÆôÓÃ' : '½ûÓÃ' }}
+              {{ scope.row.status === 'ENABLE' ? 'å¯ç”¨' : 'ç¦ç”¨' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="´´½¨Ê±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="createTime" label="åˆ›å»ºæ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">±à¼­</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">É¾³ı</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row)">ç¼–è¾‘</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">åˆ é™¤</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -54,25 +54,25 @@
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="600px">
       <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="µÈ¼¶Ãû³Æ" prop="gradeName">
-          <el-input v-model="formData.gradeName" placeholder="ÇëÊäÈëµÈ¼¶Ãû³Æ" />
+        <el-form-item label="ç­‰çº§åç§°" prop="gradeName">
+          <el-input v-model="formData.gradeName" placeholder="è¯·è¾“å…¥ç­‰çº§åç§°" />
         </el-form-item>
-        <el-form-item label="×îµÍ»ı·Ö" prop="minPoint">
-          <el-input v-model="formData.minPoint" type="number" placeholder="ÇëÊäÈë×îµÍ»ı·Ö" />
+        <el-form-item label="æœ€ä½ç§¯åˆ†" prop="minPoint">
+          <el-input v-model="formData.minPoint" type="number" placeholder="è¯·è¾“å…¥æœ€ä½ç§¯åˆ†" />
         </el-form-item>
-        <el-form-item label="×î¸ß»ı·Ö" prop="maxPoint">
-          <el-input v-model="formData.maxPoint" type="number" placeholder="ÇëÊäÈë×î¸ß»ı·Ö" />
+        <el-form-item label="æœ€é«˜ç§¯åˆ†" prop="maxPoint">
+          <el-input v-model="formData.maxPoint" type="number" placeholder="è¯·è¾“å…¥æœ€é«˜ç§¯åˆ†" />
         </el-form-item>
-        <el-form-item label="ÕÛ¿ÛÂÊ" prop="discount">
-          <el-input v-model="formData.discount" type="number" placeholder="ÇëÊäÈëÕÛ¿ÛÂÊ(%)" />
+        <el-form-item label="æŠ˜æ‰£ç‡" prop="discount">
+          <el-input v-model="formData.discount" type="number" placeholder="è¯·è¾“å…¥æŠ˜æ‰£ç‡(%)" />
         </el-form-item>
-        <el-form-item label="×´Ì¬">
+        <el-form-item label="çŠ¶æ€">
           <el-switch v-model="formData.status" active-value="ENABLE" inactive-value="DISABLE" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">È¡Ïû</el-button>
-        <el-button type="primary" @click="handleSubmit">È·¶¨</el-button>
+        <el-button @click="dialogVisible = false">å–æ¶ˆ</el-button>
+        <el-button type="primary" @click="handleSubmit">ç¡®å®š</el-button>
       </div>
     </el-dialog>
   </div>
@@ -106,9 +106,9 @@ export default {
         status: 'ENABLE'
       },
       formRules: {
-        gradeName: [{ required: true, message: 'ÇëÊäÈëµÈ¼¶Ãû³Æ', trigger: 'blur' }],
-        minPoint: [{ required: true, message: 'ÇëÊäÈë×îµÍ»ı·Ö', trigger: 'blur' }],
-        maxPoint: [{ required: true, message: 'ÇëÊäÈë×î¸ß»ı·Ö', trigger: 'blur' }]
+        gradeName: [{ required: true, message: 'è¯·è¾“å…¥ç­‰çº§åç§°', trigger: 'blur' }],
+        minPoint: [{ required: true, message: 'è¯·è¾“å…¥æœ€ä½ç§¯åˆ†', trigger: 'blur' }],
+        maxPoint: [{ required: true, message: 'è¯·è¾“å…¥æœ€é«˜ç§¯åˆ†', trigger: 'blur' }]
       }
     }
   },
@@ -135,22 +135,22 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = 'ĞÂÔöµÈ¼¶'
+      this.dialogTitle = 'æ–°å¢ç­‰çº§'
       this.formData = { gradeId: '', gradeName: '', minPoint: 0, maxPoint: 0, discount: 100, status: 'ENABLE' }
       this.dialogVisible = true
     },
     handleEdit(row) {
-      this.dialogTitle = '±à¼­µÈ¼¶'
+      this.dialogTitle = 'ç¼–è¾‘ç­‰çº§'
       this.formData = { ...row }
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('È·¶¨ÒªÉ¾³ıÕâÌõ¼ÇÂ¼Âğ£¿', 'ÌáÊ¾', {
-        confirmButtonText: 'È·¶¨',
-        cancelButtonText: 'È¡Ïû'
+      this.$confirm('ç¡®å®šè¦åˆ é™¤è¿™æ¡è®°å½•å—ï¼Ÿ', 'æç¤º', {
+        confirmButtonText: 'ç¡®å®š',
+        cancelButtonText: 'å–æ¶ˆ'
       }).then(() => {
         deleteGrade(row.gradeId).then(() => {
-          this.$message.success('É¾³ı³É¹¦')
+          this.$message.success('åˆ é™¤æˆåŠŸ')
           this.fetchData()
         })
       })
@@ -160,7 +160,7 @@ export default {
         if (valid) {
           const api = this.formData.gradeId ? updateGrade : addGrade
           api(this.formData).then(() => {
-            this.$message.success(this.formData.gradeId ? 'ĞŞ¸Ä³É¹¦' : 'ĞÂÔö³É¹¦')
+            this.$message.success(this.formData.gradeId ? 'ä¿®æ”¹æˆåŠŸ' : 'æ–°å¢æˆåŠŸ')
             this.dialogVisible = false
             this.fetchData()
           })

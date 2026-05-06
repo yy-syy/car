@@ -3,7 +3,7 @@ import variables from '@/assets/styles/element-variables.scss'
 const state = {
   theme: variables.theme,
   showSettings: false,
-  fixedHeader: false,
+  fixedHeader: true,
   sidebarLogo: true
 }
 

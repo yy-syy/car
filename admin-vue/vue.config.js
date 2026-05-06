@@ -7,7 +7,7 @@ function resolve(dir) {
 
 const CompressionPlugin = require('compression-webpack-plugin');
 
-const name = process.env.VUE_APP_TITLE || 'fuint汽车会员系统';
+const name = process.env.VUE_APP_TITLE || 'fuint姹借溅浼氬憳绯荤粺';
 
 const port = process.env.port || process.env.npm_config_port || 81;
 
@@ -23,15 +23,12 @@ module.exports = {
     host: '0.0.0.0',
     port: port,
     open: true,
-    headers: {
-      'Content-Type': 'text/html; charset=utf-8',
-    },
     proxy: {
       '/backendApi': {
         target: serverUrl,
         changeOrigin: true,
         ws: true,
-        pathRewrite: { '^/backendApi': '/backendApi' },
+        pathRewrite: { '^/backendApi': '/fuint-car/backendApi' },
       },
       '/fuint-car': {
         target: serverUrl,
@@ -43,13 +40,13 @@ module.exports = {
         target: serverUrl,
         changeOrigin: true,
         ws: true,
-        pathRewrite: { '^/captcha': '/captcha' },
+        pathRewrite: { '^/captcha': '/fuint-car/captcha' },
       },
       '/clientApi': {
         target: serverUrl,
         changeOrigin: true,
         ws: true,
-        pathRewrite: { '^/clientApi': '/clientApi' },
+        pathRewrite: { '^/clientApi': '/fuint-car/clientApi' },
       },
     },
     disableHostCheck: true,

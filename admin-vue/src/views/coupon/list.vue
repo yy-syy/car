@@ -2,32 +2,32 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ø®»Ø√˚≥∆">
-          <el-input v-model="searchForm.couponName" placeholder="«Î ‰»Îø®»Ø√˚≥∆" style="width: 200px;" />
+        <el-form-item label="Âç°Âà∏ÂêçÁß∞">
+          <el-input v-model="searchForm.couponName" placeholder="ËØ∑ËæìÂÖ•Âç°Âà∏ÂêçÁß∞" style="width: 200px;" />
         </el-form-item>
-        <el-form-item label="ø®»Ø◊È">
-          <el-select v-model="searchForm.groupId" placeholder="«Î—°‘Òø®»Ø◊È">
-            <el-option label="»´≤ø" value="" />
+        <el-form-item label="Âç°Âà∏ÁªÑ">
+          <el-select v-model="searchForm.groupId" placeholder="ËØ∑ÈÄâÊã©Âç°Âà∏ÁªÑ">
+            <el-option label="ÂÖ®ÈÉ®" value="" />
             <el-option v-for="group in groupOptions" :key="group.groupId" :label="group.groupName" :value="group.groupId" />
           </el-select>
         </el-form-item>
-        <el-form-item label="ø®»Ø¿‡–Õ">
-          <el-select v-model="searchForm.couponType" placeholder="«Î—°‘Òø®»Ø¿‡–Õ">
-            <el-option label="»´≤ø" value="" />
-            <el-option label="”≈ª›»Ø" value="COUPON" />
-            <el-option label="¿Ò∆∑»Ø" value="GIFT" />
-            <el-option label="¥¢÷µø®" value="CASH" />
+        <el-form-item label="Âç°Âà∏Á±ªÂûã">
+          <el-select v-model="searchForm.couponType" placeholder="ËØ∑ÈÄâÊã©Âç°Âà∏Á±ªÂûã">
+            <el-option label="ÂÖ®ÈÉ®" value="" />
+            <el-option label="‰ºòÊÉ†Âà∏" value="COUPON" />
+            <el-option label="Á§ºÂìÅÂà∏" value="GIFT" />
+            <el-option label="ÂÇ®ÂÄºÂç°" value="CASH" />
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">À—À˜</el-button>
-          <el-button @click="handleReset">÷ÿ÷√</el-button>
+          <el-button type="primary" @click="handleSearch">ÊêúÁ¥¢</el-button>
+          <el-button @click="handleReset">ÈáçÁΩÆ</el-button>
         </el-form-item>
       </el-form>
     </div>
 
     <div class="toolbar">
-      <el-button type="primary" icon="el-icon-plus" @click="handleAdd">–¬‘ˆø®»Ø</el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="handleAdd">Êñ∞Â¢ûÂç°Âà∏</el-button>
     </div>
 
     <div class="table-container">
@@ -37,31 +37,31 @@
         border
         stripe
       >
-        <el-table-column prop="couponId" label="ø®»ØID" width="100" />
-        <el-table-column prop="couponName" label="ø®»Ø√˚≥∆" />
-        <el-table-column prop="groupName" label="ø®»Ø◊È" width="150" />
-        <el-table-column prop="couponType" label="ø®»Ø¿‡–Õ" width="120">
+        <el-table-column prop="couponId" label="Âç°Âà∏ID" width="100" />
+        <el-table-column prop="couponName" label="Âç°Âà∏ÂêçÁß∞" />
+        <el-table-column prop="groupName" label="Âç°Âà∏ÁªÑ" width="150" />
+        <el-table-column prop="couponType" label="Âç°Âà∏Á±ªÂûã" width="120">
           <template slot-scope="scope">{{ getCouponTypeText(scope.row.couponType) }}</template>
         </el-table-column>
-        <el-table-column prop="faceValue" label="√Ê÷µ" width="100">
-          <template slot-scope="scope">£§{{ scope.row.faceValue }}</template>
+        <el-table-column prop="faceValue" label="Èù¢ÂÄº" width="100">
+          <template slot-scope="scope">Ôø•{{ scope.row.faceValue }}</template>
         </el-table-column>
-        <el-table-column prop="discount" label="’€ø€" width="100">
+        <el-table-column prop="discount" label="ÊäòÊâ£" width="100">
           <template slot-scope="scope">{{ scope.row.discount }}%</template>
         </el-table-column>
-        <el-table-column prop="totalNum" label="◊‹¡ø" width="100" />
-        <el-table-column prop="status" label="◊¥Ã¨" width="100">
+        <el-table-column prop="totalNum" label="ÊÄªÈáè" width="100" />
+        <el-table-column prop="status" label="Áä∂ÊÄÅ" width="100">
           <template slot-scope="scope">
             <el-tag :type="scope.row.status === 'ENABLE' ? 'success' : 'danger'">
-              {{ scope.row.status === 'ENABLE' ? '∆Ù”√' : 'Ω˚”√' }}
+              {{ scope.row.status === 'ENABLE' ? 'ÂêØÁî®' : 'Á¶ÅÁî®' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="¥¥Ω® ±º‰" width="160" />
-        <el-table-column label="≤Ÿ◊˜" width="150">
+        <el-table-column prop="createTime" label="ÂàõÂª∫Êó∂Èó¥" width="160" />
+        <el-table-column label="Êìç‰Ωú" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">±‡º≠</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">…æ≥˝</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row)">ÁºñËæë</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">Âà†Èô§</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -78,43 +78,43 @@
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="600px">
       <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="ø®»Ø√˚≥∆" prop="couponName">
-          <el-input v-model="formData.couponName" placeholder="«Î ‰»Îø®»Ø√˚≥∆" />
+        <el-form-item label="Âç°Âà∏ÂêçÁß∞" prop="couponName">
+          <el-input v-model="formData.couponName" placeholder="ËØ∑ËæìÂÖ•Âç°Âà∏ÂêçÁß∞" />
         </el-form-item>
-        <el-form-item label="ø®»Ø◊È" prop="groupId">
-          <el-select v-model="formData.groupId" placeholder="«Î—°‘Òø®»Ø◊È">
+        <el-form-item label="Âç°Âà∏ÁªÑ" prop="groupId">
+          <el-select v-model="formData.groupId" placeholder="ËØ∑ÈÄâÊã©Âç°Âà∏ÁªÑ">
             <el-option v-for="group in groupOptions" :key="group.groupId" :label="group.groupName" :value="group.groupId" />
           </el-select>
         </el-form-item>
-        <el-form-item label="ø®»Ø¿‡–Õ" prop="couponType">
-          <el-select v-model="formData.couponType" placeholder="«Î—°‘Òø®»Ø¿‡–Õ">
-            <el-option label="”≈ª›»Ø" value="COUPON" />
-            <el-option label="¿Ò∆∑»Ø" value="GIFT" />
-            <el-option label="¥¢÷µø®" value="CASH" />
+        <el-form-item label="Âç°Âà∏Á±ªÂûã" prop="couponType">
+          <el-select v-model="formData.couponType" placeholder="ËØ∑ÈÄâÊã©Âç°Âà∏Á±ªÂûã">
+            <el-option label="‰ºòÊÉ†Âà∏" value="COUPON" />
+            <el-option label="Á§ºÂìÅÂà∏" value="GIFT" />
+            <el-option label="ÂÇ®ÂÄºÂç°" value="CASH" />
           </el-select>
         </el-form-item>
-        <el-form-item label="√Ê÷µ" prop="faceValue">
-          <el-input v-model="formData.faceValue" type="number" placeholder="«Î ‰»Î√Ê÷µ" />
+        <el-form-item label="Èù¢ÂÄº" prop="faceValue">
+          <el-input v-model="formData.faceValue" type="number" placeholder="ËØ∑ËæìÂÖ•Èù¢ÂÄº" />
         </el-form-item>
-        <el-form-item label="’€ø€" prop="discount">
-          <el-input v-model="formData.discount" type="number" placeholder="«Î ‰»Î’€ø€(%)" />
+        <el-form-item label="ÊäòÊâ£" prop="discount">
+          <el-input v-model="formData.discount" type="number" placeholder="ËØ∑ËæìÂÖ•ÊäòÊâ£(%)" />
         </el-form-item>
-        <el-form-item label="◊‹¡ø" prop="totalNum">
-          <el-input v-model="formData.totalNum" type="number" placeholder="«Î ‰»Î◊‹¡ø" />
+        <el-form-item label="ÊÄªÈáè" prop="totalNum">
+          <el-input v-model="formData.totalNum" type="number" placeholder="ËØ∑ËæìÂÖ•ÊÄªÈáè" />
         </el-form-item>
-        <el-form-item label="”––ßÃÏ ˝" prop="validDays">
-          <el-input v-model="formData.validDays" type="number" placeholder="«Î ‰»Î”––ßÃÏ ˝" />
+        <el-form-item label="ÊúâÊïàÂ§©Êï∞" prop="validDays">
+          <el-input v-model="formData.validDays" type="number" placeholder="ËØ∑ËæìÂÖ•ÊúâÊïàÂ§©Êï∞" />
         </el-form-item>
-        <el-form-item label="ø®»Ø√Ë ˆ">
-          <el-input v-model="formData.description" type="textarea" :rows="3" placeholder="«Î ‰»Îø®»Ø√Ë ˆ" />
+        <el-form-item label="Âç°Âà∏ÊèèËø∞">
+          <el-input v-model="formData.description" type="textarea" :rows="3" placeholder="ËØ∑ËæìÂÖ•Âç°Âà∏ÊèèËø∞" />
         </el-form-item>
-        <el-form-item label="◊¥Ã¨">
+        <el-form-item label="Áä∂ÊÄÅ">
           <el-switch v-model="formData.status" active-value="ENABLE" inactive-value="DISABLE" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">»°œ˚</el-button>
-        <el-button type="primary" @click="handleSubmit">»∑∂®</el-button>
+        <el-button @click="dialogVisible = false">ÂèñÊ∂à</el-button>
+        <el-button type="primary" @click="handleSubmit">Á°ÆÂÆö</el-button>
       </div>
     </el-dialog>
   </div>
@@ -156,11 +156,11 @@ export default {
         status: 'ENABLE'
       },
       formRules: {
-        couponName: [{ required: true, message: '«Î ‰»Îø®»Ø√˚≥∆', trigger: 'blur' }],
-        groupId: [{ required: true, message: '«Î—°‘Òø®»Ø◊È', trigger: 'blur' }],
-        couponType: [{ required: true, message: '«Î—°‘Òø®»Ø¿‡–Õ', trigger: 'blur' }],
-        faceValue: [{ required: true, message: '«Î ‰»Î√Ê÷µ', trigger: 'blur' }],
-        totalNum: [{ required: true, message: '«Î ‰»Î◊‹¡ø', trigger: 'blur' }]
+        couponName: [{ required: true, message: 'ËØ∑ËæìÂÖ•Âç°Âà∏ÂêçÁß∞', trigger: 'blur' }],
+        groupId: [{ required: true, message: 'ËØ∑ÈÄâÊã©Âç°Âà∏ÁªÑ', trigger: 'blur' }],
+        couponType: [{ required: true, message: 'ËØ∑ÈÄâÊã©Âç°Âà∏Á±ªÂûã', trigger: 'blur' }],
+        faceValue: [{ required: true, message: 'ËØ∑ËæìÂÖ•Èù¢ÂÄº', trigger: 'blur' }],
+        totalNum: [{ required: true, message: 'ËØ∑ËæìÂÖ•ÊÄªÈáè', trigger: 'blur' }]
       }
     }
   },
@@ -193,22 +193,22 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = '–¬‘ˆø®»Ø'
+      this.dialogTitle = 'Êñ∞Â¢ûÂç°Âà∏'
       this.formData = { couponId: '', couponName: '', groupId: '', couponType: 'COUPON', faceValue: 0, discount: 100, totalNum: 0, validDays: 30, description: '', status: 'ENABLE' }
       this.dialogVisible = true
     },
     handleEdit(row) {
-      this.dialogTitle = '±‡º≠ø®»Ø'
+      this.dialogTitle = 'ÁºñËæëÂç°Âà∏'
       this.formData = { ...row }
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('»∑∂®“™…æ≥˝’‚Ãıº«¬º¬£ø', 'Ã· æ', {
-        confirmButtonText: '»∑∂®',
-        cancelButtonText: '»°œ˚'
+      this.$confirm('Á°ÆÂÆöË¶ÅÂà†Èô§ËøôÊù°ËÆ∞ÂΩïÂêóÔºü', 'ÊèêÁ§∫', {
+        confirmButtonText: 'Á°ÆÂÆö',
+        cancelButtonText: 'ÂèñÊ∂à'
       }).then(() => {
         deleteCoupon(row.couponId).then(() => {
-          this.$message.success('…æ≥˝≥…π¶')
+          this.$message.success('Âà†Èô§ÊàêÂäü')
           this.fetchData()
         })
       })
@@ -218,7 +218,7 @@ export default {
         if (valid) {
           const api = this.formData.couponId ? updateCoupon : addCoupon
           api(this.formData).then(() => {
-            this.$message.success(this.formData.couponId ? '–ﬁ∏ƒ≥…π¶' : '–¬‘ˆ≥…π¶')
+            this.$message.success(this.formData.couponId ? '‰øÆÊîπÊàêÂäü' : 'Êñ∞Â¢ûÊàêÂäü')
             this.dialogVisible = false
             this.fetchData()
           })
@@ -226,7 +226,7 @@ export default {
       })
     },
     getCouponTypeText(type) {
-      const map = { COUPON: '”≈ª›»Ø', GIFT: '¿Ò∆∑»Ø', CASH: '¥¢÷µø®' }
+      const map = { COUPON: '‰ºòÊÉ†Âà∏', GIFT: 'Á§ºÂìÅÂà∏', CASH: 'ÂÇ®ÂÄºÂç°' }
       return map[type] || type
     }
   }

@@ -7,7 +7,9 @@ const state = {
   roles: [],
   permissions: [],
   name: '',
-  avatar: ''
+  avatar: '',
+  storeName: '',
+  roleName: ''
 }
 
 const mutations = {
@@ -25,17 +27,23 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_STORE_NAME: (state, storeName) => {
+    state.storeName = storeName
+  },
+  SET_ROLE_NAME: (state, roleName) => {
+    state.roleName = roleName
   }
 }
 
 const actions = {
   login({ commit }, userInfo) {
-    const { username, password, captcha, uuid } = userInfo
+    const { username, password, captchaCode, uuid } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password, captcha: captcha, uuid: uuid }).then(response => {
+      login({ username: username.trim(), password: password, captchaCode: captchaCode, uuid: uuid }).then(response => {
         const { data } = response
-        commit('SET_ACCESS_TOKEN', data.accessToken)
-        setAccessToken(data.accessToken)
+        commit('SET_ACCESS_TOKEN', data.token)
+        setAccessToken(data.token)
         resolve()
       }).catch(error => {
         reject(error)
@@ -49,7 +57,7 @@ const actions = {
         const { data } = response
 
         if (!data) {
-          reject('ÑéÖ¤Ê§°Ü£¬ÇëÖØÐÂµÇÂ¼¡£')
+          reject('éªŒè¯å¤±è´¥ï¼Œè¯·é‡æ–°ç™»å½•ã€‚')
         }
 
         const { roles, permissions, accountInfo } = data
@@ -61,6 +69,8 @@ const actions = {
         commit('SET_ROLES', roles)
         commit('SET_PERMISSIONS', permissions)
         commit('SET_NAME', accountInfo.accountName)
+        commit('SET_STORE_NAME', accountInfo.storeName || '')
+        commit('SET_ROLE_NAME', accountInfo.roleName || 'å•†æˆ·ç®¡ç†å‘˜')
         resolve(data)
       }).catch(error => {
         reject(error)

@@ -2,12 +2,12 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ª·‘±–’√˚">
-          <el-input v-model="searchForm.memberName" placeholder="«Î ‰»Îª·‘±–’√˚" style="width: 150px;" />
+        <el-form-item label="‰ºöÂëòÂßìÂêç">
+          <el-input v-model="searchForm.memberName" placeholder="ËØ∑ËæìÂÖ•‰ºöÂëòÂßìÂêç" style="width: 150px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">À—À˜</el-button>
-          <el-button @click="handleReset">÷ÿ÷√</el-button>
+          <el-button type="primary" @click="handleSearch">ÊêúÁ¥¢</el-button>
+          <el-button @click="handleReset">ÈáçÁΩÆ</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -19,19 +19,19 @@
         border
         stripe
       >
-        <el-table-column prop="memberName" label="ª·‘±–’√˚" width="120" />
-        <el-table-column prop="mobile" label=" ÷ª˙∫≈¬Î" width="130" />
-        <el-table-column prop="level" label="∑÷œ˙µ»º∂" width="100" />
-        <el-table-column prop="totalAmount" label="¿€º∆”∂Ω" width="120">
-          <template slot-scope="scope">£§{{ scope.row.totalAmount }}</template>
+        <el-table-column prop="memberName" label="‰ºöÂëòÂßìÂêç" width="120" />
+        <el-table-column prop="mobile" label="ÊâãÊú∫Âè∑Á†Å" width="130" />
+        <el-table-column prop="level" label="ÂàÜÈîÄÁ≠âÁ∫ß" width="100" />
+        <el-table-column prop="totalAmount" label="Á¥ØËÆ°‰Ω£Èáë" width="120">
+          <template slot-scope="scope">Ôø•{{ scope.row.totalAmount }}</template>
         </el-table-column>
-        <el-table-column prop="cashAmount" label="“—Ã·œ÷" width="120">
-          <template slot-scope="scope">£§{{ scope.row.cashAmount }}</template>
+        <el-table-column prop="cashAmount" label="Â∑≤ÊèêÁé∞" width="120">
+          <template slot-scope="scope">Ôø•{{ scope.row.cashAmount }}</template>
         </el-table-column>
-        <el-table-column prop="balance" label="ø…”√”‡∂Ó" width="120">
-          <template slot-scope="scope">£§{{ scope.row.balance }}</template>
+        <el-table-column prop="balance" label="ÂèØÁî®‰ΩôÈ¢ù" width="120">
+          <template slot-scope="scope">Ôø•{{ scope.row.balance }}</template>
         </el-table-column>
-        <el-table-column prop="createTime" label="¥¥Ω® ±º‰" width="160" />
+        <el-table-column prop="createTime" label="ÂàõÂª∫Êó∂Èó¥" width="160" />
       </el-table>
 
       <el-pagination

@@ -2,19 +2,19 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ÉÌÆ·Ãû³Æ">
-          <el-input v-model="searchForm.goodsName" placeholder="ÇëÊäÈëÉÌÆ·Ãû³Æ" style="width: 200px;" />
+        <el-form-item label="å•†å“åç§°">
+          <el-input v-model="searchForm.goodsName" placeholder="è¯·è¾“å…¥å•†å“åç§°" style="width: 200px;" />
         </el-form-item>
-        <el-form-item label="·ÖÀà">
-          <el-select v-model="searchForm.cateId" placeholder="ÇëÑ¡Ôñ·ÖÀà">
-            <el-option label="È«²¿" value="" />
+        <el-form-item label="åˆ†ç±»">
+          <el-select v-model="searchForm.cateId" placeholder="è¯·é€‰æ‹©åˆ†ç±»">
+            <el-option label="å…¨éƒ¨" value="" />
             <el-option v-for="item in categoryOptions" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
-          <el-button type="success" @click="handleAdd">ĞÂÔöÉÌÆ·</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
+          <el-button type="success" @click="handleAdd">æ–°å¢å•†å“</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -26,25 +26,25 @@
         border
         stripe
       >
-        <el-table-column prop="goodsName" label="ÉÌÆ·Ãû³Æ" />
-        <el-table-column prop="cateName" label="·ÖÀà" width="120" />
-        <el-table-column prop="price" label="¼Û¸ñ" width="100">
-          <template slot-scope="scope">£¤{{ scope.row.price }}</template>
+        <el-table-column prop="goodsName" label="å•†å“åç§°" />
+        <el-table-column prop="cateName" label="åˆ†ç±»" width="120" />
+        <el-table-column prop="price" label="ä»·æ ¼" width="100">
+          <template slot-scope="scope">ï¿¥{{ scope.row.price }}</template>
         </el-table-column>
-        <el-table-column prop="stock" label="¿â´æ" width="100" />
-        <el-table-column prop="sales" label="ÏúÁ¿" width="100" />
-        <el-table-column prop="status" label="×´Ì¬" width="100">
+        <el-table-column prop="stock" label="åº“å­˜" width="100" />
+        <el-table-column prop="sales" label="é”€é‡" width="100" />
+        <el-table-column prop="status" label="çŠ¶æ€" width="100">
           <template slot-scope="scope">
             <el-tag :type="scope.row.status === 'ENABLE' ? 'success' : 'danger'">
-              {{ scope.row.status === 'ENABLE' ? 'ÉÏ¼Ü' : 'ÏÂ¼Ü' }}
+              {{ scope.row.status === 'ENABLE' ? 'ä¸Šæ¶' : 'ä¸‹æ¶' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="´´½¨Ê±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="createTime" label="åˆ›å»ºæ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">±à¼­</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">É¾³ı</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row)">ç¼–è¾‘</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">åˆ é™¤</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -61,30 +61,30 @@
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="600px">
       <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="ÉÌÆ·Ãû³Æ" prop="goodsName">
-          <el-input v-model="formData.goodsName" placeholder="ÇëÊäÈëÉÌÆ·Ãû³Æ" />
+        <el-form-item label="å•†å“åç§°" prop="goodsName">
+          <el-input v-model="formData.goodsName" placeholder="è¯·è¾“å…¥å•†å“åç§°" />
         </el-form-item>
-        <el-form-item label="·ÖÀà" prop="cateId">
-          <el-select v-model="formData.cateId" placeholder="ÇëÑ¡Ôñ·ÖÀà">
+        <el-form-item label="åˆ†ç±»" prop="cateId">
+          <el-select v-model="formData.cateId" placeholder="è¯·é€‰æ‹©åˆ†ç±»">
             <el-option v-for="item in categoryOptions" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
-        <el-form-item label="¼Û¸ñ" prop="price">
-          <el-input v-model="formData.price" type="number" placeholder="ÇëÊäÈë¼Û¸ñ" />
+        <el-form-item label="ä»·æ ¼" prop="price">
+          <el-input v-model="formData.price" type="number" placeholder="è¯·è¾“å…¥ä»·æ ¼" />
         </el-form-item>
-        <el-form-item label="¿â´æ" prop="stock">
-          <el-input v-model="formData.stock" type="number" placeholder="ÇëÊäÈë¿â´æ" />
+        <el-form-item label="åº“å­˜" prop="stock">
+          <el-input v-model="formData.stock" type="number" placeholder="è¯·è¾“å…¥åº“å­˜" />
         </el-form-item>
-        <el-form-item label="ÉÌÆ·ÃèÊö">
-          <el-input v-model="formData.description" type="textarea" :rows="3" placeholder="ÇëÊäÈëÉÌÆ·ÃèÊö" />
+        <el-form-item label="å•†å“æè¿°">
+          <el-input v-model="formData.description" type="textarea" :rows="3" placeholder="è¯·è¾“å…¥å•†å“æè¿°" />
         </el-form-item>
-        <el-form-item label="×´Ì¬">
+        <el-form-item label="çŠ¶æ€">
           <el-switch v-model="formData.status" active-value="ENABLE" inactive-value="DISABLE" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">È¡Ïû</el-button>
-        <el-button type="primary" @click="handleSubmit">È·¶¨</el-button>
+        <el-button @click="dialogVisible = false">å–æ¶ˆ</el-button>
+        <el-button type="primary" @click="handleSubmit">ç¡®å®š</el-button>
       </div>
     </el-dialog>
   </div>
@@ -122,9 +122,9 @@ export default {
         status: 'ENABLE'
       },
       formRules: {
-        goodsName: [{ required: true, message: 'ÇëÊäÈëÉÌÆ·Ãû³Æ', trigger: 'blur' }],
-        cateId: [{ required: true, message: 'ÇëÑ¡Ôñ·ÖÀà', trigger: 'blur' }],
-        price: [{ required: true, message: 'ÇëÊäÈë¼Û¸ñ', trigger: 'blur' }]
+        goodsName: [{ required: true, message: 'è¯·è¾“å…¥å•†å“åç§°', trigger: 'blur' }],
+        cateId: [{ required: true, message: 'è¯·é€‰æ‹©åˆ†ç±»', trigger: 'blur' }],
+        price: [{ required: true, message: 'è¯·è¾“å…¥ä»·æ ¼', trigger: 'blur' }]
       }
     }
   },
@@ -157,22 +157,22 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = 'ĞÂÔöÉÌÆ·'
+      this.dialogTitle = 'æ–°å¢å•†å“'
       this.formData = { id: '', goodsName: '', cateId: '', price: 0, stock: 0, description: '', status: 'ENABLE' }
       this.dialogVisible = true
     },
     handleEdit(row) {
-      this.dialogTitle = '±à¼­ÉÌÆ·'
+      this.dialogTitle = 'ç¼–è¾‘å•†å“'
       this.formData = { ...row }
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('È·¶¨ÒªÉ¾³ıÕâÌõ¼ÇÂ¼Âğ£¿', 'ÌáÊ¾', {
-        confirmButtonText: 'È·¶¨',
-        cancelButtonText: 'È¡Ïû'
+      this.$confirm('ç¡®å®šè¦åˆ é™¤è¿™æ¡è®°å½•å—ï¼Ÿ', 'æç¤º', {
+        confirmButtonText: 'ç¡®å®š',
+        cancelButtonText: 'å–æ¶ˆ'
       }).then(() => {
         deleteGoods(row.id).then(() => {
-          this.$message.success('É¾³ı³É¹¦')
+          this.$message.success('åˆ é™¤æˆåŠŸ')
           this.fetchData()
         })
       })
@@ -182,7 +182,7 @@ export default {
         if (valid) {
           const api = this.formData.id ? updateGoods : addGoods
           api(this.formData).then(() => {
-            this.$message.success(this.formData.id ? 'ĞŞ¸Ä³É¹¦' : 'ĞÂÔö³É¹¦')
+            this.$message.success(this.formData.id ? 'ä¿®æ”¹æˆåŠŸ' : 'æ–°å¢æˆåŠŸ')
             this.dialogVisible = false
             this.fetchData()
           })

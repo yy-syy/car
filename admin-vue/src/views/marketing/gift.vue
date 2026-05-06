@@ -2,13 +2,13 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ÀñÆ·Ãû³Æ">
-          <el-input v-model="searchForm.giftName" placeholder="ÇëÊäÈëÀñÆ·Ãû³Æ" style="width: 200px;" />
+        <el-form-item label="ç¤¼å“åç§°">
+          <el-input v-model="searchForm.giftName" placeholder="è¯·è¾“å…¥ç¤¼å“åç§°" style="width: 200px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
-          <el-button type="success" @click="handleAdd">ĞÂÔöÀñÆ·</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
+          <el-button type="success" @click="handleAdd">æ–°å¢ç¤¼å“</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -20,26 +20,26 @@
         border
         stripe
       >
-        <el-table-column prop="giftName" label="ÀñÆ·Ãû³Æ" />
-        <el-table-column prop="giftImage" label="ÀñÆ·Í¼Æ¬" width="150">
+        <el-table-column prop="giftName" label="ç¤¼å“åç§°" />
+        <el-table-column prop="giftImage" label="ç¤¼å“å›¾ç‰‡" width="150">
           <template slot-scope="scope">
             <img :src="scope.row.giftImage" style="width: 80px; height: 60px; object-fit: cover;" />
           </template>
         </el-table-column>
-        <el-table-column prop="point" label="ËùĞè»ı·Ö" width="120" />
-        <el-table-column prop="stock" label="¿â´æ" width="100" />
-        <el-table-column prop="status" label="×´Ì¬" width="100">
+        <el-table-column prop="point" label="æ‰€éœ€ç§¯åˆ†" width="120" />
+        <el-table-column prop="stock" label="åº“å­˜" width="100" />
+        <el-table-column prop="status" label="çŠ¶æ€" width="100">
           <template slot-scope="scope">
             <el-tag :type="scope.row.status === 'ENABLE' ? 'success' : 'danger'">
-              {{ scope.row.status === 'ENABLE' ? 'ÆôÓÃ' : '½ûÓÃ' }}
+              {{ scope.row.status === 'ENABLE' ? 'å¯ç”¨' : 'ç¦ç”¨' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="´´½¨Ê±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="createTime" label="åˆ›å»ºæ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">±à¼­</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">É¾³ı</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row)">ç¼–è¾‘</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">åˆ é™¤</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -56,28 +56,28 @@
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="600px">
       <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="ÀñÆ·Ãû³Æ" prop="giftName">
-          <el-input v-model="formData.giftName" placeholder="ÇëÊäÈëÀñÆ·Ãû³Æ" />
+        <el-form-item label="ç¤¼å“åç§°" prop="giftName">
+          <el-input v-model="formData.giftName" placeholder="è¯·è¾“å…¥ç¤¼å“åç§°" />
         </el-form-item>
-        <el-form-item label="ÀñÆ·Í¼Æ¬" prop="giftImage">
-          <el-input v-model="formData.giftImage" placeholder="ÇëÊäÈëÀñÆ·Í¼Æ¬Á´½Ó" />
+        <el-form-item label="ç¤¼å“å›¾ç‰‡" prop="giftImage">
+          <el-input v-model="formData.giftImage" placeholder="è¯·è¾“å…¥ç¤¼å“å›¾ç‰‡é“¾æ¥" />
         </el-form-item>
-        <el-form-item label="ËùĞè»ı·Ö" prop="point">
-          <el-input v-model="formData.point" type="number" placeholder="ÇëÊäÈëËùĞè»ı·Ö" />
+        <el-form-item label="æ‰€éœ€ç§¯åˆ†" prop="point">
+          <el-input v-model="formData.point" type="number" placeholder="è¯·è¾“å…¥æ‰€éœ€ç§¯åˆ†" />
         </el-form-item>
-        <el-form-item label="¿â´æ" prop="stock">
-          <el-input v-model="formData.stock" type="number" placeholder="ÇëÊäÈë¿â´æ" />
+        <el-form-item label="åº“å­˜" prop="stock">
+          <el-input v-model="formData.stock" type="number" placeholder="è¯·è¾“å…¥åº“å­˜" />
         </el-form-item>
-        <el-form-item label="ÀñÆ·ÃèÊö">
-          <el-input v-model="formData.description" type="textarea" :rows="3" placeholder="ÇëÊäÈëÀñÆ·ÃèÊö" />
+        <el-form-item label="ç¤¼å“æè¿°">
+          <el-input v-model="formData.description" type="textarea" :rows="3" placeholder="è¯·è¾“å…¥ç¤¼å“æè¿°" />
         </el-form-item>
-        <el-form-item label="×´Ì¬">
+        <el-form-item label="çŠ¶æ€">
           <el-switch v-model="formData.status" active-value="ENABLE" inactive-value="DISABLE" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">È¡Ïû</el-button>
-        <el-button type="primary" @click="handleSubmit">È·¶¨</el-button>
+        <el-button @click="dialogVisible = false">å–æ¶ˆ</el-button>
+        <el-button type="primary" @click="handleSubmit">ç¡®å®š</el-button>
       </div>
     </el-dialog>
   </div>
@@ -112,8 +112,8 @@ export default {
         status: 'ENABLE'
       },
       formRules: {
-        giftName: [{ required: true, message: 'ÇëÊäÈëÀñÆ·Ãû³Æ', trigger: 'blur' }],
-        point: [{ required: true, message: 'ÇëÊäÈëËùĞè»ı·Ö', trigger: 'blur' }]
+        giftName: [{ required: true, message: 'è¯·è¾“å…¥ç¤¼å“åç§°', trigger: 'blur' }],
+        point: [{ required: true, message: 'è¯·è¾“å…¥æ‰€éœ€ç§¯åˆ†', trigger: 'blur' }]
       }
     }
   },
@@ -140,22 +140,22 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = 'ĞÂÔöÀñÆ·'
+      this.dialogTitle = 'æ–°å¢ç¤¼å“'
       this.formData = { id: '', giftName: '', giftImage: '', point: 0, stock: 0, description: '', status: 'ENABLE' }
       this.dialogVisible = true
     },
     handleEdit(row) {
-      this.dialogTitle = '±à¼­ÀñÆ·'
+      this.dialogTitle = 'ç¼–è¾‘ç¤¼å“'
       this.formData = { ...row }
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('È·¶¨ÒªÉ¾³ıÕâÌõ¼ÇÂ¼Âğ£¿', 'ÌáÊ¾', {
-        confirmButtonText: 'È·¶¨',
-        cancelButtonText: 'È¡Ïû'
+      this.$confirm('ç¡®å®šè¦åˆ é™¤è¿™æ¡è®°å½•å—ï¼Ÿ', 'æç¤º', {
+        confirmButtonText: 'ç¡®å®š',
+        cancelButtonText: 'å–æ¶ˆ'
       }).then(() => {
         deleteGift(row.id).then(() => {
-          this.$message.success('É¾³ı³É¹¦')
+          this.$message.success('åˆ é™¤æˆåŠŸ')
           this.fetchData()
         })
       })
@@ -165,7 +165,7 @@ export default {
         if (valid) {
           const api = this.formData.id ? updateGift : addGift
           api(this.formData).then(() => {
-            this.$message.success(this.formData.id ? 'ĞŞ¸Ä³É¹¦' : 'ĞÂÔö³É¹¦')
+            this.$message.success(this.formData.id ? 'ä¿®æ”¹æˆåŠŸ' : 'æ–°å¢æˆåŠŸ')
             this.dialogVisible = false
             this.fetchData()
           })

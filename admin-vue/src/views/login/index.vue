@@ -1,85 +1,89 @@
 <template>
-  <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
-      <div class="title-container">
-        <h3 class="title">fuint汽车会员管理系统</h3>
-        <p class="desc">fuint汽车会员管理系统后台管理系统</p>
+  <div class="login">
+    <div class="login-main">
+      <div class="caption">
+        <h4 class="caption-title">fuint汽车会员系统</h4>
+        <p class="caption-remark">欢迎使用 fuint汽车会员系统，您的卡券、储值卡、计次卡等会员营销小管家！</p>
       </div>
-
-      <el-form-item prop="username">
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="用户名"
-          name="username"
-          type="text"
-          tabindex="1"
-          autocomplete="on"
-          prefix-icon="el-icon-user"
-        />
-      </el-form-item>
-
-      <el-form-item prop="password">
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="密码"
-          name="password"
-          tabindex="2"
-          autocomplete="on"
-          prefix-icon="el-icon-lock"
-          @keyup.enter.native="handleLogin"
-        >
-          <i slot="suffix" :class="showPassword ? 'el-icon-view' : 'el-icon-hide'" @click="showPassword = !showPassword" style="cursor: pointer;" />
-        </el-input>
-      </el-form-item>
-
-      <el-form-item prop="captchaCode">
-        <el-col :span="14">
+    </div>
+    <div class="login-form">
+      <el-form ref="loginForm" :model="loginForm" :rules="loginRules" size="medium">
+        <div class="title">
+          <svg-icon icon-class="car" class-name="logo" />
+          <span class="name">fuint汽车会员系统</span>
+        </div>
+        <el-form-item prop="username">
+          <el-input
+            ref="username"
+            v-model="loginForm.username"
+            placeholder="账号"
+            name="username"
+            type="text"
+            tabindex="1"
+            autocomplete="on"
+          >
+            <svg-icon slot="prefix" icon-class="user" class-name="el-input__icon input-icon" />
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            :key="passwordType"
+            ref="password"
+            v-model="loginForm.password"
+            :type="passwordType"
+            placeholder="密码"
+            name="password"
+            tabindex="2"
+            autocomplete="on"
+            @keyup.enter.native="handleLogin"
+          >
+            <svg-icon slot="prefix" icon-class="password" class-name="el-input__icon input-icon" />
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="captchaCode">
           <el-input
             v-model="loginForm.captchaCode"
-            placeholder="验证码"
+            placeholder="请输入验证码"
             name="captchaCode"
             tabindex="3"
-            prefix-icon="el-icon-key"
+            style="width: 63%;"
             @keyup.enter.native="handleLogin"
-          />
-        </el-col>
-        <el-col :span="1" class="captcha-gap" />
-        <el-col :span="9">
-          <img :src="captchaImage" @click="refreshCaptcha" style="cursor: pointer; width: 100%; height: 40px; border-radius: 4px;" />
-        </el-col>
-      </el-form-item>
-
-      <el-form-item>
-        <el-checkbox v-model="loginForm.rememberMe" class="remember-me">记住密码</el-checkbox>
-      </el-form-item>
-
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width: 100%; margin-bottom: 30px; margin-top: 20px;"
-        @click.native.prevent="handleLogin"
-      >登录</el-button>
-    </el-form>
-    <div class="copyright">
-      Copyright © 2022-2025 <a href="https://www.fuint.cn/" target="_blank">fuint.cn</a> All Rights Reserved.
+          >
+            <svg-icon slot="prefix" icon-class="validCode" class-name="el-input__icon input-icon" />
+          </el-input>
+          <div class="login-code">
+            <img :src="captchaImage" @click="refreshCaptcha" class="login-code-img" />
+          </div>
+        </el-form-item>
+        <el-checkbox v-model="loginForm.rememberMe" style="margin: 0 0 25px;">记住密码</el-checkbox>
+        <el-form-item style="width: 100%;">
+          <el-button
+            :loading="loading"
+            type="primary"
+            style="width: 100%; line-height: 24px; font-size: 16px;"
+            @click.native.prevent="handleLogin"
+          >
+            <span>立即登录</span>
+          </el-button>
+        </el-form-item>
+      </el-form>
+      <div class="copy-right">
+        <span>Copyright © 2022-2025 <a href="https://www.fuint.cn" class="link">fuint.cn</a> All Rights Reserved.</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { login } from '@/api/user'
-import { getAccessToken, setAccessToken } from '@/utils/auth'
+import { getAccessToken } from '@/utils/auth'
+import axios from 'axios'
 
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!value) {
-        callback(new Error('请输入用户名'))
+        callback(new Error('请输入账号'))
       } else {
         callback()
       }
@@ -112,16 +116,12 @@ export default {
         captchaCode: [{ required: true, trigger: 'blur', validator: validateCaptcha }]
       },
       loading: false,
-      showPassword: false,
       passwordType: 'password',
       redirect: undefined,
       captchaImage: ''
     }
   },
   watch: {
-    showPassword(newVal) {
-      this.passwordType = newVal ? 'text' : 'password'
-    },
     $route: {
       handler: function(route) {
         this.redirect = route.query && route.query.redirect
@@ -137,9 +137,15 @@ export default {
   },
   methods: {
     refreshCaptcha() {
-      const timestamp = Date.now()
-      this.captchaImage = '/fuint-car/clientApi/captcha/getCode?' + timestamp
-      this.loginForm.uuid = ''
+      axios.get('/fuint-car/clientApi/captcha/getCode?' + Date.now()).then(res => {
+        const result = res.data
+        if (result && result.data) {
+          this.captchaImage = result.data.code || ''
+          this.loginForm.uuid = result.data.uuid || ''
+        }
+      }).catch(() => {
+        this.captchaImage = ''
+      })
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
@@ -148,7 +154,7 @@ export default {
           const loginData = {
             username: this.loginForm.username,
             password: this.loginForm.password,
-            captcha: this.loginForm.captchaCode,
+            captchaCode: this.loginForm.captchaCode,
             uuid: this.loginForm.uuid
           }
           this.$store.dispatch('user/login', loginData)
@@ -167,110 +173,139 @@ export default {
 }
 </script>
 
-<style lang="scss">
-$bg:#283443;
-$light_gray:#fff;
-
-body {
-  background: $bg;
-}
-
-.login-container {
-  min-height: 100%;
+<style lang="scss" scoped>
+.login {
+  height: 100%;
   width: 100%;
-  background-color: $bg;
-  overflow: hidden;
+  position: relative;
+
+  .login-main {
+    background-image: url('~@/assets/images/login-bg.png');
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 500px;
+    bottom: 0;
+    transform: translateZ(0);
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% center;
+
+    .caption {
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 30px 50px;
+      font-size: 14px;
+      z-index: 20;
+      font-weight: 300;
+
+      .caption-title {
+        font-size: 30px;
+        font-weight: 700;
+        margin: 0 0 10px;
+      }
+
+      .caption-remark {
+        margin: 0;
+        opacity: 0.8;
+      }
+    }
+  }
 
   .login-form {
-    position: relative;
-    width: 520px;
-    max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
-    overflow: hidden;
-  }
+    width: 500px;
+    height: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0 60px;
+    background: #fff;
+    overflow-y: auto;
+    box-sizing: border-box;
 
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
-
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
+    .el-form {
+      padding-top: 80px;
     }
-  }
-
-  .svg-container {
-    padding: 6px 5px 18px 0;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
-
-    .svg-icon {
-      font-size: 20px;
-      color: $light_gray;
-      vertical-align: middle;
-    }
-  }
-
-  .title-container {
-    position: relative;
-    text-align: center;
 
     .title {
-      font-size: 26px;
-      color: $light_gray;
-      margin: 0 auto 10px;
-      text-align: center;
-      font-weight: bold;
-    }
+      text-align: left;
+      font-size: 24px;
+      color: #707070;
+      padding: 20px 0 40px 0;
+      white-space: nowrap;
 
-    .desc {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 40px;
-    }
-  }
+      .logo {
+        width: 28px;
+        height: 28px;
+        vertical-align: middle;
+        color: #707070;
+      }
 
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    font-size: 16px;
-    color: $light_gray;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .captcha-gap {
-    padding-top: 2px;
-  }
-
-  .remember-me {
-    color: $light_gray;
-    font-size: 14px;
-
-    ::v-deep .el-checkbox__label {
-      color: rgba(255, 255, 255, 0.7);
-    }
-  }
-
-  .copyright {
-    text-align: center;
-    padding: 20px;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 12px;
-
-    a {
-      color: rgba(255, 255, 255, 0.5);
-      text-decoration: none;
-
-      &:hover {
-        color: $light_gray;
+      .name {
+        margin-left: 5px;
+        vertical-align: middle;
       }
     }
+
+    .login-code {
+      width: 33%;
+      height: 38px;
+      float: right;
+
+      img {
+        cursor: pointer;
+        vertical-align: middle;
+      }
+    }
+
+    .login-code-img {
+      height: 38px;
+      width: 100%;
+    }
+
+    ::v-deep .el-input,
+    ::v-deep .el-input input {
+      height: 45px;
+    }
+
+    ::v-deep .el-input__inner {
+      line-height: 45px;
+    }
+
+    .input-icon {
+      height: 45px;
+      width: 14px;
+      margin-left: 2px;
+    }
+
+    .copy-right {
+      color: #888;
+      text-align: center;
+      font-size: 12px;
+      padding: 30px 0;
+
+      .link {
+        color: #ff5b57;
+        font-weight: 700;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+::v-deep .el-button--primary {
+  background-color: #373f64;
+  border-color: #373f64;
+
+  &:hover {
+    background-color: #4a5280;
+    border-color: #4a5280;
   }
 }
 </style>

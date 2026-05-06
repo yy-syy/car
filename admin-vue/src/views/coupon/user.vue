@@ -2,15 +2,15 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ª·‘±–’√˚">
-          <el-input v-model="searchForm.realName" placeholder="«Î ‰»Îª·‘±–’√˚" style="width: 150px;" />
+        <el-form-item label="‰ºöÂëòÂßìÂêç">
+          <el-input v-model="searchForm.realName" placeholder="ËØ∑ËæìÂÖ•‰ºöÂëòÂßìÂêç" style="width: 150px;" />
         </el-form-item>
-        <el-form-item label=" ÷ª˙∫≈¬Î">
-          <el-input v-model="searchForm.mobile" placeholder="«Î ‰»Î ÷ª˙∫≈¬Î" style="width: 150px;" />
+        <el-form-item label="ÊâãÊú∫Âè∑Á†Å">
+          <el-input v-model="searchForm.mobile" placeholder="ËØ∑ËæìÂÖ•ÊâãÊú∫Âè∑Á†Å" style="width: 150px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">À—À˜</el-button>
-          <el-button @click="handleReset">÷ÿ÷√</el-button>
+          <el-button type="primary" @click="handleSearch">ÊêúÁ¥¢</el-button>
+          <el-button @click="handleReset">ÈáçÁΩÆ</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -22,19 +22,19 @@
         border
         stripe
       >
-        <el-table-column prop="couponName" label="ø®»Ø√˚≥∆" />
-        <el-table-column prop="realName" label="ª·‘±–’√˚" width="120" />
-        <el-table-column prop="mobile" label=" ÷ª˙∫≈¬Î" width="130" />
-        <el-table-column prop="status" label="◊¥Ã¨" width="100">
+        <el-table-column prop="couponName" label="Âç°Âà∏ÂêçÁß∞" />
+        <el-table-column prop="realName" label="‰ºöÂëòÂßìÂêç" width="120" />
+        <el-table-column prop="mobile" label="ÊâãÊú∫Âè∑Á†Å" width="130" />
+        <el-table-column prop="status" label="Áä∂ÊÄÅ" width="100">
           <template slot-scope="scope">
             <el-tag :type="getStatusType(scope.row.status)">
               {{ getStatusText(scope.row.status) }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="receiveTime" label="¡Ï»° ±º‰" width="160" />
-        <el-table-column prop="expireTime" label="π˝∆⁄ ±º‰" width="160" />
-        <el-table-column prop="useTime" label=" π”√ ±º‰" width="160" />
+        <el-table-column prop="receiveTime" label="È¢ÜÂèñÊó∂Èó¥" width="160" />
+        <el-table-column prop="expireTime" label="ËøáÊúüÊó∂Èó¥" width="160" />
+        <el-table-column prop="useTime" label="‰ΩøÁî®Êó∂Èó¥" width="160" />
       </el-table>
 
       <el-pagination
@@ -92,9 +92,9 @@ export default {
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     getStatusText(status) {
       const map = {
-        UNUSED: 'Œ¥ π”√',
-        USED: '“— π”√',
-        EXPIRED: '“—π˝∆⁄'
+        UNUSED: 'Êú™‰ΩøÁî®',
+        USED: 'Â∑≤‰ΩøÁî®',
+        EXPIRED: 'Â∑≤ËøáÊúü'
       }
       return map[status] || status
     },

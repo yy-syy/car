@@ -2,28 +2,28 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="≤Ÿ◊˜»À">
-          <el-input v-model="searchForm.accountName" placeholder="«Î ‰»Î≤Ÿ◊˜»À" style="width: 150px;" />
+        <el-form-item label="Êìç‰Ωú‰∫∫">
+          <el-input v-model="searchForm.accountName" placeholder="ËØ∑ËæìÂÖ•Êìç‰Ωú‰∫∫" style="width: 150px;" />
         </el-form-item>
-        <el-form-item label="ƒ£øÈ">
-          <el-input v-model="searchForm.module" placeholder="«Î ‰»Îƒ£øÈ" style="width: 150px;" />
+        <el-form-item label="Ê®°Âùó">
+          <el-input v-model="searchForm.module" placeholder="ËØ∑ËæìÂÖ•Ê®°Âùó" style="width: 150px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">À—À˜</el-button>
-          <el-button @click="handleReset">÷ÿ÷√</el-button>
+          <el-button type="primary" @click="handleSearch">ÊêúÁ¥¢</el-button>
+          <el-button @click="handleReset">ÈáçÁΩÆ</el-button>
         </el-form-item>
       </el-form>
     </div>
 
     <div class="table-container">
       <el-table :data="logList" :loading="loading" border stripe>
-        <el-table-column prop="logId" label="»’÷æID" width="100" />
-        <el-table-column prop="accountName" label="≤Ÿ◊˜»À" width="120" />
-        <el-table-column prop="module" label="ƒ£øÈ" width="150" />
-        <el-table-column prop="content" label="≤Ÿ◊˜ƒ⁄»›" />
-        <el-table-column prop="ip" label="IPµÿ÷∑" width="140" />
-        <el-table-column prop="userAgent" label="‰Ø¿¿∆˜" width="150" />
-        <el-table-column prop="createTime" label="≤Ÿ◊˜ ±º‰" width="160" />
+        <el-table-column prop="logId" label="Êó•ÂøóID" width="100" />
+        <el-table-column prop="accountName" label="Êìç‰Ωú‰∫∫" width="120" />
+        <el-table-column prop="module" label="Ê®°Âùó" width="150" />
+        <el-table-column prop="content" label="Êìç‰ΩúÂÜÖÂÆπ" />
+        <el-table-column prop="ip" label="IPÂú∞ÂùÄ" width="140" />
+        <el-table-column prop="userAgent" label="ÊµèËßàÂô®" width="150" />
+        <el-table-column prop="createTime" label="Êìç‰ΩúÊó∂Èó¥" width="160" />
       </el-table>
 
       <el-pagination

@@ -2,13 +2,13 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="²Ëµ¥Ãû³Æ">
-          <el-input v-model="searchForm.name" placeholder="ÇëÊäÈë²Ëµ¥Ãû³Æ" style="width: 200px;" />
+        <el-form-item label="èœå•åç§°">
+          <el-input v-model="searchForm.name" placeholder="è¯·è¾“å…¥èœå•åç§°" style="width: 200px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
-          <el-button type="success" @click="handleAdd">ĞÂÔö²Ëµ¥</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
+          <el-button type="success" @click="handleAdd">æ–°å¢èœå•</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -20,23 +20,23 @@
         border
         stripe
       >
-        <el-table-column prop="name" label="²Ëµ¥Ãû³Æ" />
-        <el-table-column prop="parentName" label="ÉÏ¼¶²Ëµ¥" width="120" />
-        <el-table-column prop="path" label="Â·¾¶" width="150" />
-        <el-table-column prop="icon" label="Í¼±ê" width="100" />
-        <el-table-column prop="sort" label="ÅÅĞò" width="80" />
-        <el-table-column prop="status" label="×´Ì¬" width="100">
+        <el-table-column prop="name" label="èœå•åç§°" />
+        <el-table-column prop="parentName" label="ä¸Šçº§èœå•" width="120" />
+        <el-table-column prop="path" label="è·¯å¾„" width="150" />
+        <el-table-column prop="icon" label="å›¾æ ‡" width="100" />
+        <el-table-column prop="sort" label="æ’åº" width="80" />
+        <el-table-column prop="status" label="çŠ¶æ€" width="100">
           <template slot-scope="scope">
             <el-tag :type="scope.row.status === 'ENABLE' ? 'success' : 'danger'">
-              {{ scope.row.status === 'ENABLE' ? 'ÆôÓÃ' : '½ûÓÃ' }}
+              {{ scope.row.status === 'ENABLE' ? 'å¯ç”¨' : 'ç¦ç”¨' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="´´½¨Ê±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="createTime" label="åˆ›å»ºæ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">±à¼­</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">É¾³ı</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row)">ç¼–è¾‘</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">åˆ é™¤</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -53,34 +53,34 @@
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="600px">
       <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="²Ëµ¥Ãû³Æ" prop="name">
-          <el-input v-model="formData.name" placeholder="ÇëÊäÈë²Ëµ¥Ãû³Æ" />
+        <el-form-item label="èœå•åç§°" prop="name">
+          <el-input v-model="formData.name" placeholder="è¯·è¾“å…¥èœå•åç§°" />
         </el-form-item>
-        <el-form-item label="ÉÏ¼¶²Ëµ¥">
-          <el-select v-model="formData.parentId" placeholder="ÇëÑ¡ÔñÉÏ¼¶²Ëµ¥">
-            <el-option label="ÎŞ" value="" />
+        <el-form-item label="ä¸Šçº§èœå•">
+          <el-select v-model="formData.parentId" placeholder="è¯·é€‰æ‹©ä¸Šçº§èœå•">
+            <el-option label="æ— " value="" />
             <el-option v-for="item in parentOptions" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
-        <el-form-item label="Â·¾¶" prop="path">
-          <el-input v-model="formData.path" placeholder="ÇëÊäÈëÂ·¾¶" />
+        <el-form-item label="è·¯å¾„" prop="path">
+          <el-input v-model="formData.path" placeholder="è¯·è¾“å…¥è·¯å¾„" />
         </el-form-item>
-        <el-form-item label="×é¼ş" prop="component">
-          <el-input v-model="formData.component" placeholder="ÇëÊäÈë×é¼şÂ·¾¶" />
+        <el-form-item label="ç»„ä»¶" prop="component">
+          <el-input v-model="formData.component" placeholder="è¯·è¾“å…¥ç»„ä»¶è·¯å¾„" />
         </el-form-item>
-        <el-form-item label="Í¼±ê" prop="icon">
-          <el-input v-model="formData.icon" placeholder="ÇëÊäÈëÍ¼±êÃû³Æ" />
+        <el-form-item label="å›¾æ ‡" prop="icon">
+          <el-input v-model="formData.icon" placeholder="è¯·è¾“å…¥å›¾æ ‡åç§°" />
         </el-form-item>
-        <el-form-item label="ÅÅĞò" prop="sort">
-          <el-input v-model="formData.sort" type="number" placeholder="ÇëÊäÈëÅÅĞòºÅ" />
+        <el-form-item label="æ’åº" prop="sort">
+          <el-input v-model="formData.sort" type="number" placeholder="è¯·è¾“å…¥æ’åºå·" />
         </el-form-item>
-        <el-form-item label="×´Ì¬">
+        <el-form-item label="çŠ¶æ€">
           <el-switch v-model="formData.status" active-value="ENABLE" inactive-value="DISABLE" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">È¡Ïû</el-button>
-        <el-button type="primary" @click="handleSubmit">È·¶¨</el-button>
+        <el-button @click="dialogVisible = false">å–æ¶ˆ</el-button>
+        <el-button type="primary" @click="handleSubmit">ç¡®å®š</el-button>
       </div>
     </el-dialog>
   </div>
@@ -117,7 +117,7 @@ export default {
         status: 'ENABLE'
       },
       formRules: {
-        name: [{ required: true, message: 'ÇëÊäÈë²Ëµ¥Ãû³Æ', trigger: 'blur' }]
+        name: [{ required: true, message: 'è¯·è¾“å…¥èœå•åç§°', trigger: 'blur' }]
       }
     }
   },
@@ -150,22 +150,22 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = 'ĞÂÔö²Ëµ¥'
+      this.dialogTitle = 'æ–°å¢èœå•'
       this.formData = { id: '', name: '', parentId: '', path: '', component: '', icon: '', sort: 0, status: 'ENABLE' }
       this.dialogVisible = true
     },
     handleEdit(row) {
-      this.dialogTitle = '±à¼­²Ëµ¥'
+      this.dialogTitle = 'ç¼–è¾‘èœå•'
       this.formData = { ...row }
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('È·¶¨ÒªÉ¾³ıÕâÌõ¼ÇÂ¼Âğ£¿', 'ÌáÊ¾', {
-        confirmButtonText: 'È·¶¨',
-        cancelButtonText: 'È¡Ïû'
+      this.$confirm('ç¡®å®šè¦åˆ é™¤è¿™æ¡è®°å½•å—ï¼Ÿ', 'æç¤º', {
+        confirmButtonText: 'ç¡®å®š',
+        cancelButtonText: 'å–æ¶ˆ'
       }).then(() => {
         deleteMenu(row.id).then(() => {
-          this.$message.success('É¾³ı³É¹¦')
+          this.$message.success('åˆ é™¤æˆåŠŸ')
           this.fetchData()
         })
       })
@@ -175,7 +175,7 @@ export default {
         if (valid) {
           const api = this.formData.id ? updateMenu : addMenu
           api(this.formData).then(() => {
-            this.$message.success(this.formData.id ? 'ĞŞ¸Ä³É¹¦' : 'ĞÂÔö³É¹¦')
+            this.$message.success(this.formData.id ? 'ä¿®æ”¹æˆåŠŸ' : 'æ–°å¢æˆåŠŸ')
             this.dialogVisible = false
             this.fetchData()
           })

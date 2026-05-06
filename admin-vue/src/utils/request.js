@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 import store from '@/store'
 import { getAccessToken } from '@/utils/auth'
 
@@ -25,23 +25,19 @@ service.interceptors.response.use(
     const res = response.data
 
     if (res.code !== 200) {
+      // 401æˆ–1001è¡¨ç¤ºæœªç™»å½•/tokenå¤±æ•ˆ
+      if (res.code === 401 || res.code === 1001) {
+        store.dispatch('user/resetToken').then(() => {
+          location.reload()
+        })
+        return Promise.reject(new Error(res.message || 'ç™»å½•å·²å¤±æ•ˆ'))
+      }
+
       Message({
         message: res.message || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
-
-      if (res.code === 401) {
-        MessageBox.confirm('ÄãÒÑ±»µÇ³ö£¬ÇëÖØÐÂµÇÂ¼', 'È·ÈÏµÇ³ö', {
-          confirmButtonText: 'ÖØÐÂµÇÂ¼',
-          cancelButtonText: 'È¡Ïû',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
-            location.reload()
-          })
-        })
-      }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return res

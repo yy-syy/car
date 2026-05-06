@@ -1,10 +1,9 @@
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse':collapse}">
+  <div class="sidebar-logo-container" :class="{'collapse':collapse}" :style="{backgroundColor: '#373f64'}">
     <transition name="sidebarLogoFade">
       <router-link key="collapse" class="sidebar-logo-link" to="/">
-        <img v-if="!collapse" src="@/assets/images/logo.png" class="sidebar-logo">
-        <img v-else src="@/assets/images/logo-mini.png" class="sidebar-logo">
-        <h1 v-if="!collapse" class="sidebar-title">fuint</h1>
+        <svg-icon icon-class="car" class-name="sidebar-logo" />
+        <h1 v-if="!collapse" class="sidebar-title">fuint汽车会员系统</h1>
       </router-link>
     </transition>
   </div>
@@ -37,19 +36,21 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #2b2f3a;
+  background: #373f64;
   text-align: center;
   overflow: hidden;
 
   & .sidebar-logo-link {
     height: 100%;
     width: 100%;
+    text-decoration: none;
 
     & .sidebar-logo {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       vertical-align: middle;
-      margin-right: 12px;
+      margin-right: 8px;
+      color: #fff;
     }
 
     & .sidebar-title {

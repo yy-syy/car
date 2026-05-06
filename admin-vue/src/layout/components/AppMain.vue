@@ -29,21 +29,12 @@ export default {
 
 <style lang="scss" scoped>
 .app-main {
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - 84px);
   width: 100%;
   position: relative;
   overflow: hidden;
-  transition: margin-left 0.28s;
-  margin-left: 210px;
+  padding-top: 84px;
   background: #f5f5f5;
-}
-
-.app-main.no-sidebar {
-  margin-left: 0;
-}
-
-.fixed-header + .app-main {
-  padding-top: 50px;
 }
 
 .fade-transform-enter-active,

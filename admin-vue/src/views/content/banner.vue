@@ -2,13 +2,13 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ÂÖ²¥Í¼Ãû³Æ">
-          <el-input v-model="searchForm.name" placeholder="ÇëÊäÈëÂÖ²¥Í¼Ãû³Æ" style="width: 200px;" />
+        <el-form-item label="è½®æ’­å›¾åç§°">
+          <el-input v-model="searchForm.name" placeholder="è¯·è¾“å…¥è½®æ’­å›¾åç§°" style="width: 200px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
-          <el-button type="success" @click="handleAdd">ĞÂÔöÂÖ²¥Í¼</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
+          <el-button type="success" @click="handleAdd">æ–°å¢è½®æ’­å›¾</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -20,23 +20,23 @@
         border
         stripe
       >
-        <el-table-column prop="name" label="ÂÖ²¥Í¼Ãû³Æ" />
-        <el-table-column prop="imageUrl" label="Í¼Æ¬" width="150">
+        <el-table-column prop="name" label="è½®æ’­å›¾åç§°" />
+        <el-table-column prop="imageUrl" label="å›¾ç‰‡" width="150">
           <template slot-scope="scope">
             <img :src="scope.row.imageUrl" style="width: 80px; height: 60px; object-fit: cover;" />
           </template>
         </el-table-column>
-        <el-table-column prop="sort" label="ÅÅĞò" width="80" />
-        <el-table-column prop="status" label="×´Ì¬" width="100">
+        <el-table-column prop="sort" label="æ’åº" width="80" />
+        <el-table-column prop="status" label="çŠ¶æ€" width="100">
           <template slot-scope="scope">
             <el-switch :value="scope.row.status === 'ENABLE'" @change="handleStatusChange(scope.row)" />
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="´´½¨Ê±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="createTime" label="åˆ›å»ºæ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">±à¼­</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">É¾³ı</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row)">ç¼–è¾‘</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">åˆ é™¤</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -53,25 +53,25 @@
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="600px">
       <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="ÂÖ²¥Í¼Ãû³Æ" prop="name">
-          <el-input v-model="formData.name" placeholder="ÇëÊäÈëÂÖ²¥Í¼Ãû³Æ" />
+        <el-form-item label="è½®æ’­å›¾åç§°" prop="name">
+          <el-input v-model="formData.name" placeholder="è¯·è¾“å…¥è½®æ’­å›¾åç§°" />
         </el-form-item>
-        <el-form-item label="Í¼Æ¬Á´½Ó" prop="imageUrl">
-          <el-input v-model="formData.imageUrl" placeholder="ÇëÊäÈëÍ¼Æ¬Á´½Ó" />
+        <el-form-item label="å›¾ç‰‡é“¾æ¥" prop="imageUrl">
+          <el-input v-model="formData.imageUrl" placeholder="è¯·è¾“å…¥å›¾ç‰‡é“¾æ¥" />
         </el-form-item>
-        <el-form-item label="Ìø×ªÁ´½Ó" prop="linkUrl">
-          <el-input v-model="formData.linkUrl" placeholder="ÇëÊäÈëÌø×ªÁ´½Ó" />
+        <el-form-item label="è·³è½¬é“¾æ¥" prop="linkUrl">
+          <el-input v-model="formData.linkUrl" placeholder="è¯·è¾“å…¥è·³è½¬é“¾æ¥" />
         </el-form-item>
-        <el-form-item label="ÅÅĞò" prop="sort">
-          <el-input v-model="formData.sort" type="number" placeholder="ÇëÊäÈëÅÅĞòºÅ" />
+        <el-form-item label="æ’åº" prop="sort">
+          <el-input v-model="formData.sort" type="number" placeholder="è¯·è¾“å…¥æ’åºå·" />
         </el-form-item>
-        <el-form-item label="×´Ì¬">
+        <el-form-item label="çŠ¶æ€">
           <el-switch v-model="formData.status" active-value="ENABLE" inactive-value="DISABLE" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">È¡Ïû</el-button>
-        <el-button type="primary" @click="handleSubmit">È·¶¨</el-button>
+        <el-button @click="dialogVisible = false">å–æ¶ˆ</el-button>
+        <el-button type="primary" @click="handleSubmit">ç¡®å®š</el-button>
       </div>
     </el-dialog>
   </div>
@@ -105,8 +105,8 @@ export default {
         status: 'ENABLE'
       },
       formRules: {
-        name: [{ required: true, message: 'ÇëÊäÈëÂÖ²¥Í¼Ãû³Æ', trigger: 'blur' }],
-        imageUrl: [{ required: true, message: 'ÇëÊäÈëÍ¼Æ¬Á´½Ó', trigger: 'blur' }]
+        name: [{ required: true, message: 'è¯·è¾“å…¥è½®æ’­å›¾åç§°', trigger: 'blur' }],
+        imageUrl: [{ required: true, message: 'è¯·è¾“å…¥å›¾ç‰‡é“¾æ¥', trigger: 'blur' }]
       }
     }
   },
@@ -133,29 +133,29 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = 'ĞÂÔöÂÖ²¥Í¼'
+      this.dialogTitle = 'æ–°å¢è½®æ’­å›¾'
       this.formData = { id: '', name: '', imageUrl: '', linkUrl: '', sort: 0, status: 'ENABLE' }
       this.dialogVisible = true
     },
     handleEdit(row) {
-      this.dialogTitle = '±à¼­ÂÖ²¥Í¼'
+      this.dialogTitle = 'ç¼–è¾‘è½®æ’­å›¾'
       this.formData = { ...row }
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('È·¶¨ÒªÉ¾³ıÕâÌõ¼ÇÂ¼Âğ£¿', 'ÌáÊ¾', {
-        confirmButtonText: 'È·¶¨',
-        cancelButtonText: 'È¡Ïû'
+      this.$confirm('ç¡®å®šè¦åˆ é™¤è¿™æ¡è®°å½•å—ï¼Ÿ', 'æç¤º', {
+        confirmButtonText: 'ç¡®å®š',
+        cancelButtonText: 'å–æ¶ˆ'
       }).then(() => {
         deleteBanner(row.id).then(() => {
-          this.$message.success('É¾³ı³É¹¦')
+          this.$message.success('åˆ é™¤æˆåŠŸ')
           this.fetchData()
         })
       })
     },
     handleStatusChange(row) {
       updateBanner({ ...row, status: row.status === 'ENABLE' ? 'DISABLE' : 'ENABLE' }).then(() => {
-        this.$message.success('×´Ì¬ĞŞ¸Ä³É¹¦')
+        this.$message.success('çŠ¶æ€ä¿®æ”¹æˆåŠŸ')
       })
     },
     handleSubmit() {
@@ -163,7 +163,7 @@ export default {
         if (valid) {
           const api = this.formData.id ? updateBanner : addBanner
           api(this.formData).then(() => {
-            this.$message.success(this.formData.id ? 'ĞŞ¸Ä³É¹¦' : 'ĞÂÔö³É¹¦')
+            this.$message.success(this.formData.id ? 'ä¿®æ”¹æˆåŠŸ' : 'æ–°å¢æˆåŠŸ')
             this.dialogVisible = false
             this.fetchData()
           })

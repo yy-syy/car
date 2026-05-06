@@ -1,6 +1,10 @@
 <template>
   <div :class="['sidebar-container', {'has-logo':showLogo}]">
     <logo v-if="showLogo" :collapse="isCollapse" />
+    <div v-if="!isCollapse" class="store-info">
+      <div class="name">{{ storeName }}</div>
+      <div class="role">（{{ roleName }}）</div>
+    </div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
@@ -31,6 +35,12 @@ export default {
       'permission_routes',
       'sidebar'
     ]),
+    storeName() {
+      return this.$store.state.user.storeName || 'fuint汽车'
+    },
+    roleName() {
+      return this.$store.state.user.roleName || '商户管理员'
+    },
     activeMenu() {
       const route = this.$route
       const { meta, path } = route
@@ -58,8 +68,8 @@ export default {
 }
 .sidebar-container {
   transition: width 0.28s;
-  width: 210px !important;
-  background-color: #304156;
+  width: 200px !important;
+  background-color: #373f64;
   height: 100%;
   position: fixed;
   font-size: 0px;
@@ -71,7 +81,30 @@ export default {
 
   &.has-logo {
     .el-scrollbar {
-      height: calc(100% - 50px);
+      height: calc(100% - 100px);
+    }
+  }
+
+  .store-info {
+    background-color: #373f64;
+    border: 1px solid #fff;
+    margin: 0 6px 10px;
+    padding: 6px 0 0;
+    text-align: center;
+    border-radius: 4px;
+
+    .name {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 22px;
+    }
+
+    .role {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+      line-height: 20px;
+      padding-bottom: 4px;
     }
   }
 

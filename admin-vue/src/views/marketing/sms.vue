@@ -2,12 +2,12 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ÊÖ»úºÅÂë">
-          <el-input v-model="searchForm.mobile" placeholder="ÇëÊäÈëÊÖ»úºÅÂë" style="width: 150px;" />
+        <el-form-item label="æ‰‹æœºå·ç ">
+          <el-input v-model="searchForm.mobile" placeholder="è¯·è¾“å…¥æ‰‹æœºå·ç " style="width: 150px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -19,16 +19,16 @@
         border
         stripe
       >
-        <el-table-column prop="mobile" label="ÊÖ»úºÅÂë" width="130" />
-        <el-table-column prop="content" label="¶ÌĞÅÄÚÈİ" />
-        <el-table-column prop="sendStatus" label="·¢ËÍ×´Ì¬" width="120">
+        <el-table-column prop="mobile" label="æ‰‹æœºå·ç " width="130" />
+        <el-table-column prop="content" label="çŸ­ä¿¡å†…å®¹" />
+        <el-table-column prop="sendStatus" label="å‘é€çŠ¶æ€" width="120">
           <template slot-scope="scope">
             <el-tag :type="scope.row.sendStatus === 'SUCCESS' ? 'success' : 'danger'">
-              {{ scope.row.sendStatus === 'SUCCESS' ? '·¢ËÍ³É¹¦' : '·¢ËÍÊ§°Ü' }}
+              {{ scope.row.sendStatus === 'SUCCESS' ? 'å‘é€æˆåŠŸ' : 'å‘é€å¤±è´¥' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="·¢ËÍÊ±¼ä" width="160" />
+        <el-table-column prop="createTime" label="å‘é€æ—¶é—´" width="160" />
       </el-table>
 
       <el-pagination
@@ -42,16 +42,16 @@
     </div>
 
     <div class="send-sms-section">
-      <h3>·¢ËÍ¶ÌĞÅ</h3>
+      <h3>å‘é€çŸ­ä¿¡</h3>
       <el-form :model="sendForm" :rules="sendRules" ref="sendRef" label-width="80px">
-        <el-form-item label="ÊÖ»úºÅÂë" prop="mobile">
-          <el-input v-model="sendForm.mobile" placeholder="ÇëÊäÈëÊÖ»úºÅÂë" />
+        <el-form-item label="æ‰‹æœºå·ç " prop="mobile">
+          <el-input v-model="sendForm.mobile" placeholder="è¯·è¾“å…¥æ‰‹æœºå·ç " />
         </el-form-item>
-        <el-form-item label="¶ÌĞÅÄÚÈİ" prop="content">
-          <el-input v-model="sendForm.content" type="textarea" :rows="3" placeholder="ÇëÊäÈë¶ÌĞÅÄÚÈİ" />
+        <el-form-item label="çŸ­ä¿¡å†…å®¹" prop="content">
+          <el-input v-model="sendForm.content" type="textarea" :rows="3" placeholder="è¯·è¾“å…¥çŸ­ä¿¡å†…å®¹" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSend">·¢ËÍ¶ÌĞÅ</el-button>
+          <el-button type="primary" @click="handleSend">å‘é€çŸ­ä¿¡</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -79,8 +79,8 @@ export default {
         content: ''
       },
       sendRules: {
-        mobile: [{ required: true, message: 'ÇëÊäÈëÊÖ»úºÅÂë', trigger: 'blur' }],
-        content: [{ required: true, message: 'ÇëÊäÈë¶ÌĞÅÄÚÈİ', trigger: 'blur' }]
+        mobile: [{ required: true, message: 'è¯·è¾“å…¥æ‰‹æœºå·ç ', trigger: 'blur' }],
+        content: [{ required: true, message: 'è¯·è¾“å…¥çŸ­ä¿¡å†…å®¹', trigger: 'blur' }]
       }
     }
   },
@@ -110,7 +110,7 @@ export default {
       this.$refs.sendRef.validate((valid) => {
         if (valid) {
           sendSms(this.sendForm).then(() => {
-            this.$message.success('·¢ËÍ³É¹¦')
+            this.$message.success('å‘é€æˆåŠŸ')
             this.sendForm = { mobile: '', content: '' }
             this.fetchData()
           })

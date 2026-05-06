@@ -2,24 +2,24 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ª·‘±ID">
-          <el-input v-model="searchForm.id" placeholder="«Î ‰»Îª·‘±ID" style="width: 150px;" />
+        <el-form-item label="‰ºöÂëòID">
+          <el-input v-model="searchForm.id" placeholder="ËØ∑ËæìÂÖ•‰ºöÂëòID" style="width: 150px;" />
         </el-form-item>
-        <el-form-item label="ª·‘±–’√˚">
-          <el-input v-model="searchForm.name" placeholder="«Î ‰»Îª·‘±–’√˚" style="width: 150px;" />
+        <el-form-item label="‰ºöÂëòÂßìÂêç">
+          <el-input v-model="searchForm.name" placeholder="ËØ∑ËæìÂÖ•‰ºöÂëòÂßìÂêç" style="width: 150px;" />
         </el-form-item>
-        <el-form-item label=" ÷ª˙∫≈¬Î">
-          <el-input v-model="searchForm.mobile" placeholder="«Î ‰»Î ÷ª˙∫≈¬Î" style="width: 150px;" />
+        <el-form-item label="ÊâãÊú∫Âè∑Á†Å">
+          <el-input v-model="searchForm.mobile" placeholder="ËØ∑ËæìÂÖ•ÊâãÊú∫Âè∑Á†Å" style="width: 150px;" />
         </el-form-item>
-        <el-form-item label="ª·‘±µ»º∂">
-          <el-select v-model="searchForm.gradeId" placeholder="«Î—°‘Òª·‘±µ»º∂">
-            <el-option label="»´≤ø" value="" />
+        <el-form-item label="‰ºöÂëòÁ≠âÁ∫ß">
+          <el-select v-model="searchForm.gradeId" placeholder="ËØ∑ÈÄâÊã©‰ºöÂëòÁ≠âÁ∫ß">
+            <el-option label="ÂÖ®ÈÉ®" value="" />
             <el-option v-for="grade in gradeOptions" :key="grade.gradeId" :label="grade.gradeName" :value="grade.gradeId" />
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">À—À˜</el-button>
-          <el-button @click="handleReset">÷ÿ÷√</el-button>
+          <el-button type="primary" @click="handleSearch">ÊêúÁ¥¢</el-button>
+          <el-button @click="handleReset">ÈáçÁΩÆ</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -33,15 +33,15 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" />
-        <el-table-column prop="id" label="ª·‘±ID" width="100" />
-        <el-table-column prop="realName" label="ª·‘±–’√˚" width="120" />
-        <el-table-column prop="mobile" label=" ÷ª˙∫≈¬Î" width="130" />
-        <el-table-column prop="gradeName" label="ª·‘±µ»º∂" width="120" />
-        <el-table-column prop="balance" label="”‡∂Ó" width="120">
-          <template slot-scope="scope">£§{{ scope.row.balance }}</template>
+        <el-table-column prop="id" label="‰ºöÂëòID" width="100" />
+        <el-table-column prop="realName" label="‰ºöÂëòÂßìÂêç" width="120" />
+        <el-table-column prop="mobile" label="ÊâãÊú∫Âè∑Á†Å" width="130" />
+        <el-table-column prop="gradeName" label="‰ºöÂëòÁ≠âÁ∫ß" width="120" />
+        <el-table-column prop="balance" label="‰ΩôÈ¢ù" width="120">
+          <template slot-scope="scope">Ôø•{{ scope.row.balance }}</template>
         </el-table-column>
-        <el-table-column prop="point" label="ª˝∑÷" width="100" />
-        <el-table-column prop="createTime" label="◊¢≤· ±º‰" width="160" />
+        <el-table-column prop="point" label="ÁßØÂàÜ" width="100" />
+        <el-table-column prop="createTime" label="Ê≥®ÂÜåÊó∂Èó¥" width="160" />
       </el-table>
 
       <el-pagination

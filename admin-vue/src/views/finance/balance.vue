@@ -2,20 +2,20 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ª·‘±–’√˚">
-          <el-input v-model="searchForm.memberName" placeholder="«Î ‰»Îª·‘±–’√˚" style="width: 150px;" />
+        <el-form-item label="‰ºöÂëòÂßìÂêç">
+          <el-input v-model="searchForm.memberName" placeholder="ËØ∑ËæìÂÖ•‰ºöÂëòÂßìÂêç" style="width: 150px;" />
         </el-form-item>
-        <el-form-item label="º«¬º¿‡–Õ">
-          <el-select v-model="searchForm.type" placeholder="«Î—°‘Òº«¬º¿‡–Õ">
-            <el-option label="»´≤ø" value="" />
-            <el-option label="≥‰÷µ" value="RECHARGE" />
-            <el-option label="œ˚∑—" value="CONSUME" />
-            <el-option label="ÕÀøÓ" value="REFUND" />
+        <el-form-item label="ËÆ∞ÂΩïÁ±ªÂûã">
+          <el-select v-model="searchForm.type" placeholder="ËØ∑ÈÄâÊã©ËÆ∞ÂΩïÁ±ªÂûã">
+            <el-option label="ÂÖ®ÈÉ®" value="" />
+            <el-option label="ÂÖÖÂÄº" value="RECHARGE" />
+            <el-option label="Ê∂àË¥π" value="CONSUME" />
+            <el-option label="ÈÄÄÊ¨æ" value="REFUND" />
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">À—À˜</el-button>
-          <el-button @click="handleReset">÷ÿ÷√</el-button>
+          <el-button type="primary" @click="handleSearch">ÊêúÁ¥¢</el-button>
+          <el-button @click="handleReset">ÈáçÁΩÆ</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -27,27 +27,27 @@
         border
         stripe
       >
-        <el-table-column prop="memberName" label="ª·‘±–’√˚" width="120" />
-        <el-table-column prop="mobile" label=" ÷ª˙∫≈¬Î" width="130" />
-        <el-table-column prop="type" label="º«¬º¿‡–Õ" width="120">
+        <el-table-column prop="memberName" label="‰ºöÂëòÂßìÂêç" width="120" />
+        <el-table-column prop="mobile" label="ÊâãÊú∫Âè∑Á†Å" width="130" />
+        <el-table-column prop="type" label="ËÆ∞ÂΩïÁ±ªÂûã" width="120">
           <template slot-scope="scope">
             <el-tag :type="getTypeType(scope.row.type)">
               {{ getTypeText(scope.row.type) }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="amount" label="Ω∂Ó" width="120">
+        <el-table-column prop="amount" label="ÈáëÈ¢ù" width="120">
           <template slot-scope="scope">
             <span :class="scope.row.type === 'RECHARGE' ? 'text-success' : 'text-danger'">
-              {{ scope.row.type === 'RECHARGE' ? '+' : '-' }}£§{{ scope.row.amount }}
+              {{ scope.row.type === 'RECHARGE' ? '+' : '-' }}Ôø•{{ scope.row.amount }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="balance" label="”‡∂Ó" width="120">
-          <template slot-scope="scope">£§{{ scope.row.balance }}</template>
+        <el-table-column prop="balance" label="‰ΩôÈ¢ù" width="120">
+          <template slot-scope="scope">Ôø•{{ scope.row.balance }}</template>
         </el-table-column>
-        <el-table-column prop="remark" label="±∏◊¢" />
-        <el-table-column prop="createTime" label="¥¥Ω® ±º‰" width="160" />
+        <el-table-column prop="remark" label="Â§áÊ≥®" />
+        <el-table-column prop="createTime" label="ÂàõÂª∫Êó∂Èó¥" width="160" />
       </el-table>
 
       <el-pagination
@@ -104,7 +104,7 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     getTypeText(type) {
-      const map = { RECHARGE: '≥‰÷µ', CONSUME: 'œ˚∑—', REFUND: 'ÕÀøÓ' }
+      const map = { RECHARGE: 'ÂÖÖÂÄº', CONSUME: 'Ê∂àË¥π', REFUND: 'ÈÄÄÊ¨æ' }
       return map[type] || type
     },
     getTypeType(type) {

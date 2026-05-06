@@ -2,13 +2,13 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ÓÃ»§Ãû">
-          <el-input v-model="searchForm.username" placeholder="ÇëÊäÈëÓÃ»§Ãû" style="width: 150px;" />
+        <el-form-item label="ç”¨æˆ·å">
+          <el-input v-model="searchForm.username" placeholder="è¯·è¾“å…¥ç”¨æˆ·å" style="width: 150px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
-          <el-button type="success" @click="handleAdd">ĞÂÔöÕËºÅ</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
+          <el-button type="success" @click="handleAdd">æ–°å¢è´¦å·</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -20,21 +20,21 @@
         border
         stripe
       >
-        <el-table-column prop="username" label="ÓÃ»§Ãû" width="120" />
-        <el-table-column prop="realName" label="ÕæÊµĞÕÃû" width="120" />
-        <el-table-column prop="roleName" label="½ÇÉ«" width="120" />
-        <el-table-column prop="status" label="×´Ì¬" width="100">
+        <el-table-column prop="username" label="ç”¨æˆ·å" width="120" />
+        <el-table-column prop="realName" label="çœŸå®å§“å" width="120" />
+        <el-table-column prop="roleName" label="è§’è‰²" width="120" />
+        <el-table-column prop="status" label="çŠ¶æ€" width="100">
           <template slot-scope="scope">
             <el-tag :type="scope.row.status === 'ENABLE' ? 'success' : 'danger'">
-              {{ scope.row.status === 'ENABLE' ? 'ÆôÓÃ' : '½ûÓÃ' }}
+              {{ scope.row.status === 'ENABLE' ? 'å¯ç”¨' : 'ç¦ç”¨' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="´´½¨Ê±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="createTime" label="åˆ›å»ºæ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">±à¼­</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">É¾³ı</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row)">ç¼–è¾‘</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">åˆ é™¤</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -51,27 +51,27 @@
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="600px">
       <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="ÓÃ»§Ãû" prop="username">
-          <el-input v-model="formData.username" placeholder="ÇëÊäÈëÓÃ»§Ãû" />
+        <el-form-item label="ç”¨æˆ·å" prop="username">
+          <el-input v-model="formData.username" placeholder="è¯·è¾“å…¥ç”¨æˆ·å" />
         </el-form-item>
-        <el-form-item label="ÕæÊµĞÕÃû" prop="realName">
-          <el-input v-model="formData.realName" placeholder="ÇëÊäÈëÕæÊµĞÕÃû" />
+        <el-form-item label="çœŸå®å§“å" prop="realName">
+          <el-input v-model="formData.realName" placeholder="è¯·è¾“å…¥çœŸå®å§“å" />
         </el-form-item>
-        <el-form-item label="ÃÜÂë" :prop="formData.id ? '' : 'password'">
-          <el-input v-model="formData.password" type="password" :placeholder="formData.id ? '²»ĞŞ¸ÄÇëÁô¿Õ' : 'ÇëÊäÈëÃÜÂë'" />
+        <el-form-item label="å¯†ç " :prop="formData.id ? '' : 'password'">
+          <el-input v-model="formData.password" type="password" :placeholder="formData.id ? 'ä¸ä¿®æ”¹è¯·ç•™ç©º' : 'è¯·è¾“å…¥å¯†ç '" />
         </el-form-item>
-        <el-form-item label="½ÇÉ«" prop="roleId">
-          <el-select v-model="formData.roleId" placeholder="ÇëÑ¡Ôñ½ÇÉ«">
+        <el-form-item label="è§’è‰²" prop="roleId">
+          <el-select v-model="formData.roleId" placeholder="è¯·é€‰æ‹©è§’è‰²">
             <el-option v-for="item in roleOptions" :key="item.id" :label="item.roleName" :value="item.id" />
           </el-select>
         </el-form-item>
-        <el-form-item label="×´Ì¬">
+        <el-form-item label="çŠ¶æ€">
           <el-switch v-model="formData.status" active-value="ENABLE" inactive-value="DISABLE" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">È¡Ïû</el-button>
-        <el-button type="primary" @click="handleSubmit">È·¶¨</el-button>
+        <el-button @click="dialogVisible = false">å–æ¶ˆ</el-button>
+        <el-button type="primary" @click="handleSubmit">ç¡®å®š</el-button>
       </div>
     </el-dialog>
   </div>
@@ -107,10 +107,10 @@ export default {
         status: 'ENABLE'
       },
       formRules: {
-        username: [{ required: true, message: 'ÇëÊäÈëÓÃ»§Ãû', trigger: 'blur' }],
-        password: [{ required: true, message: 'ÇëÊäÈëÃÜÂë', trigger: 'blur' }],
-        realName: [{ required: true, message: 'ÇëÊäÈëÕæÊµĞÕÃû', trigger: 'blur' }],
-        roleId: [{ required: true, message: 'ÇëÑ¡Ôñ½ÇÉ«', trigger: 'blur' }]
+        username: [{ required: true, message: 'è¯·è¾“å…¥ç”¨æˆ·å', trigger: 'blur' }],
+        password: [{ required: true, message: 'è¯·è¾“å…¥å¯†ç ', trigger: 'blur' }],
+        realName: [{ required: true, message: 'è¯·è¾“å…¥çœŸå®å§“å', trigger: 'blur' }],
+        roleId: [{ required: true, message: 'è¯·é€‰æ‹©è§’è‰²', trigger: 'blur' }]
       }
     }
   },
@@ -143,38 +143,38 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = 'ĞÂÔöÕËºÅ'
+      this.dialogTitle = 'æ–°å¢è´¦å·'
       this.formData = { id: '', username: '', realName: '', password: '', roleId: '', status: 'ENABLE' }
       this.dialogVisible = true
     },
     handleEdit(row) {
-      this.dialogTitle = '±à¼­ÕËºÅ'
+      this.dialogTitle = 'ç¼–è¾‘è´¦å·'
       this.formData = { ...row, password: '' }
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('È·¶¨ÒªÉ¾³ıÕâÌõ¼ÇÂ¼Âğ£¿', 'ÌáÊ¾', {
-        confirmButtonText: 'È·¶¨',
-        cancelButtonText: 'È¡Ïû'
+      this.$confirm('ç¡®å®šè¦åˆ é™¤è¿™æ¡è®°å½•å—ï¼Ÿ', 'æç¤º', {
+        confirmButtonText: 'ç¡®å®š',
+        cancelButtonText: 'å–æ¶ˆ'
       }).then(() => {
         deleteAccount(row.id).then(() => {
-          this.$message.success('É¾³ı³É¹¦')
+          this.$message.success('åˆ é™¤æˆåŠŸ')
           this.fetchData()
         })
       })
     },
     handleSubmit() {
       const rules = this.formData.id ? {
-        username: [{ required: true, message: 'ÇëÊäÈëÓÃ»§Ãû', trigger: 'blur' }],
-        realName: [{ required: true, message: 'ÇëÊäÈëÕæÊµĞÕÃû', trigger: 'blur' }],
-        roleId: [{ required: true, message: 'ÇëÑ¡Ôñ½ÇÉ«', trigger: 'blur' }]
+        username: [{ required: true, message: 'è¯·è¾“å…¥ç”¨æˆ·å', trigger: 'blur' }],
+        realName: [{ required: true, message: 'è¯·è¾“å…¥çœŸå®å§“å', trigger: 'blur' }],
+        roleId: [{ required: true, message: 'è¯·é€‰æ‹©è§’è‰²', trigger: 'blur' }]
       } : this.formRules
       
       this.$refs.formRef.validate((valid) => {
         if (valid) {
           const api = this.formData.id ? updateAccount : addAccount
           api(this.formData).then(() => {
-            this.$message.success(this.formData.id ? 'ĞŞ¸Ä³É¹¦' : 'ĞÂÔö³É¹¦')
+            this.$message.success(this.formData.id ? 'ä¿®æ”¹æˆåŠŸ' : 'æ–°å¢æˆåŠŸ')
             this.dialogVisible = false
             this.fetchData()
           })

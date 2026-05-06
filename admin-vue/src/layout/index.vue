@@ -5,6 +5,7 @@
     <div class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
         <navbar />
+        <tags-view />
       </div>
       <app-main />
     </div>
@@ -13,6 +14,7 @@
 
 <script>
 import { Navbar, Sidebar, AppMain } from './components'
+import TagsView from './components/TagsView'
 import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
@@ -20,7 +22,8 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    AppMain
+    AppMain,
+    TagsView
   },
   mixins: [ResizeMixin],
   computed: {
@@ -68,5 +71,24 @@ export default {
   height: 100%;
   position: absolute;
   z-index: 999;
+}
+.main-container {
+  margin-left: 200px;
+  min-height: 100%;
+  transition: margin-left 0.28s;
+}
+.fixed-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 200px;
+  z-index: 9;
+  transition: left 0.28s;
+}
+.hideSidebar .fixed-header {
+  left: 54px;
+}
+.hideSidebar .main-container {
+  margin-left: 54px;
 }
 </style>

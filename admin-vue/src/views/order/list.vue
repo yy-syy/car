@@ -2,27 +2,27 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="¶©µ¥ºÅ">
-          <el-input v-model="searchForm.orderSn" placeholder="ÇëÊäÈë¶©µ¥ºÅ" style="width: 200px;" />
+        <el-form-item label="è®¢å•å·">
+          <el-input v-model="searchForm.orderSn" placeholder="è¯·è¾“å…¥è®¢å•å·" style="width: 200px;" />
         </el-form-item>
-        <el-form-item label="»áÔ±ĞÕÃû">
-          <el-input v-model="searchForm.realName" placeholder="ÇëÊäÈë»áÔ±ĞÕÃû" style="width: 150px;" />
+        <el-form-item label="ä¼šå‘˜å§“å">
+          <el-input v-model="searchForm.realName" placeholder="è¯·è¾“å…¥ä¼šå‘˜å§“å" style="width: 150px;" />
         </el-form-item>
-        <el-form-item label="ÊÖ»úºÅÂë">
-          <el-input v-model="searchForm.mobile" placeholder="ÇëÊäÈëÊÖ»úºÅÂë" style="width: 150px;" />
+        <el-form-item label="æ‰‹æœºå·ç ">
+          <el-input v-model="searchForm.mobile" placeholder="è¯·è¾“å…¥æ‰‹æœºå·ç " style="width: 150px;" />
         </el-form-item>
-        <el-form-item label="¶©µ¥×´Ì¬">
-          <el-select v-model="searchForm.status" placeholder="ÇëÑ¡Ôñ¶©µ¥×´Ì¬">
-            <el-option label="È«²¿" value="" />
-            <el-option label="´ı¸¶¿î" value="WAIT_PAY" />
-            <el-option label="´ıÈ·ÈÏ" value="WAIT_CONFIRM" />
-            <el-option label="ÒÑÍê³É" value="COMPLETED" />
-            <el-option label="ÒÑÈ¡Ïû" value="CANCELED" />
+        <el-form-item label="è®¢å•çŠ¶æ€">
+          <el-select v-model="searchForm.status" placeholder="è¯·é€‰æ‹©è®¢å•çŠ¶æ€">
+            <el-option label="å…¨éƒ¨" value="" />
+            <el-option label="å¾…ä»˜æ¬¾" value="WAIT_PAY" />
+            <el-option label="å¾…ç¡®è®¤" value="WAIT_CONFIRM" />
+            <el-option label="å·²å®Œæˆ" value="COMPLETED" />
+            <el-option label="å·²å–æ¶ˆ" value="CANCELED" />
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -34,29 +34,29 @@
         border
         stripe
       >
-        <el-table-column prop="orderSn" label="¶©µ¥ºÅ" width="180" />
-        <el-table-column prop="realName" label="»áÔ±ĞÕÃû" width="120" />
-        <el-table-column prop="mobile" label="ÊÖ»úºÅÂë" width="130" />
-        <el-table-column prop="totalAmount" label="¶©µ¥½ğ¶î" width="120">
-          <template slot-scope="scope">£¤{{ scope.row.totalAmount || 0 }}</template>
+        <el-table-column prop="orderSn" label="è®¢å•å·" width="180" />
+        <el-table-column prop="realName" label="ä¼šå‘˜å§“å" width="120" />
+        <el-table-column prop="mobile" label="æ‰‹æœºå·ç " width="130" />
+        <el-table-column prop="totalAmount" label="è®¢å•é‡‘é¢" width="120">
+          <template slot-scope="scope">ï¿¥{{ scope.row.totalAmount || 0 }}</template>
         </el-table-column>
-        <el-table-column prop="payAmount" label="Ö§¸¶½ğ¶î" width="120">
-          <template slot-scope="scope">£¤{{ scope.row.payAmount || 0 }}</template>
+        <el-table-column prop="payAmount" label="æ”¯ä»˜é‡‘é¢" width="120">
+          <template slot-scope="scope">ï¿¥{{ scope.row.payAmount || 0 }}</template>
         </el-table-column>
-        <el-table-column prop="payType" label="Ö§¸¶·½Ê½" width="120">
+        <el-table-column prop="payType" label="æ”¯ä»˜æ–¹å¼" width="120">
           <template slot-scope="scope">{{ getPayTypeText(scope.row.payType) }}</template>
         </el-table-column>
-        <el-table-column prop="status" label="¶©µ¥×´Ì¬" width="120">
+        <el-table-column prop="status" label="è®¢å•çŠ¶æ€" width="120">
           <template slot-scope="scope">
             <el-tag :type="getStatusType(scope.row.status)">
               {{ getStatusText(scope.row.status) }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="´´½¨Ê±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="createTime" label="åˆ›å»ºæ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleView(scope.row)">²é¿´ÏêÇé</el-button>
+            <el-button size="mini" @click="handleView(scope.row)">æŸ¥çœ‹è¯¦æƒ…</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -71,49 +71,49 @@
       />
     </div>
 
-    <el-dialog title="¶©µ¥ÏêÇé" :visible.sync="detailVisible" width="800px">
+    <el-dialog title="è®¢å•è¯¦æƒ…" :visible.sync="detailVisible" width="800px">
       <div v-if="detailData" class="detail-content">
         <div class="detail-header">
           <div class="order-info">
-            <span class="order-sn">¶©µ¥ºÅ£º{{ detailData.orderSn }}</span>
+            <span class="order-sn">è®¢å•å·ï¼š{{ detailData.orderSn }}</span>
             <el-tag :type="getStatusType(detailData.status)" class="status-tag">
               {{ getStatusText(detailData.status) }}
             </el-tag>
           </div>
-          <div class="order-time">´´½¨Ê±¼ä£º{{ detailData.createTime }}</div>
+          <div class="order-time">åˆ›å»ºæ—¶é—´ï¼š{{ detailData.createTime }}</div>
         </div>
         
         <div class="detail-section">
-          <h4>»áÔ±ĞÅÏ¢</h4>
+          <h4>ä¼šå‘˜ä¿¡æ¯</h4>
           <el-descriptions :column="2" border>
-            <el-descriptions-item label="»áÔ±ĞÕÃû">{{ detailData.realName }}</el-descriptions-item>
-            <el-descriptions-item label="ÊÖ»úºÅÂë">{{ detailData.mobile }}</el-descriptions-item>
-            <el-descriptions-item label="»áÔ±µÈ¼¶">{{ detailData.gradeName }}</el-descriptions-item>
+            <el-descriptions-item label="ä¼šå‘˜å§“å">{{ detailData.realName }}</el-descriptions-item>
+            <el-descriptions-item label="æ‰‹æœºå·ç ">{{ detailData.mobile }}</el-descriptions-item>
+            <el-descriptions-item label="ä¼šå‘˜ç­‰çº§">{{ detailData.gradeName }}</el-descriptions-item>
           </el-descriptions>
         </div>
 
         <div class="detail-section">
-          <h4>ÉÌÆ·ĞÅÏ¢</h4>
+          <h4>å•†å“ä¿¡æ¯</h4>
           <el-table :data="detailData.orderItems || []" border>
-            <el-table-column prop="goodsName" label="ÉÌÆ·Ãû³Æ" />
-            <el-table-column prop="skuName" label="¹æ¸ñĞÍºÅ" />
-            <el-table-column prop="quantity" label="ÊıÁ¿" width="80" />
-            <el-table-column prop="price" label="µ¥¼Û" width="100">
-              <template slot-scope="scope">£¤{{ scope.row.price }}</template>
+            <el-table-column prop="goodsName" label="å•†å“åç§°" />
+            <el-table-column prop="skuName" label="è§„æ ¼å‹å·" />
+            <el-table-column prop="quantity" label="æ•°é‡" width="80" />
+            <el-table-column prop="price" label="å•ä»·" width="100">
+              <template slot-scope="scope">ï¿¥{{ scope.row.price }}</template>
             </el-table-column>
-            <el-table-column prop="amount" label="½ğ¶î" width="100">
-              <template slot-scope="scope">£¤{{ scope.row.amount }}</template>
+            <el-table-column prop="amount" label="é‡‘é¢" width="100">
+              <template slot-scope="scope">ï¿¥{{ scope.row.amount }}</template>
             </el-table-column>
           </el-table>
         </div>
 
         <div class="detail-section">
-          <h4>Ö§¸¶ĞÅÏ¢</h4>
+          <h4>æ”¯ä»˜ä¿¡æ¯</h4>
           <el-descriptions :column="2" border>
-            <el-descriptions-item label="Ö§¸¶·½Ê½">{{ getPayTypeText(detailData.payType) }}</el-descriptions-item>
-            <el-descriptions-item label="¶©µ¥½ğ¶î">£¤{{ detailData.totalAmount }}</el-descriptions-item>
-            <el-descriptions-item label="Ö§¸¶½ğ¶î">£¤{{ detailData.payAmount }}</el-descriptions-item>
-            <el-descriptions-item label="Ö§¸¶Ê±¼ä">{{ detailData.payTime }}</el-descriptions-item>
+            <el-descriptions-item label="æ”¯ä»˜æ–¹å¼">{{ getPayTypeText(detailData.payType) }}</el-descriptions-item>
+            <el-descriptions-item label="è®¢å•é‡‘é¢">ï¿¥{{ detailData.totalAmount }}</el-descriptions-item>
+            <el-descriptions-item label="æ”¯ä»˜é‡‘é¢">ï¿¥{{ detailData.payAmount }}</el-descriptions-item>
+            <el-descriptions-item label="æ”¯ä»˜æ—¶é—´">{{ detailData.payTime }}</el-descriptions-item>
           </el-descriptions>
         </div>
       </div>
@@ -186,10 +186,10 @@ export default {
     },
     getStatusText(status) {
       const map = {
-        WAIT_PAY: '´ı¸¶¿î',
-        WAIT_CONFIRM: '´ıÈ·ÈÏ',
-        COMPLETED: 'ÒÑÍê³É',
-        CANCELED: 'ÒÑÈ¡Ïû'
+        WAIT_PAY: 'å¾…ä»˜æ¬¾',
+        WAIT_CONFIRM: 'å¾…ç¡®è®¤',
+        COMPLETED: 'å·²å®Œæˆ',
+        CANCELED: 'å·²å–æ¶ˆ'
       }
       return map[status] || status
     },
@@ -204,9 +204,9 @@ export default {
     },
     getPayTypeText(type) {
       const map = {
-        WECHAT: 'Î¢ĞÅÖ§¸¶',
-        ALIPAY: 'Ö§¸¶±¦',
-        BALANCE: 'Óà¶îÖ§¸¶'
+        WECHAT: 'å¾®ä¿¡æ”¯ä»˜',
+        ALIPAY: 'æ”¯ä»˜å®',
+        BALANCE: 'ä½™é¢æ”¯ä»˜'
       }
       return map[type] || type
     }

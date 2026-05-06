@@ -2,13 +2,13 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="ÎÄÕÂ±êÌâ">
-          <el-input v-model="searchForm.title" placeholder="ÇëÊäÈëÎÄÕÂ±êÌâ" style="width: 200px;" />
+        <el-form-item label="æ–‡ç« æ ‡é¢˜">
+          <el-input v-model="searchForm.title" placeholder="è¯·è¾“å…¥æ–‡ç« æ ‡é¢˜" style="width: 200px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
-          <el-button type="success" @click="handleAdd">ĞÂÔöÎÄÕÂ</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
+          <el-button type="success" @click="handleAdd">æ–°å¢æ–‡ç« </el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -20,14 +20,14 @@
         border
         stripe
       >
-        <el-table-column prop="title" label="ÎÄÕÂ±êÌâ" />
-        <el-table-column prop="author" label="×÷Õß" width="100" />
-        <el-table-column prop="viewCount" label="ä¯ÀÀ´ÎÊı" width="100" />
-        <el-table-column prop="createTime" label="´´½¨Ê±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="title" label="æ–‡ç« æ ‡é¢˜" />
+        <el-table-column prop="author" label="ä½œè€…" width="100" />
+        <el-table-column prop="viewCount" label="æµè§ˆæ¬¡æ•°" width="100" />
+        <el-table-column prop="createTime" label="åˆ›å»ºæ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">±à¼­</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">É¾³ı</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row)">ç¼–è¾‘</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">åˆ é™¤</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -44,19 +44,19 @@
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="800px">
       <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="ÎÄÕÂ±êÌâ" prop="title">
-          <el-input v-model="formData.title" placeholder="ÇëÊäÈëÎÄÕÂ±êÌâ" />
+        <el-form-item label="æ–‡ç« æ ‡é¢˜" prop="title">
+          <el-input v-model="formData.title" placeholder="è¯·è¾“å…¥æ–‡ç« æ ‡é¢˜" />
         </el-form-item>
-        <el-form-item label="×÷Õß" prop="author">
-          <el-input v-model="formData.author" placeholder="ÇëÊäÈë×÷Õß" />
+        <el-form-item label="ä½œè€…" prop="author">
+          <el-input v-model="formData.author" placeholder="è¯·è¾“å…¥ä½œè€…" />
         </el-form-item>
-        <el-form-item label="ÎÄÕÂÄÚÈİ" prop="content">
-          <el-input v-model="formData.content" type="textarea" :rows="8" placeholder="ÇëÊäÈëÎÄÕÂÄÚÈİ" />
+        <el-form-item label="æ–‡ç« å†…å®¹" prop="content">
+          <el-input v-model="formData.content" type="textarea" :rows="8" placeholder="è¯·è¾“å…¥æ–‡ç« å†…å®¹" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">È¡Ïû</el-button>
-        <el-button type="primary" @click="handleSubmit">È·¶¨</el-button>
+        <el-button @click="dialogVisible = false">å–æ¶ˆ</el-button>
+        <el-button type="primary" @click="handleSubmit">ç¡®å®š</el-button>
       </div>
     </el-dialog>
   </div>
@@ -88,8 +88,8 @@ export default {
         content: ''
       },
       formRules: {
-        title: [{ required: true, message: 'ÇëÊäÈëÎÄÕÂ±êÌâ', trigger: 'blur' }],
-        author: [{ required: true, message: 'ÇëÊäÈë×÷Õß', trigger: 'blur' }]
+        title: [{ required: true, message: 'è¯·è¾“å…¥æ–‡ç« æ ‡é¢˜', trigger: 'blur' }],
+        author: [{ required: true, message: 'è¯·è¾“å…¥ä½œè€…', trigger: 'blur' }]
       }
     }
   },
@@ -116,22 +116,22 @@ export default {
     handleSizeChange(val) { this.pageSize = val; this.fetchData() },
     handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = 'ĞÂÔöÎÄÕÂ'
+      this.dialogTitle = 'æ–°å¢æ–‡ç« '
       this.formData = { id: '', title: '', author: '', content: '' }
       this.dialogVisible = true
     },
     handleEdit(row) {
-      this.dialogTitle = '±à¼­ÎÄÕÂ'
+      this.dialogTitle = 'ç¼–è¾‘æ–‡ç« '
       this.formData = { ...row }
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('È·¶¨ÒªÉ¾³ıÕâÌõ¼ÇÂ¼Âğ£¿', 'ÌáÊ¾', {
-        confirmButtonText: 'È·¶¨',
-        cancelButtonText: 'È¡Ïû'
+      this.$confirm('ç¡®å®šè¦åˆ é™¤è¿™æ¡è®°å½•å—ï¼Ÿ', 'æç¤º', {
+        confirmButtonText: 'ç¡®å®š',
+        cancelButtonText: 'å–æ¶ˆ'
       }).then(() => {
         deleteArticle(row.id).then(() => {
-          this.$message.success('É¾³ı³É¹¦')
+          this.$message.success('åˆ é™¤æˆåŠŸ')
           this.fetchData()
         })
       })
@@ -141,7 +141,7 @@ export default {
         if (valid) {
           const api = this.formData.id ? updateArticle : addArticle
           api(this.formData).then(() => {
-            this.$message.success(this.formData.id ? 'ĞŞ¸Ä³É¹¦' : 'ĞÂÔö³É¹¦')
+            this.$message.success(this.formData.id ? 'ä¿®æ”¹æˆåŠŸ' : 'æ–°å¢æˆåŠŸ')
             this.dialogVisible = false
             this.fetchData()
           })

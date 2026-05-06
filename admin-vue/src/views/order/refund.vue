@@ -2,15 +2,15 @@
   <div class="app-container">
     <div class="search-bar">
       <el-form :model="searchForm" inline>
-        <el-form-item label="¶©µ¥ºÅ">
-          <el-input v-model="searchForm.orderSn" placeholder="ÇëÊäÈë¶©µ¥ºÅ" style="width: 200px;" />
+        <el-form-item label="è®¢å•å·">
+          <el-input v-model="searchForm.orderSn" placeholder="è¯·è¾“å…¥è®¢å•å·" style="width: 200px;" />
         </el-form-item>
-        <el-form-item label="»áÔ±ĞÕÃû">
-          <el-input v-model="searchForm.realName" placeholder="ÇëÊäÈë»áÔ±ĞÕÃû" style="width: 150px;" />
+        <el-form-item label="ä¼šå‘˜å§“å">
+          <el-input v-model="searchForm.realName" placeholder="è¯·è¾“å…¥ä¼šå‘˜å§“å" style="width: 150px;" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">ËÑË÷</el-button>
-          <el-button @click="handleReset">ÖØÖÃ</el-button>
+          <el-button type="primary" @click="handleSearch">æœç´¢</el-button>
+          <el-button @click="handleReset">é‡ç½®</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -22,17 +22,17 @@
         border
         stripe
       >
-        <el-table-column prop="orderSn" label="¶©µ¥ºÅ" width="180" />
-        <el-table-column prop="realName" label="»áÔ±ĞÕÃû" width="120" />
-        <el-table-column prop="mobile" label="ÊÖ»úºÅÂë" width="130" />
-        <el-table-column prop="refundAmount" label="ÍË¿î½ğ¶î" width="120">
-          <template slot-scope="scope">£¤{{ scope.row.refundAmount }}</template>
+        <el-table-column prop="orderSn" label="è®¢å•å·" width="180" />
+        <el-table-column prop="realName" label="ä¼šå‘˜å§“å" width="120" />
+        <el-table-column prop="mobile" label="æ‰‹æœºå·ç " width="130" />
+        <el-table-column prop="refundAmount" label="é€€æ¬¾é‡‘é¢" width="120">
+          <template slot-scope="scope">ï¿¥{{ scope.row.refundAmount }}</template>
         </el-table-column>
-        <el-table-column prop="reason" label="ÍË¿îÔ­Òò" />
-        <el-table-column prop="createTime" label="ÉêÇëÊ±¼ä" width="160" />
-        <el-table-column label="²Ù×÷" width="150">
+        <el-table-column prop="reason" label="é€€æ¬¾åŸå› " />
+        <el-table-column prop="createTime" label="ç”³è¯·æ—¶é—´" width="160" />
+        <el-table-column label="æ“ä½œ" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleView(scope.row)">²é¿´ÏêÇé</el-button>
+            <el-button size="mini" @click="handleView(scope.row)">æŸ¥çœ‹è¯¦æƒ…</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -47,15 +47,15 @@
       />
     </div>
 
-    <el-dialog title="ÍË¿îÏêÇé" :visible.sync="detailVisible" width="600px">
+    <el-dialog title="é€€æ¬¾è¯¦æƒ…" :visible.sync="detailVisible" width="600px">
       <div v-if="detailData" class="detail-content">
         <el-descriptions :column="2" border>
-          <el-descriptions-item label="¶©µ¥ºÅ">{{ detailData.orderSn }}</el-descriptions-item>
-          <el-descriptions-item label="»áÔ±ĞÕÃû">{{ detailData.realName }}</el-descriptions-item>
-          <el-descriptions-item label="ÊÖ»úºÅÂë">{{ detailData.mobile }}</el-descriptions-item>
-          <el-descriptions-item label="ÍË¿î½ğ¶î">£¤{{ detailData.refundAmount }}</el-descriptions-item>
-          <el-descriptions-item label="ÍË¿îÔ­Òò">{{ detailData.reason }}</el-descriptions-item>
-          <el-descriptions-item label="ÉêÇëÊ±¼ä">{{ detailData.createTime }}</el-descriptions-item>
+          <el-descriptions-item label="è®¢å•å·">{{ detailData.orderSn }}</el-descriptions-item>
+          <el-descriptions-item label="ä¼šå‘˜å§“å">{{ detailData.realName }}</el-descriptions-item>
+          <el-descriptions-item label="æ‰‹æœºå·ç ">{{ detailData.mobile }}</el-descriptions-item>
+          <el-descriptions-item label="é€€æ¬¾é‡‘é¢">ï¿¥{{ detailData.refundAmount }}</el-descriptions-item>
+          <el-descriptions-item label="é€€æ¬¾åŸå› ">{{ detailData.reason }}</el-descriptions-item>
+          <el-descriptions-item label="ç”³è¯·æ—¶é—´">{{ detailData.createTime }}</el-descriptions-item>
         </el-descriptions>
       </div>
     </el-dialog>
