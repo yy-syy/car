@@ -1,0 +1,209 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e49]:
+    - generic [ref=e50]:
+      - heading "主题风格设置" [level=3] [ref=e52]
+      - generic [ref=e53]:
+        - generic [ref=e54] [cursor=pointer]:
+          - img "dark" [ref=e55]
+          - 'generic "图标: check" [ref=e57]':
+            - img [ref=e58]
+        - img "light" [ref=e61] [cursor=pointer]
+      - generic [ref=e62]:
+        - text: 主题颜色
+        - generic [ref=e67] [cursor=pointer]: 
+    - heading "系统布局配置" [level=3] [ref=e69]
+    - generic [ref=e70]:
+      - text: 开启 TopNav
+      - switch [ref=e71]:
+        - checkbox
+    - generic [ref=e73]:
+      - text: 开启 Tags-Views
+      - switch [checked] [ref=e74]:
+        - checkbox [checked]
+    - generic [ref=e76]:
+      - text: 固定 Header
+      - switch [checked] [ref=e77]:
+        - checkbox [checked]
+    - generic [ref=e79]:
+      - text: 显示 Logo
+      - switch [checked] [ref=e80]:
+        - checkbox [checked]
+    - generic [ref=e82]:
+      - text: 动态标题
+      - switch [ref=e83]:
+        - checkbox
+    - button " 保存配置" [ref=e86] [cursor=pointer]:
+      - generic [ref=e87]: 
+      - text: 保存配置
+    - button " 重置配置" [ref=e88] [cursor=pointer]:
+      - generic [ref=e89]: 
+      - text: 重置配置
+  - generic [ref=e90]:
+    - generic [ref=e91]:
+      - link "fuint汽车会员系统" [ref=e93] [cursor=pointer]:
+        - /url: "#/"
+        - img [ref=e94]
+        - heading "fuint汽车会员系统" [level=1] [ref=e95]
+      - generic [ref=e96] [cursor=pointer]:
+        - generic [ref=e97]: 小隅安商行
+        - generic [ref=e98]: （商户管理员）
+      - menubar [ref=e102]:
+        - link "系统首页" [ref=e104] [cursor=pointer]:
+          - /url: "#/index"
+          - menuitem "系统首页" [ref=e105]:
+            - img [ref=e106]
+            - text: 系统首页
+        - menuitem "店铺管理 " [ref=e109]:
+          - generic [ref=e110] [cursor=pointer]:
+            - img [ref=e111]
+            - text: 店铺管理
+            - generic [ref=e113]: 
+        - menuitem "内容管理 " [ref=e115]:
+          - generic [ref=e116] [cursor=pointer]:
+            - img [ref=e117]
+            - text: 内容管理
+            - generic [ref=e119]: 
+        - menuitem "会员管理 " [ref=e121]:
+          - generic [ref=e122] [cursor=pointer]:
+            - img [ref=e123]
+            - text: 会员管理
+            - generic [ref=e125]: 
+        - menuitem "汽车服务 " [ref=e127]:
+          - generic [ref=e128] [cursor=pointer]:
+            - img [ref=e129]
+            - text: 汽车服务
+            - generic [ref=e131]: 
+        - menuitem "卡券管理 " [ref=e133]:
+          - generic [ref=e134] [cursor=pointer]:
+            - img [ref=e135]
+            - text: 卡券管理
+            - generic [ref=e137]: 
+        - menuitem "订单管理 " [ref=e139]:
+          - generic [ref=e140] [cursor=pointer]:
+            - img [ref=e141]
+            - text: 订单管理
+            - generic [ref=e143]: 
+        - menuitem "商品管理 " [ref=e145]:
+          - generic [ref=e146] [cursor=pointer]:
+            - img [ref=e147]
+            - text: 商品管理
+            - generic [ref=e149]: 
+        - menuitem "消息管理 " [ref=e151]:
+          - generic [ref=e152] [cursor=pointer]:
+            - img [ref=e153]
+            - text: 消息管理
+            - generic [ref=e155]: 
+        - menuitem "积分管理 " [ref=e157]:
+          - generic [ref=e158] [cursor=pointer]:
+            - img [ref=e159]
+            - text: 积分管理
+            - generic [ref=e161]: 
+        - menuitem "充值管理 " [ref=e163]:
+          - generic [ref=e164] [cursor=pointer]:
+            - img [ref=e165]
+            - text: 充值管理
+            - generic [ref=e167]: 
+        - menuitem "数据统计 " [ref=e169]:
+          - generic [ref=e170] [cursor=pointer]:
+            - img [ref=e171]
+            - text: 数据统计
+            - generic [ref=e173]: 
+        - menuitem "分佣提成 " [ref=e175]:
+          - generic [ref=e176] [cursor=pointer]:
+            - img [ref=e177]
+            - text: 分佣提成
+            - generic [ref=e179]: 
+        - menuitem "系统管理 " [ref=e181]:
+          - generic [ref=e182] [cursor=pointer]:
+            - img [ref=e183]
+            - text: 系统管理
+            - generic [ref=e185]: 
+    - generic [ref=e188]:
+      - generic [ref=e189]:
+        - generic [ref=e190]:
+          - img [ref=e192] [cursor=pointer]
+          - navigation "Breadcrumb" [ref=e194]:
+            - link "系统首页" [ref=e196]
+          - generic [ref=e197]:
+            - generic "前往收银下单" [ref=e198] [cursor=pointer]:
+              - img [ref=e199]
+              - text: 收银开单
+            - generic "查找功能" [ref=e200]:
+              - img [ref=e201] [cursor=pointer]
+              - generic:
+                - generic:
+                  - textbox "查找功能"
+            - generic "全屏展示" [ref=e205] [cursor=pointer]:
+              - img [ref=e206]
+            - generic "帮助文档" [ref=e208] [cursor=pointer]:
+              - img [ref=e209]
+            - generic [ref=e211] [cursor=pointer]:
+              - button "fuint ":
+                - img [ref=e212]
+                - generic [ref=e213]: fuint
+                - generic [ref=e214]: 
+        - generic [ref=e215]:
+          - generic [ref=e219] [cursor=pointer]: 系统首页
+          - text:      
+      - generic [ref=e223]:
+        - generic [ref=e224]:
+          - generic [ref=e225]: 运营概况
+          - generic [ref=e226]:
+            - generic [ref=e227]:
+              - generic [ref=e229] [cursor=pointer]:
+                - img [ref=e230]
+                - paragraph [ref=e233]: 今日新增订单数（笔）
+                - paragraph [ref=e234]: "0"
+              - generic [ref=e236] [cursor=pointer]:
+                - img [ref=e237]
+                - paragraph [ref=e240]: 今日交易金额（元）
+                - paragraph [ref=e241]: "0.00"
+              - generic [ref=e243] [cursor=pointer]:
+                - img [ref=e244]
+                - paragraph [ref=e248]: 今日新增会员数
+                - paragraph [ref=e249]: "0"
+              - generic [ref=e251] [cursor=pointer]:
+                - img [ref=e252]
+                - paragraph [ref=e254]: 今日活跃会员数
+                - paragraph [ref=e255]: "0"
+            - generic [ref=e256]:
+              - generic [ref=e258] [cursor=pointer]:
+                - img [ref=e259]
+                - paragraph [ref=e262]: 总会员数
+                - paragraph [ref=e263]: "455"
+              - generic [ref=e265] [cursor=pointer]:
+                - img [ref=e266]
+                - paragraph [ref=e269]: 总交易金额（元）
+                - paragraph [ref=e270]: "20678936.84"
+              - generic [ref=e272] [cursor=pointer]:
+                - img [ref=e273]
+                - paragraph [ref=e275]: 总订单数
+                - paragraph [ref=e276]: "347"
+              - generic [ref=e278] [cursor=pointer]:
+                - img [ref=e279]
+                - paragraph [ref=e284]: 总支付人数
+                - paragraph [ref=e285]: "114"
+        - generic [ref=e286]:
+          - generic [ref=e287]: 常用功能
+          - generic [ref=e288]:
+            - generic [ref=e289]:
+              - generic [ref=e291] [cursor=pointer]:
+                - img [ref=e292]
+                - generic [ref=e293]: 收银开单
+              - generic [ref=e295] [cursor=pointer]:
+                - img [ref=e296]
+                - generic [ref=e297]: 核销卡券
+              - generic [ref=e299] [cursor=pointer]:
+                - img [ref=e300]
+                - generic [ref=e301]: 会员管理
+            - generic [ref=e302]:
+              - generic [ref=e304] [cursor=pointer]:
+                - img [ref=e305]
+                - generic [ref=e306]: 订单管理
+              - generic [ref=e308] [cursor=pointer]:
+                - img [ref=e309]
+                - generic [ref=e310]: 卡券管理
+              - generic [ref=e312] [cursor=pointer]:
+                - img [ref=e313]
+                - generic [ref=e314]: 商品管理
+        - generic [ref=e316]: 报表统计

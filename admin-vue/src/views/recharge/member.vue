@@ -1,22 +1,42 @@
 <template>
   <div class="app-container">
-    <h3>会员充值</h3>
-    <el-table :data="[]" border style="width: 100%">
-      <el-table-column prop="id" label="ID" width="80" />
-      <el-table-column prop="name" label="名称" />
-      <el-table-column prop="status" label="状态" width="100" />
-      <el-table-column label="操作" width="180">
-        <template slot-scope="">
-          <el-button size="mini" type="primary">编辑</el-button>
-          <el-button size="mini" type="danger">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <el-card>
+      <div slot="header"><span>会员充值</span></div>
+      <el-form :model="form" label-width="120px" :rules="rules" ref="form">
+        <el-form-item label="会员手机号" prop="mobile">
+          <el-input v-model="form.mobile" placeholder="请输入会员手机号" style="width:300px;" />
+        </el-form-item>
+        <el-form-item label="充值金额" prop="amount">
+          <el-input-number v-model="form.amount" :min="1" :max="100000" />
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input v-model="form.remark" placeholder="备注信息" style="width:300px;" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleRecharge">确认充值</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
   </div>
 </template>
 <script>
-export default { name: 'RechargeMember' }
+import { doRecharge } from '@/api/recharge'
+export default {
+  name: 'RechargeMember',
+  data() {
+    return {
+      form: { mobile: '', amount: 100, remark: '' },
+      rules: { mobile: [{ required: true, message: '请输入手机号', trigger: 'blur' }], amount: [{ required: true, message: '请输入金额', trigger: 'blur' }] }
+    }
+  },
+  methods: {
+    handleRecharge() {
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          doRecharge(this.form).then(() => { this.$message.success('充值成功'); this.form = { mobile: '', amount: 100, remark: '' } }).catch(() => {})
+        }
+      })
+    }
+  }
+}
 </script>
-<style scoped>
-.app-container { padding: 20px; }
-</style>

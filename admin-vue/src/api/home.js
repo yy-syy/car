@@ -9,6 +9,10 @@ export function getHomeData() {
   return get(api.index)
 }
 
+export function getDashboardStats() {
+  return get(api.index)
+}
+
 export function getStatistic(tag) {
   return get(api.statistic, { tag })
 }

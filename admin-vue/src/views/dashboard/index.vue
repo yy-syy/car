@@ -20,7 +20,7 @@
             </div>
             <div class="stat-info">
               <p class="stat-label">今日交易金额（元）</p>
-              <p class="stat-value green">{{ stats.todayAmount || '0.00' }}</p>
+              <p class="stat-value green">{{ stats.todayPay || '0.00' }}</p>
             </div>
           </div>
           <div class="stat-item" @click="$router.push('/member/list')">
@@ -29,7 +29,7 @@
             </div>
             <div class="stat-info">
               <p class="stat-label">今日新增会员数</p>
-              <p class="stat-value red">{{ stats.todayMember || 0 }}</p>
+              <p class="stat-value red">{{ stats.todayUser || 0 }}</p>
             </div>
           </div>
           <div class="stat-item" @click="$router.push('/member/list')">
@@ -38,7 +38,7 @@
             </div>
             <div class="stat-info">
               <p class="stat-label">今日活跃会员数</p>
-              <p class="stat-value red">{{ stats.todayActive || 0 }}</p>
+              <p class="stat-value red">{{ stats.todayActiveUser || 0 }}</p>
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="stat-info">
               <p class="stat-label">总会员数</p>
-              <p class="stat-value blue">{{ stats.totalMember || 0 }}</p>
+              <p class="stat-value blue">{{ stats.totalUser || 0 }}</p>
             </div>
           </div>
           <div class="stat-item" @click="$router.push('/order/list')">
@@ -58,7 +58,7 @@
             </div>
             <div class="stat-info">
               <p class="stat-label">总交易金额（元）</p>
-              <p class="stat-value green">{{ stats.totalAmount || '0.00' }}</p>
+              <p class="stat-value green">{{ stats.totalPay || '0.00' }}</p>
             </div>
           </div>
           <div class="stat-item" @click="$router.push('/order/list')">
@@ -151,11 +151,11 @@ export default {
     return {
       stats: {
         todayOrder: 0,
-        todayAmount: '0.00',
-        todayMember: 0,
-        todayActive: 0,
-        totalMember: 0,
-        totalAmount: '0.00',
+        todayPay: '0.00',
+        todayUser: 0,
+        todayActiveUser: 0,
+        totalUser: 0,
+        totalPay: '0.00',
         totalOrder: 0,
         totalPayUser: 0
       }

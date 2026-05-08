@@ -1,22 +1,33 @@
 <template>
   <div class="app-container">
-    <h3>积分设置</h3>
-    <el-table :data="[]" border style="width: 100%">
-      <el-table-column prop="id" label="ID" width="80" />
-      <el-table-column prop="name" label="名称" />
-      <el-table-column prop="status" label="状态" width="100" />
-      <el-table-column label="操作" width="180">
-        <template slot-scope="">
-          <el-button size="mini" type="primary">编辑</el-button>
-          <el-button size="mini" type="danger">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <el-card>
+      <div slot="header"><span>积分设置</span></div>
+      <el-form :model="form" label-width="180px">
+        <el-form-item label="积分名称">
+          <el-input v-model="form.pointName" placeholder="如：积分" style="width:300px;" />
+        </el-form-item>
+        <el-form-item label="消费1元获得积分">
+          <el-input-number v-model="form.pointNeedConsume" :min="0" />
+        </el-form-item>
+        <el-form-item label="多少积分抵扣1元">
+          <el-input-number v-model="form.rechargePointSpeed" :min="0" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleSave">保存设置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
   </div>
 </template>
 <script>
-export default { name: 'PointSetting' }
+import { getPointSetting, savePointSetting } from '@/api/point'
+export default {
+  name: 'PointSetting',
+  data() { return { form: { pointName: '积分', pointNeedConsume: 1, rechargePointSpeed: 100 } } },
+  created() { this.fetchSetting() },
+  methods: {
+    fetchSetting() { getPointSetting().then(res => { if (res.data) this.form = { ...this.form, ...res.data } }).catch(() => {}) },
+    handleSave() { savePointSetting(this.form).then(() => { this.$message.success('保存成功') }).catch(() => {}) }
+  }
+}
 </script>
-<style scoped>
-.app-container { padding: 20px; }
-</style>
