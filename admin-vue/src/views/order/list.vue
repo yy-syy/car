@@ -14,10 +14,11 @@
         <el-form-item label="订单状态">
           <el-select v-model="searchForm.status" placeholder="请选择订单状态">
             <el-option label="全部" value="" />
-            <el-option label="待付款" value="WAIT_PAY" />
-            <el-option label="待确认" value="WAIT_CONFIRM" />
-            <el-option label="已完成" value="COMPLETED" />
-            <el-option label="已取消" value="CANCELED" />
+            <el-option label="待付款" value="A" />
+            <el-option label="已付款" value="B" />
+            <el-option label="已完成" value="C" />
+            <el-option label="已取消" value="D" />
+            <el-option label="已退款" value="E" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -122,7 +123,7 @@
 </template>
 
 <script>
-import { fetchOrderList, getOrderDetail } from '@/api/order'
+import { getOrderList, getOrderInfo } from '@/api/order'
 
 export default {
   name: 'OrderList',
@@ -150,13 +151,13 @@ export default {
   methods: {
     fetchData() {
       this.loading = true
-      fetchOrderList({
-        pageNum: this.pageNum,
+      getOrderList({
+        page: this.pageNum,
         pageSize: this.pageSize,
         ...this.searchForm
       }).then(response => {
-        this.orderList = response.data.list
-        this.total = response.data.total
+        this.orderList = response.data.list || []
+        this.total = response.data.total || 0
         this.loading = false
       }).catch(() => {
         this.loading = false
@@ -179,36 +180,40 @@ export default {
       this.fetchData()
     },
     handleView(row) {
-      getOrderDetail(row.id).then(response => {
+      getOrderInfo(row.id).then(response => {
         this.detailData = response.data
         this.detailVisible = true
       })
     },
     getStatusText(status) {
       const map = {
-        WAIT_PAY: '待付款',
-        WAIT_CONFIRM: '待确认',
-        COMPLETED: '已完成',
-        CANCELED: '已取消'
+        A: '待付款',
+        B: '已付款',
+        C: '已完成',
+        D: '已取消',
+        E: '已退款'
       }
       return map[status] || status
     },
     getStatusType(status) {
       const map = {
-        WAIT_PAY: 'warning',
-        WAIT_CONFIRM: 'info',
-        COMPLETED: 'success',
-        CANCELED: 'danger'
+        A: 'warning',
+        B: '',
+        C: 'success',
+        D: 'danger',
+        E: 'info'
       }
       return map[status] || 'default'
     },
     getPayTypeText(type) {
       const map = {
+        JSAPI: '微信支付',
         WECHAT: '微信支付',
         ALIPAY: '支付宝',
-        BALANCE: '余额支付'
+        BALANCE: '余额支付',
+        CASH: '现金'
       }
-      return map[type] || type
+      return map[type] || type || '-'
     }
   }
 }

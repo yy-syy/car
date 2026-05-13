@@ -1,54 +1,62 @@
 import request, { get, post, del } from '@/utils/request'
 
 const api = {
-  list: '/banner/list',
-  detail: '/banner/detail',
-  add: '/banner/add',
-  update: '/banner/update',
-  delete: '/banner/delete',
+  bannerList: '/banner/list',
+  bannerInfo: '/banner/info',
+  bannerSave: '/banner/save',
+  bannerUpdateStatus: '/banner/updateStatus',
   articleList: '/article/list',
-  articleDetail: '/article/detail',
-  articleAdd: '/article/add',
-  articleUpdate: '/article/update',
-  articleDelete: '/article/delete'
+  articleInfo: '/article/info',
+  articleSave: '/article/save',
+  articleUpdateStatus: '/article/updateStatus',
+  settingList: '/setting/list',
+  settingSave: '/setting/save'
 }
 
 export function getBannerList(params) {
-  return get(api.list, params)
+  return get(api.bannerList, params)
 }
 
-export function getBannerDetail(id) {
-  return get(api.detail, { id })
+export function getBannerInfo(id) {
+  return get(`${api.bannerInfo}/${id}`)
 }
 
-export function addBanner(data) {
-  return post(api.add, data)
+export function saveBanner(data) {
+  return post(api.bannerSave, data)
 }
 
-export function updateBanner(data) {
-  return post(api.update, data)
-}
-
-export function deleteBanner(id) {
-  return del(api.delete, { id })
+export function updateBannerStatus(data) {
+  return post(api.bannerUpdateStatus, data)
 }
 
 export function getArticleList(params) {
   return get(api.articleList, params)
 }
 
-export function getArticleDetail(id) {
-  return get(api.articleDetail, { id })
+export function getArticleInfo(id) {
+  return get(`${api.articleInfo}/${id}`)
 }
 
-export function addArticle(data) {
-  return post(api.articleAdd, data)
+export function saveArticle(data) {
+  return post(api.articleSave, data)
 }
 
-export function updateArticle(data) {
-  return post(api.articleUpdate, data)
+export function updateArticleStatus(data) {
+  return post(api.articleUpdateStatus, data)
 }
 
-export function deleteArticle(id) {
-  return del(api.articleDelete, { id })
+export function getSettingList(params) {
+  return get(api.settingList, params)
 }
+
+export function saveSetting(data) {
+  return post(api.settingSave, data)
+}
+
+// 兼容别名
+export const fetchBannerList = getBannerList
+export const fetchArticleList = getArticleList
+export const addBanner = saveBanner
+export const updateBanner = saveBanner
+export const addArticle = saveArticle
+export const updateArticle = saveArticle

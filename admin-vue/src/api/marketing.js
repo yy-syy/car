@@ -2,40 +2,40 @@ import request, { get, post, del } from '@/utils/request'
 
 const api = {
   giftList: '/openGift/list',
-  giftAdd: '/openGift/add',
-  giftUpdate: '/openGift/update',
-  giftDelete: '/openGift/delete',
+  giftInfo: '/openGift/info',
+  giftSave: '/openGift/save',
+  giftUpdateStatus: '/openGift/updateStatus',
   giveList: '/give/list',
-  smsList: '/smsManager/list',
+  smsLogList: '/smsManager/list',
   smsSend: '/smsManager/send',
   smsTemplateList: '/smsTemplate/list',
-  smsTemplateAdd: '/smsTemplate/add',
-  smsTemplateUpdate: '/smsTemplate/update',
-  smsTemplateDelete: '/smsTemplate/delete'
+  smsTemplateInfo: '/smsTemplate/info',
+  smsTemplateSave: '/smsTemplate/save',
+  smsTemplateUpdateStatus: '/smsTemplate/updateStatus'
 }
 
 export function getGiftList(params) {
   return get(api.giftList, params)
 }
 
-export function addGift(data) {
-  return post(api.giftAdd, data)
+export function getGiftInfo(id) {
+  return get(`${api.giftInfo}/${id}`)
 }
 
-export function updateGift(data) {
-  return post(api.giftUpdate, data)
+export function saveGift(data) {
+  return post(api.giftSave, data)
 }
 
-export function deleteGift(id) {
-  return del(api.giftDelete, { id })
+export function updateGiftStatus(data) {
+  return post(api.giftUpdateStatus, data)
 }
 
 export function getGiveList(params) {
   return get(api.giveList, params)
 }
 
-export function getSmsList(params) {
-  return get(api.smsList, params)
+export function getSmsLogList(params) {
+  return get(api.smsLogList, params)
 }
 
 export function sendSms(data) {
@@ -46,14 +46,23 @@ export function getSmsTemplateList(params) {
   return get(api.smsTemplateList, params)
 }
 
-export function addSmsTemplate(data) {
-  return post(api.smsTemplateAdd, data)
+export function getSmsTemplateInfo(id) {
+  return get(`${api.smsTemplateInfo}/${id}`)
 }
 
-export function updateSmsTemplate(data) {
-  return post(api.smsTemplateUpdate, data)
+export function saveSmsTemplate(data) {
+  return post(api.smsTemplateSave, data)
 }
 
-export function deleteSmsTemplate(id) {
-  return del(api.smsTemplateDelete, { id })
+export function updateSmsTemplateStatus(data) {
+  return post(api.smsTemplateUpdateStatus, data)
 }
+
+// 兼容别名
+export const fetchGiftList = getGiftList
+export const fetchGiveList = getGiveList
+export const fetchSmsList = getSmsLogList
+export const addGift = saveGift
+export const updateGift = saveGift
+export const addSmsTemplate = saveSmsTemplate
+export const updateSmsTemplate = saveSmsTemplate

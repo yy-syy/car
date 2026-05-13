@@ -13,6 +13,15 @@ service.interceptors.request.use(
     if (store.getters.accessToken) {
       config.headers['Access-Token'] = getAccessToken()
     }
+    // 统一转换分页参数名：pageNum -> page
+    if (config.params && config.params.pageNum !== undefined) {
+      config.params.page = config.params.pageNum
+      delete config.params.pageNum
+    }
+    if (config.data && config.data.pageNum !== undefined) {
+      config.data.page = config.data.pageNum
+      delete config.data.pageNum
+    }
     return config
   },
   error => {
@@ -40,6 +49,14 @@ service.interceptors.response.use(
       })
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
+      // 统一转换分页数据格式：paginationResponse/dataList -> list/total
+      if (res.data && (res.data.paginationResponse || res.data.dataList)) {
+        const page = res.data.paginationResponse || res.data.dataList
+        res.data.list = page.content || []
+        res.data.total = page.totalElements || 0
+        res.data.pageNum = page.currentPage || 1
+        res.data.pageSize = page.pageSize || 10
+      }
       return res
     }
   },

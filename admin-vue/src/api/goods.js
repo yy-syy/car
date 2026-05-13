@@ -1,49 +1,67 @@
 import request, { get, post, del } from '@/utils/request'
 
 const api = {
-  list: '/goods/goods/list',
-  detail: '/goods/goods/detail',
-  add: '/goods/goods/add',
-  update: '/goods/goods/update',
-  delete: '/goods/goods/delete',
-  categoryList: '/goods/cate/list',
-  categoryAdd: '/goods/cate/add',
-  categoryUpdate: '/goods/cate/update',
-  categoryDelete: '/goods/cate/delete'
+  list: '/goods/list',
+  info: '/goods/info',
+  save: '/goods/save',
+  updateStatus: '/goods/updateStatus',
+  cateList: '/goods/cate/list',
+  cateInfo: '/goods/cate/info',
+  cateSave: '/goods/cate/save',
+  cateUpdateStatus: '/goods/cate/updateStatus',
+  stockList: '/stock/list',
+  stockInfo: '/stock/info',
+  stockSave: '/stock/save'
 }
 
 export function getGoodsList(params) {
   return get(api.list, params)
 }
 
-export function getGoodsDetail(id) {
-  return get(api.detail, { id })
+export function getGoodsInfo(id) {
+  return get(`${api.info}/${id}`)
 }
 
-export function addGoods(data) {
-  return post(api.add, data)
+export function saveGoods(data) {
+  return post(api.save, data)
 }
 
-export function updateGoods(data) {
-  return post(api.update, data)
-}
-
-export function deleteGoods(id) {
-  return del(api.delete, { id })
+export function updateGoodsStatus(data) {
+  return post(api.updateStatus, data)
 }
 
 export function getCategoryList(params) {
-  return get(api.categoryList, params)
+  return get(api.cateList, params)
 }
 
-export function addCategory(data) {
-  return post(api.categoryAdd, data)
+export function getCategoryInfo(id) {
+  return get(`${api.cateInfo}/${id}`)
 }
 
-export function updateCategory(data) {
-  return post(api.categoryUpdate, data)
+export function saveCategory(data) {
+  return post(api.cateSave, data)
 }
 
-export function deleteCategory(id) {
-  return del(api.categoryDelete, { id })
+export function updateCategoryStatus(data) {
+  return post(api.cateUpdateStatus, data)
 }
+
+export function getStockList(params) {
+  return get(api.stockList, params)
+}
+
+export function getStockInfo(id) {
+  return get(`${api.stockInfo}/${id}`)
+}
+
+export function saveStock(data) {
+  return post(api.stockSave, data)
+}
+
+// 兼容别名
+export const fetchGoodsList = getGoodsList
+export const fetchCategoryList = getCategoryList
+export const addGoods = saveGoods
+export const updateGoods = saveGoods
+export const addCategory = saveCategory
+export const updateCategory = saveCategory

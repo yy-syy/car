@@ -2,37 +2,34 @@ import request, { get, post, del } from '@/utils/request'
 
 const api = {
   list: '/coupon/list',
-  detail: '/coupon/detail',
-  add: '/coupon/add',
-  update: '/coupon/update',
-  delete: '/coupon/delete',
-  send: '/coupon/send',
+  info: '/coupon/info',
+  save: '/coupon/save',
+  updateStatus: '/coupon/updateStatus',
+  send: '/coupon/sendCoupon',
   groupList: '/couponGroup/list',
-  groupAdd: '/couponGroup/add',
-  groupUpdate: '/couponGroup/update',
-  groupDelete: '/couponGroup/delete',
-  userList: '/userCoupon/list',
-  verify: '/coupon/verify'
+  groupInfo: '/couponGroup/info',
+  groupSave: '/couponGroup/save',
+  groupUpdateStatus: '/couponGroup/updateStatus',
+  userCouponList: '/userCoupon/list',
+  confirmList: '/confirmLog/list',
+  sendLogList: '/sendLog/list',
+  giveList: '/give/list'
 }
 
 export function getCouponList(params) {
   return get(api.list, params)
 }
 
-export function getCouponDetail(id) {
-  return get(api.detail, { id })
+export function getCouponInfo(id) {
+  return get(`${api.info}/${id}`)
 }
 
-export function addCoupon(data) {
-  return post(api.add, data)
+export function saveCoupon(data) {
+  return post(api.save, data)
 }
 
-export function updateCoupon(data) {
-  return post(api.update, data)
-}
-
-export function deleteCoupon(id) {
-  return del(api.delete, { id })
+export function updateCouponStatus(data) {
+  return post(api.updateStatus, data)
 }
 
 export function sendCoupon(data) {
@@ -43,22 +40,39 @@ export function getCouponGroupList(params) {
   return get(api.groupList, params)
 }
 
-export function addCouponGroup(data) {
-  return post(api.groupAdd, data)
+export function getCouponGroupInfo(id) {
+  return get(`${api.groupInfo}/${id}`)
 }
 
-export function updateCouponGroup(data) {
-  return post(api.groupUpdate, data)
+export function saveCouponGroup(data) {
+  return post(api.groupSave, data)
 }
 
-export function deleteCouponGroup(id) {
-  return del(api.groupDelete, { id })
+export function updateCouponGroupStatus(data) {
+  return post(api.groupUpdateStatus, data)
 }
 
 export function getUserCouponList(params) {
-  return get(api.userList, params)
+  return get(api.userCouponList, params)
 }
 
-export function verifyCoupon(data) {
-  return post(api.verify, data)
+export function getConfirmLogList(params) {
+  return get(api.confirmList, params)
 }
+
+export function getSendLogList(params) {
+  return get(api.sendLogList, params)
+}
+
+export function getGiveList(params) {
+  return get(api.giveList, params)
+}
+
+// 兼容别名
+export const fetchCouponList = getCouponList
+export const fetchCouponGroupList = getCouponGroupList
+export const fetchUserCouponList = getUserCouponList
+export const addCoupon = saveCoupon
+export const updateCoupon = saveCoupon
+export const addCouponGroup = saveCouponGroup
+export const updateCouponGroup = saveCouponGroup

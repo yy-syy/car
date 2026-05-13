@@ -5,7 +5,7 @@ const api = {
   getInfo: '/login/getInfo',
   getRouters: '/login/getRouters',
   logout: '/login/logout',
-  captcha: 'https://www.fuint.cn/clientApi/captcha/getCode'
+  captcha: '/captcha/getCode'
 }
 
 export function login(data) {

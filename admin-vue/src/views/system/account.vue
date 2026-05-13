@@ -1,184 +1,194 @@
 <template>
   <div class="app-container">
-    <div class="search-bar">
-      <el-form :model="searchForm" inline>
-        <el-form-item label="用户名">
-          <el-input v-model="searchForm.username" placeholder="请输入用户名" style="width: 150px;" />
+    <div class="filter-container">
+      <el-form :inline="true" :model="queryParams" class="search-form">
+        <el-form-item label="账户名">
+          <el-input v-model="queryParams.accountName" placeholder="请输入账户名" clearable style="width: 180px" />
+        </el-form-item>
+        <el-form-item label="姓名">
+          <el-input v-model="queryParams.realName" placeholder="请输入姓名" clearable style="width: 150px" />
+        </el-form-item>
+        <el-form-item label="状态">
+          <el-select v-model="queryParams.accountStatus" placeholder="全部" clearable style="width: 100px">
+            <el-option label="有效" :value="1" />
+            <el-option label="无效" :value="0" />
+          </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">搜索</el-button>
-          <el-button @click="handleReset">重置</el-button>
-          <el-button type="success" @click="handleAdd">新增账号</el-button>
+          <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+          <el-button icon="el-icon-refresh" @click="handleReset">重置</el-button>
+          <el-button type="success" icon="el-icon-plus" @click="handleAdd">新增管理员</el-button>
         </el-form-item>
       </el-form>
     </div>
 
     <div class="table-container">
-      <el-table
-        :data="accountList"
-        :loading="loading"
-        border
-        stripe
-      >
-        <el-table-column prop="username" label="用户名" width="120" />
+      <el-table v-loading="loading" :data="accountList" border stripe>
+        <el-table-column prop="acctId" label="ID" width="60" align="center" />
+        <el-table-column prop="accountName" label="账户名" width="120" />
         <el-table-column prop="realName" label="真实姓名" width="120" />
-        <el-table-column prop="roleName" label="角色" width="120" />
-        <el-table-column prop="status" label="状态" width="100">
+        <el-table-column label="所属角色" min-width="120">
+          <template slot-scope="scope">{{ scope.row.roleName || '-' }}</template>
+        </el-table-column>
+        <el-table-column label="所属商户" min-width="120">
+          <template slot-scope="scope">{{ scope.row.merchantName || '平台' }}</template>
+        </el-table-column>
+        <el-table-column label="所属店铺" min-width="120">
+          <template slot-scope="scope">{{ scope.row.storeName || '-' }}</template>
+        </el-table-column>
+        <el-table-column label="状态" width="80" align="center">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.status === 'ENABLE' ? 'success' : 'danger'">
-              {{ scope.row.status === 'ENABLE' ? '启用' : '禁用' }}
+            <el-tag :type="scope.row.accountStatus === 1 ? 'success' : 'danger'" size="small">
+              {{ scope.row.accountStatus === 1 ? '有效' : '无效' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" width="160" />
-        <el-table-column label="操作" width="150">
+        <el-table-column prop="createDate" label="创建时间" width="160" align="center" />
+        <el-table-column label="操作" width="220" align="center" fixed="right">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
+            <el-button size="mini" type="primary" plain @click="handleEdit(scope.row)">编辑</el-button>
+            <el-button size="mini" type="warning" plain @click="handleResetPwd(scope.row)">重置密码</el-button>
+            <el-button size="mini" type="danger" plain @click="handleDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <el-pagination
-        :total="total"
-        :page-size="pageSize"
-        :current-page="pageNum"
-        :layout="layout"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
+      <div class="pagination-container">
+        <el-pagination
+          :current-page="queryParams.page"
+          :page-sizes="[10, 20, 50]"
+          :page-size="queryParams.pageSize"
+          :total="total"
+          layout="total, sizes, prev, pager, next, jumper"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
     </div>
 
-    <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="600px">
-      <el-form :model="formData" :rules="formRules" ref="formRef" label-width="80px">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="formData.username" placeholder="请输入用户名" />
+    <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="550px" :close-on-click-modal="false">
+      <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px">
+        <el-form-item label="账户名" prop="accountName">
+          <el-input v-model="formData.accountName" placeholder="请输入账户名" :disabled="!!formData.acctId" />
+        </el-form-item>
+        <el-form-item v-if="!formData.acctId" label="密码" prop="password">
+          <el-input v-model="formData.password" type="password" placeholder="请输入密码" show-password />
         </el-form-item>
         <el-form-item label="真实姓名" prop="realName">
           <el-input v-model="formData.realName" placeholder="请输入真实姓名" />
         </el-form-item>
-        <el-form-item label="密码" :prop="formData.id ? '' : 'password'">
-          <el-input v-model="formData.password" type="password" :placeholder="formData.id ? '不修改请留空' : '请输入密码'" />
+        <el-form-item label="角色" prop="roleIds">
+          <el-select v-model="formData.roleIds" placeholder="请选择角色" style="width: 100%">
+            <el-option v-for="item in roleOptions" :key="item.dutyId" :label="item.dutyName" :value="item.dutyId + ''" />
+          </el-select>
         </el-form-item>
-        <el-form-item label="角色" prop="roleId">
-          <el-select v-model="formData.roleId" placeholder="请选择角色">
-            <el-option v-for="item in roleOptions" :key="item.id" :label="item.roleName" :value="item.id" />
+        <el-form-item label="所属店铺">
+          <el-select v-model="formData.storeId" placeholder="请选择（可选）" clearable style="width: 100%">
+            <el-option v-for="item in storeOptions" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="状态">
-          <el-switch v-model="formData.status" active-value="ENABLE" inactive-value="DISABLE" />
+          <el-radio-group v-model="formData.accountStatus">
+            <el-radio :label="1">有效</el-radio>
+            <el-radio :label="0">无效</el-radio>
+          </el-radio-group>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleSubmit">确定</el-button>
+      <div slot="footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleSubmit">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { fetchAccountList, addAccount, updateAccount, deleteAccount } from '@/api/system'
-import { fetchRoleList } from '@/api/system'
+import { getAccountList, createAccount, updateAccount, deleteAccount, resetAccountPwd, getDutyList } from '@/api/system'
+import { getStoreList } from '@/api/store'
 
 export default {
-  name: 'AccountList',
+  name: 'SystemAccount',
   data() {
     return {
-      searchForm: {
-        username: ''
-      },
+      loading: false,
       accountList: [],
       roleOptions: [],
+      storeOptions: [],
       total: 0,
-      pageNum: 1,
-      pageSize: 10,
-      layout: 'total, sizes, prev, pager, next, jumper',
-      loading: false,
+      queryParams: { page: 1, pageSize: 10, accountName: '', realName: '', accountStatus: '' },
       dialogVisible: false,
       dialogTitle: '',
-      formRef: '',
-      formData: {
-        id: '',
-        username: '',
-        realName: '',
-        password: '',
-        roleId: '',
-        status: 'ENABLE'
-      },
+      formData: { acctId: '', accountName: '', password: '', realName: '', roleIds: '', storeId: '', merchantId: 0, accountStatus: 1 },
       formRules: {
-        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        accountName: [{ required: true, message: '请输入账户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
         realName: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
-        roleId: [{ required: true, message: '请选择角色', trigger: 'blur' }]
+        roleIds: [{ required: true, message: '请选择角色', trigger: 'change' }]
       }
     }
   },
   created() {
     this.fetchData()
     this.fetchRoles()
+    this.fetchStores()
   },
   methods: {
     fetchData() {
       this.loading = true
-      fetchAccountList({
-        pageNum: this.pageNum,
-        pageSize: this.pageSize,
-        ...this.searchForm
-      }).then(response => {
-        this.accountList = response.data.list
-        this.total = response.data.total
-        this.loading = false
-      }).catch(() => {
-        this.loading = false
-      })
+      getAccountList(this.queryParams).then(res => {
+        this.accountList = res.data.list || []
+        this.total = res.data.total || 0
+      }).finally(() => { this.loading = false })
     },
     fetchRoles() {
-      fetchRoleList({ pageNum: 1, pageSize: 100 }).then(response => {
-        this.roleOptions = response.data.list
+      getDutyList({ page: 1, pageSize: 100 }).then(res => {
+        this.roleOptions = res.data.list || res.data || []
       })
     },
-    handleSearch() { this.pageNum = 1; this.fetchData() },
-    handleReset() { this.searchForm = { username: '' }; this.fetchData() },
-    handleSizeChange(val) { this.pageSize = val; this.fetchData() },
-    handleCurrentChange(val) { this.pageNum = val; this.fetchData() },
+    fetchStores() {
+      getStoreList({ page: 1, pageSize: 100 }).then(res => {
+        this.storeOptions = res.data.list || []
+      })
+    },
+    handleSearch() { this.queryParams.page = 1; this.fetchData() },
+    handleReset() { this.queryParams = { page: 1, pageSize: 10, accountName: '', realName: '', accountStatus: '' }; this.fetchData() },
+    handleSizeChange(val) { this.queryParams.pageSize = val; this.fetchData() },
+    handleCurrentChange(val) { this.queryParams.page = val; this.fetchData() },
     handleAdd() {
-      this.dialogTitle = '新增账号'
-      this.formData = { id: '', username: '', realName: '', password: '', roleId: '', status: 'ENABLE' }
+      this.dialogTitle = '新增管理员'
+      this.formData = { acctId: '', accountName: '', password: '', realName: '', roleIds: '', storeId: '', merchantId: 0, accountStatus: 1 }
       this.dialogVisible = true
+      this.$nextTick(() => { this.$refs.formRef && this.$refs.formRef.clearValidate() })
     },
     handleEdit(row) {
-      this.dialogTitle = '编辑账号'
-      this.formData = { ...row, password: '' }
+      this.dialogTitle = '编辑管理员'
+      this.formData = { ...row, roleIds: row.roleIds ? row.roleIds + '' : '' }
       this.dialogVisible = true
     },
-    handleDelete(row) {
-      this.$confirm('确定要删除这条记录吗？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消'
-      }).then(() => {
-        deleteAccount(row.id).then(() => {
-          this.$message.success('删除成功')
+    handleSubmit() {
+      this.$refs.formRef.validate(valid => {
+        if (!valid) return
+        const api = this.formData.acctId ? updateAccount : createAccount
+        api(this.formData).then(() => {
+          this.$message.success(this.formData.acctId ? '修改成功' : '新增成功')
+          this.dialogVisible = false
           this.fetchData()
         })
       })
     },
-    handleSubmit() {
-      const rules = this.formData.id ? {
-        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        realName: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
-        roleId: [{ required: true, message: '请选择角色', trigger: 'blur' }]
-      } : this.formRules
-      
-      this.$refs.formRef.validate((valid) => {
-        if (valid) {
-          const api = this.formData.id ? updateAccount : addAccount
-          api(this.formData).then(() => {
-            this.$message.success(this.formData.id ? '修改成功' : '新增成功')
-            this.dialogVisible = false
-            this.fetchData()
-          })
-        }
+    handleResetPwd(row) {
+      this.$confirm(`确定重置 "${row.accountName}" 的密码？`, '提示').then(() => {
+        resetAccountPwd({ userId: row.acctId }).then(() => {
+          this.$message.success('密码已重置为默认值')
+        })
+      })
+    },
+    handleDelete(row) {
+      this.$confirm(`确定删除管理员 "${row.accountName}"？`, '提示', { type: 'warning' }).then(() => {
+        deleteAccount(row.acctId).then(() => {
+          this.$message.success('删除成功')
+          this.fetchData()
+        })
       })
     }
   }
@@ -186,11 +196,7 @@ export default {
 </script>
 
 <style scoped>
-.search-bar {
-  margin-bottom: 20px;
-}
-.table-container {
-  background: #fff;
-  padding: 20px;
-}
+.filter-container { padding: 20px; background: #fff; margin-bottom: 15px; border-radius: 4px; }
+.table-container { padding: 20px; background: #fff; border-radius: 4px; }
+.pagination-container { margin-top: 20px; text-align: right; }
 </style>
