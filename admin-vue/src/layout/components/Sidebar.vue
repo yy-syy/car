@@ -1,5 +1,5 @@
 <template>
-  <div :class="['sidebar-container', {'has-logo':showLogo}]">
+  <div :class="['sidebar-container', {'has-logo':showLogo}]" :style="{ width: isCollapse ? '54px' : '200px' }">
     <logo v-if="showLogo" :collapse="isCollapse" />
     <div v-if="!isCollapse" class="store-info">
       <div class="name">{{ storeName }}</div>
@@ -68,7 +68,6 @@ export default {
 }
 .sidebar-container {
   transition: width 0.28s;
-  width: 200px !important;
   background-color: #373f64;
   height: 100%;
   position: fixed;

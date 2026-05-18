@@ -115,9 +115,9 @@ INSERT INTO `t_source` (`merchant_id`, `source_id`, `source_name`, `source_code`
 -- 6. 管理员账户数据（密码为 123456 的 MD5+Salt 加密）
 -- ========================================
 INSERT INTO `t_account` (`acct_id`, `account_key`, `account_name`, `password`, `account_status`, `is_active`, `create_date`, `modify_date`, `salt`, `role_ids`, `locked`, `owner_id`, `real_name`, `merchant_id`, `store_id`, `staff_id`) VALUES
-(1, 'admin', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1, 1, NOW(), NOW(), 'salt', '1', 0, 1, '超级管理员', 0, 0, 0),
-(2, 'merchant', 'merchant', 'e10adc3949ba59abbe56e057f20f883e', 1, 1, NOW(), NOW(), 'salt', '2', 0, 1, '商户管理员', 1, 0, 0),
-(3, 'store01', 'store01', 'e10adc3949ba59abbe56e057f20f883e', 1, 1, NOW(), NOW(), 'salt', '3', 0, 1, '店铺管理员', 1, 1, 0);
+(1, 'admin', 'admin', '4ce9dcd82a2ed676f0f6e5182d5bbf380a4fbf7e', 1, 1, NOW(), NOW(), 'b130887f80a1a07e', '1', 0, 1, '超级管理员', 0, 0, 0),
+(2, 'merchant', 'merchant', '9383fc7f62725d01c950c1304d20cfb9ac9972b2', 1, 1, NOW(), NOW(), 'a20c2c2f9ff27fe2', '2', 0, 1, '商户管理员', 1, 0, 0),
+(3, 'store01', 'store01', '17fcd4e10f6b98b447da3eedba75fa8f35f80f7f', 1, 1, NOW(), NOW(), 'ca1a72d8049b2311', '3', 0, 1, '店铺管理员', 1, 1, 0);
 
 -- ========================================
 -- 7. 账户角色关联数据

@@ -60,17 +60,15 @@ const actions = {
           reject('验证失败，请重新登录。')
         }
 
-        const { roles, permissions, accountInfo } = data
-
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
+        const roles = (data.roles && data.roles.length > 0) ? data.roles : ['admin']
+        const permissions = data.permissions || []
+        const accountInfo = data.accountInfo || {}
 
         commit('SET_ROLES', roles)
         commit('SET_PERMISSIONS', permissions)
-        commit('SET_NAME', accountInfo.accountName)
+        commit('SET_NAME', accountInfo.accountName || accountInfo.realName || 'admin')
         commit('SET_STORE_NAME', accountInfo.storeName || '')
-        commit('SET_ROLE_NAME', accountInfo.roleName || '商户管理员')
+        commit('SET_ROLE_NAME', accountInfo.roleName || '管理员')
         resolve(data)
       }).catch(error => {
         reject(error)
